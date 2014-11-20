@@ -22,4 +22,5 @@ cd fiware-orion/
 INSTALL_DIR=~ make install
 cd ..
 # Start Orion
-bin/contextBroker &
+killall contextBroker
+~/bin/contextBroker &
