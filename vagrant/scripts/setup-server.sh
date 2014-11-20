@@ -5,4 +5,4 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
-apt-get install apache2
+sudo apt-get install apache2
