@@ -28,4 +28,4 @@ sed -i s/ckan_host\ =\ x.y.z.w/ckan_host\ =\ demo.ckan.org/g APACHE_FLUME_HOME/c
 sed -i s/api_key\ =\ ckanapikey/api_key\ =\ 44f762b2-978a-40ca-9dfc-1a8ec8855599/g APACHE_FLUME_HOME/conf/cygnus.conf
 
 # Start connector
-APACHE_FLUME_HOME/bin/flume-ng agent --conf APACHE_FLUME_HOME/conf -f APACHE_FLUME_HOME/conf/cygnus.conf -n cygnusagent -Dflume.root.logger=INFO,console
+APACHE_FLUME_HOME/bin/flume-ng agent --conf APACHE_FLUME_HOME/conf -f APACHE_FLUME_HOME/conf/cygnus.conf -n cygnusagent -Dflume.root.logger=INFO,console &

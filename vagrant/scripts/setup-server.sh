@@ -10,3 +10,8 @@ sudo apt-get -y install apache2
 
 # Cygnus connector configured to CKAN	
 source ./cygnus.sh
+
+# Orion Context Broker
+source ./orion.sh
+
+sudo apt-get -y clean
