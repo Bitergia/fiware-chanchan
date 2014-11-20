@@ -5,4 +5,8 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
+# Common setup for all components
 sudo apt-get -y install apache2
+
+# Cygnus connector configured to CKAN	
+source ./scripts/cygnus.sh
