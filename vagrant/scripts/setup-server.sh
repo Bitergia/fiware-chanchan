@@ -9,4 +9,4 @@ fi
 sudo apt-get -y install apache2
 
 # Cygnus connector configured to CKAN	
-source ./scripts/cygnus.sh
+source ./cygnus.sh
