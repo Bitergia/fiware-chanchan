@@ -1,3 +1,5 @@
+# Inspired in Taiga work: https://github.com/taigaio/taiga-vagrant/
+
 sudo apt-get -y update
 sudo apt-get -y install git bash
 
