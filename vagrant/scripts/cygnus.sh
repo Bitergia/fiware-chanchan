@@ -26,6 +26,7 @@ cp fiware-connectors/flume/conf/cygnus.conf.template APACHE_FLUME_HOME/conf/cygn
 sed -i s/org42/bitergia/g APACHE_FLUME_HOME/conf/cygnus.conf
 sed -i s/ckan_host\ =\ x.y.z.w/ckan_host\ =\ demo.ckan.org/g APACHE_FLUME_HOME/conf/cygnus.conf
 sed -i s/api_key\ =\ ckanapikey/api_key\ =\ 44f762b2-978a-40ca-9dfc-1a8ec8855599/g APACHE_FLUME_HOME/conf/cygnus.conf
+sed -i s/default_dataset\ =\ mydataset/default_dataset\ =\ bitergia_package1/g APACHE_FLUME_HOME/conf/cygnus.conf
 
 # Start connector
 kill `ps ax | grep java | grep cygnusagent | awk '{print $1}'`
