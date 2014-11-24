@@ -36,6 +36,20 @@ app.get('/api/ckan/datasets',ckan.datasets);
 app.get('/api/ckan/organizations',ckan.organizations);
 // end api rest
 
+app.get('*', function(req, res, next) {
+    var err = new Error();
+    err.status = 404;
+    next(err);
+});
+
+app.use(function(err, req, res, next) {
+    if (err.status !== 404) {
+	return next();
+    }
+
+    res.status(404);
+    res.send(err.message || "ups!");
+});
 
 // start server
 app.set('port', process.env.PORT || 3000);
