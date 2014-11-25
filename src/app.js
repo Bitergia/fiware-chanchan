@@ -1,4 +1,9 @@
-var express = require('express');
+
+var express = require('express'),
+    auth =    require('./auth'),
+    site =    require('./site'),
+    orion =    require('./routes/orion');
+
 var app = express();
 
 app.use(express.logger());
@@ -11,15 +16,20 @@ app.configure(function () {
     app.use(express.static(__dirname + '/public'));
 });
 
-var auth = require('./auth');
-var site = require('./site');
-//var user = require('./user');
-
 // main page
 app.get('/', site.index);
 app.get('/login',auth.login);
 app.get('/logout',auth.logout);
 app.get('/auth',auth.auth);
+
+
+// api rest: /api/
+//
+// orion
+app.get('/api/orion/contexts',orion.contexts);
+// ckan
+// end api rest
+
 
 // start server
 app.set('port', process.env.PORT || 3000);
