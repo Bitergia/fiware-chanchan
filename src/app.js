@@ -2,7 +2,8 @@
 var express = require('express'),
     auth =    require('./auth'),
     site =    require('./site'),
-    orion =    require('./routes/orion');
+    orion =    require('./routes/orion'),
+    ckan =    require('./routes/ckan');
 
 var app = express();
 
@@ -28,6 +29,8 @@ app.get('/auth',auth.auth);
 // orion
 app.get('/api/orion/contexts',orion.contexts);
 // ckan
+app.get('/api/ckan/datasets',ckan.datasets);
+app.get('/api/ckan/organizations',ckan.organizations);
 // end api rest
 
 

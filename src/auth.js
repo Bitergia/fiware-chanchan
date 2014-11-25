@@ -1,3 +1,7 @@
+/*
+ * ChanChan auth
+ */
+
 var OAuth2 = require('oauth').OAuth2;
 var config = require('./config');
 
@@ -21,7 +25,9 @@ exports.login = function(req, res) {
 	    console.log('refresh: ', refresh);
 	    console.log('results: ', results);
 	    // store the access token on the session
-	    req.session.access_token = results.access_token;
+	    if (results !== undefined) {
+	        req.session.access_token = results.access_token;
+	    }
 	    res.redirect('/');
 	});
 };
