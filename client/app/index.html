@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="myApp" class="no-js">
+<html lang="en" ng-app="chanchanApp" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>FIWARE ChanChan Client</title>
-  <meta name="description" content="Sample application for FIWARE IDM, Access Control, Orion and Cygnus modules">
+  <meta name="description" content="Sample application using FIWARE IDM, Access Control, Orion and Cygnus modules">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap core CSS -->
   <link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -12,8 +12,8 @@
 </head>
 <body>
   <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
+    <li><a href="#/ckan">ckan</a></li>
+    <li><a href="#/orion">orion</a></li>
   </ul>
 
   <div ng-view></div>
@@ -26,8 +26,8 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="app.js"></script>
-  <script src="view1/view1.js"></script>
-  <script src="view2/view2.js"></script>
+  <script src="ckan/ckan.js"></script>
+  <script src="orion/orion.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
