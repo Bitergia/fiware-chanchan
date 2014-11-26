@@ -17,6 +17,9 @@ app.configure(function () {
     app.use(express.static(__dirname + '/public'));
 });
 
+// chanchan app
+app.use("/chanchan", express.static(__dirname + '/chanchan'));
+
 // main page
 app.get('/', site.index);
 app.get('/login',auth.login);
