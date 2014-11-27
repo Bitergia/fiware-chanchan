@@ -17,8 +17,8 @@ cat <<EOF > ${VHOST_HTTP}
         Require all granted
     </Directory>
 
-    ErrorLog \${APACHE_LOG_DIR}/error.log
-    CustomLog \${APACHE_LOG_DIR}/access.log combined
+    ErrorLog \${APACHE_LOG_DIR}/idm-error.log
+    CustomLog \${APACHE_LOG_DIR}/idm-access.log combined
 
 </VirtualHost>
 EOF
@@ -31,8 +31,8 @@ cat <<EOF > ${VHOST_HTTPS}
 
         DocumentRoot ${DOCROOT}
 
-        ErrorLog \${APACHE_LOG_DIR}/error.log
-        CustomLog \${APACHE_LOG_DIR}/access.log combined
+        ErrorLog \${APACHE_LOG_DIR}/idm-ssl-error.log
+        CustomLog \${APACHE_LOG_DIR}/idm-ssl-access.log combined
 
         SSLEngine on
 
