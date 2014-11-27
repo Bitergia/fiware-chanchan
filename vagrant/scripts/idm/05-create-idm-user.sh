@@ -3,10 +3,19 @@
 SIGNUP="https://${IDM_HOSTNAME}/users/sign_up"
 USERS="https://${IDM_HOSTNAME}/users"
 readonly USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.3) Gecko/2008092816 Iceweasel/3.0.3 (Debian-3.0.3-3)"
+readonly SIGNUP_PAGE_TXT="/tmp/signup.output.txt"
+readonly SIGNUP_FORM_TXT="/tmp/signupform.output.txt"
+readonly CONFIRM_TOKEN_TXT="/tmp/confirmation_token.output.txt"
 
 function _random_wait () {
     local time=$(( ($RANDOM % 3) + 2 ))
     sleep ${time}
+}
+
+function _cleanup () {
+    rm -f "${SIGNUP_PAGE_TXT}"
+    rm -f "${SIGNUP_FORM_TXT"
+    rm -f "${CONFIRM_TOKEN_TXT"
 }
 
 ${UTILS_PATH}/update_hosts.sh ${IDM_HOSTNAME}
@@ -23,19 +32,19 @@ curl \
     --show-error \
     --cookie ${COOKIES_FILE} \
     --cookie-jar ${COOKIES_FILE} \
-    --output signup.output.txt \
+    --output "${SIGNUP_PAGE_TXT}" \
     --referer "https://${IDM_HOSTNAME}/" \
     "${SIGNUP}"
 
 _random_wait
 
-form_utf8=$( sed signup.output.txt -n -e "s/^.*input name=\"utf8\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" | recode html )
-form_authenticity_token=$( sed signup.output.txt -n -e "s/^.*input name=\"authenticity_token\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" )
+form_utf8=$( sed "${SIGNUP_PAGE_TXT}" -n -e "s/^.*input name=\"utf8\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" | recode html )
+form_authenticity_token=$( sed "${SIGNUP_PAGE_TXT}" -n -e "s/^.*input name=\"authenticity_token\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" )
 form_username=${CC_USER_NAME}
 form_email=${CC_EMAIL}
 form_password=${CC_PASS}
 form_password_confirmation=${CC_PASS}
-form_captcha_key=$( sed signup.output.txt -n -e "s/^.*input id=\"captcha_key\" name=\"captcha_key\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" )
+form_captcha_key=$( sed "${SIGNUP_PAGE_TXT}" -n -e "s/^.*input id=\"captcha_key\" name=\"captcha_key\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" )
 form_captcha=$( echo "SELECT value FROM simple_captcha_data WHERE \`key\`='${form_captcha_key}';" | mysql --batch --skip-column-names --user=${IDM_DBUSER} --password=${IDM_DBPASS} ${IDM_DBNAME} )
 
 # fill the sign up form and send it
@@ -47,7 +56,7 @@ curl \
     --show-error \
     --cookie ${COOKIES_FILE} \
     --cookie-jar ${COOKIES_FILE} \
-    --output signupform.output.txt \
+    --output "${SIGNUP_FORM_TXT}" \
     --referer "${SIGNUP}" \
     --form "utf8=${form_utf8}" \
     --form "authenticity_token=${form_authenticity_token}" \
@@ -73,6 +82,7 @@ curl \
     --show-error \
     --cookie ${COOKIES_FILE} \
     --cookie-jar ${COOKIES_FILE} \
-    --output confirmation_token.output.txt \
+    --output "${CONFIRM_TOKEN_TXT}"\
     "http://${IDM_HOSTNAME}/users/confirmation?confirmation_token=${confirmation_token}"
 
+_cleanup
