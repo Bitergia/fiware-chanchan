@@ -7,7 +7,7 @@ ${UTILS_PATH}/update_hosts.sh ${CHANCHAN_HOSTNAME}
 
 su - chanchan <<EOF
 sed -i ${CHANCHAN_APP_PATH}/config.js \
-  -e "/config.idm_url =/c config.idm_url = '${IDM_URL}';"
+  -e "/config.idm_url =/c config.idm_url = '${IDM_URL}';" \
   -e "/config.callback_url =/c config.callback_url = '${CALLBACK_URL}'"
 EOF
 
