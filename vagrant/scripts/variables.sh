@@ -22,3 +22,7 @@ export IDM_DBPASS="idmdbpass"
 export CC_USER_NAME="Chanchan Admin"
 export CC_EMAIL="chanchan@${IDM_HOSTNAME}"
 export CC_PASS="ccadmin"
+
+### Chanchan related variables
+export CHANCHAN_HOSTNAME="chanchan.${HOSTNAME}"
+export CHANCHAN_APP_PATH="fiware-chanchan/server"

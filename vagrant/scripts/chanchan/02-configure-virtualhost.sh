@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VHOST_HTTP="/etc/apache2/sites-available/chanchan.conf"
-DOCROOT="/home/chanchan/fiware-chanchan/src/public"
+DOCROOT="/home/chanchan/${CHANCHAN_APP_PATH}/public"
 
 # create http virtualhost
 cat <<EOF > ${VHOST_HTTP}

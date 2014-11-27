@@ -4,7 +4,7 @@ IDM_URL="https://${IDM_HOSTNAME}"
 CALLBACK_URL="http://${CHANCHAN_HOSTNAME}/login"
 
 su - chanchan <<EOF
-sed -i fiware-chanchan/src/config.js \
+sed -i ${CHANCHAN_APP_PATH}/config.js \
   -e "/config.idm_url =/c config.idm_url = '${IDM_URL}';"
   -e "/config.callback_url =/c config.callback_url = '${CALLBACK_URL}'"
 EOF
