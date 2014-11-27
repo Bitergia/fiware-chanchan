@@ -1,17 +1,25 @@
 #!/bin/bash
 
 IDM_URL="https://${IDM_HOSTNAME}"
-CALLBACK_URL="http://${CHANCHAN_HOSTNAME}/login"
 
-${UTILS_PATH}/update_hosts.sh ${CHANCHAN_HOSTNAME}
+${UTILS_PATH}/update_hosts.sh ${CC_HOSTNAME}
 
 su - chanchan <<EOF
-sed -i ${CHANCHAN_APP_PATH}/config.js \
-  -e "/config.idm_url =/c config.idm_url = '${IDM_URL}';" \
-  -e "/config.callback_url =/c config.callback_url = '${CALLBACK_URL}'"
+sed -i ${CC_APP_PATH}/config.js \
+  -e "/^[ ]*config.idm_url =/c config.idm_url = '${IDM_URL}';" \
+  -e "/^[ ]*config.callback_url =/c config.callback_url = '${CC_APP_CALLBACK}'"
 EOF
-
-cat <<EOF
+if [ -f "${CC_OAUTH_CREDENTIALS}" ]; then
+    source "${CC_OAUTH_CREDENTIALS}"
+    rm -f "${CC_OAUTH_CREDENTIALS}"
+    su - chanchan <<EOF
+sed -i ${CC_APP_PATH}/config.js \
+  -e "/^[ ]*config.client_id =/c config.client_id = '${CLIENT_ID}';" \
+  -e "/^[ ]*config.client_secret =/c config.client_secret = '${CLIENT_SECRET}'"
+EOF
+else
+    
+    cat <<EOF
 #####################################################################
 #####################################################################
 #
@@ -28,3 +36,4 @@ cat <<EOF
 #####################################################################
 #####################################################################
 EOF
+fi

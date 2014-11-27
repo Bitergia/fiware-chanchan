@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export CHANCHAN_SCRIPTS="${SCRIPTS_PATH}/chanchan"
+export CC_SCRIPTS="${SCRIPTS_PATH}/chanchan"
 
-for f in $( ls ${CHANCHAN_SCRIPTS}/* ) ; do
+for f in $( ls ${CC_SCRIPTS}/* ) ; do
     bash ${f}
 done

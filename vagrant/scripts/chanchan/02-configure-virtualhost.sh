@@ -1,12 +1,12 @@
 #!/bin/bash
 
 VHOST_HTTP="/etc/apache2/sites-available/chanchan.conf"
-DOCROOT="/home/chanchan/${CHANCHAN_APP_PATH}/public"
+DOCROOT="/home/chanchan/${CC_APP_PATH}/public"
 
 # create http virtualhost
 cat <<EOF > ${VHOST_HTTP}
 <VirtualHost *:80>
-    ServerName chanchan.shinchan.bitergia.org
+    ServerName ${CC_HOSTNAME}
 
     # DocumentRoot [root to your app./public]
     DocumentRoot ${DOCROOT}
