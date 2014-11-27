@@ -10,3 +10,6 @@ apt-get install -qy imagemagick graphicsmagick libmagickwand-dev
 
 # sendmail needed for sending email activation (and other) messages
 apt-get install -qy sendmail-bin
+
+# needed by the script that creates the IDM user
+apt-get install -qy recode
