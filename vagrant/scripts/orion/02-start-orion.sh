@@ -6,7 +6,7 @@ function stop_orion () {
 
 
 function start_orion () {
-    ${HOME}/bin/contextBroker &
+    nohup ${HOME}/bin/contextBroker > ${HOME}/contextbroker.log 2>&1 < /dev/null &
 }
 
 stop_orion
