@@ -3,6 +3,8 @@
 IDM_URL="https://${IDM_HOSTNAME}"
 CALLBACK_URL="http://${CHANCHAN_HOSTNAME}/login"
 
+${UTILS_PATH}/update_hosts.sh ${CHANCHAN_HOSTNAME}
+
 su - chanchan <<EOF
 sed -i ${CHANCHAN_APP_PATH}/config.js \
   -e "/config.idm_url =/c config.idm_url = '${IDM_URL}';"

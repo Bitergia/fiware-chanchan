@@ -9,6 +9,8 @@ function _random_wait () {
     sleep ${time}
 }
 
+${UTILS_PATH}/update_hosts.sh ${IDM_HOSTNAME}
+
 # first, get the sign up page
 # this will generate a new captcha in the database
 echo "*** Creating IDM user:  ${CC_USER_NAME}"
