@@ -10,9 +10,11 @@ UNPACKED="apache-flume-${VERSION}-bin"
 URL="http://archive.apache.org/dist/flume/${VERSION}/${TGZ}"
 
 # download flume
-curl --location --insecure --silent --show-error "${URL}"
+echo "Downloading ${TGZ}"
+curl --remote-name --location --insecure --silent --show-error "${URL}"
 
 # unpack tgz
+echo "Unpacking ${TGZ}"
 tar zxf "${TGZ}"
 
 # move to destination
