@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Java and Maven
-sudo apt-get -y install openjdk-7-jdk maven2
+sudo apt-get -y install openjdk-7-jdk maven
 
 # Apache Flume
 rm -rf APACHE_FLUME_HOME
