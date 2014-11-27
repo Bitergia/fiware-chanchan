@@ -14,8 +14,8 @@ function _random_wait () {
 
 function _cleanup () {
     rm -f "${SIGNUP_PAGE_TXT}"
-    rm -f "${SIGNUP_FORM_TXT"
-    rm -f "${CONFIRM_TOKEN_TXT"
+    rm -f "${SIGNUP_FORM_TXT}"
+    rm -f "${CONFIRM_TOKEN_TXT}"
 }
 
 ${UTILS_PATH}/update_hosts.sh ${IDM_HOSTNAME}
@@ -82,7 +82,7 @@ curl \
     --show-error \
     --cookie ${COOKIES_FILE} \
     --cookie-jar ${COOKIES_FILE} \
-    --output "${CONFIRM_TOKEN_TXT}"\
+    --output "${CONFIRM_TOKEN_TXT}" \
     "http://${IDM_HOSTNAME}/users/confirmation?confirmation_token=${confirmation_token}"
 
 _cleanup
