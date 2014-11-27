@@ -21,3 +21,6 @@ bash install-cygnus.sh
 
 # install Orion
 bash install-orion.sh
+
+# clean package cache
+apt-get -qy clean
