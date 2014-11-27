@@ -6,6 +6,11 @@ readonly USER_AGENT="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.3) Gecko/2
 readonly SIGNUP_PAGE_TXT="/tmp/signup.output.txt"
 readonly SIGNUP_FORM_TXT="/tmp/signupform.output.txt"
 readonly CONFIRM_TOKEN_TXT="/tmp/confirmation_token.output.txt"
+readonly COOKIES_FILE="/tmp/idmcookies.txt"
+
+if [ -f "${COOKIES_FILE}" ]; then
+    rm -f "${COOKIES_FILE}"
+fi
 
 function _random_wait () {
     local time=$(( ($RANDOM % 3) + 2 ))
