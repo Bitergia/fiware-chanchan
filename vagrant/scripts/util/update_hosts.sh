@@ -24,12 +24,19 @@ if [ "${NEW_HOST}" == "${HOSTNAME}" ]; then
 fi
 
 # test if host is already set
-grep -q "${PUBLIC_IP}.* ${NEW_HOST}\([ ]\+\|$\)" "${HOSTS}"
+grep -q "^${PUBLIC_IP}.* ${NEW_HOST}\([ ]\+\|$\)" "${HOSTS}"
 
 if [ $? -eq 0 ]; then
     echo "Host ${NEW_HOST} is already set"
     exit 0
 else
-    # add the new host to the existing line
-    sed -i "${HOSTS}" -e "s/^${PUBLIC_IP}.*$/& ${NEW_HOST}/"
+    # test if there's a line for the public IP
+    grep -q "^${PUBLIC_IP} " "${HOSTS}"
+
+    if [ $? -eq 0 ]; then
+	# add the new host to the existing line
+	sed -i "${HOSTS}" -e "s/^${PUBLIC_IP}.*$/& ${NEW_HOST}/"
+    else
+	echo "${PUBLIC_IP} ${NEW_HOST}" >> "${HOSTS}"
+    fi
 fi
