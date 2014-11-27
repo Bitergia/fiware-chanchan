@@ -3,6 +3,9 @@
 # server hostname
 export HOSTNAME="$(hostname -f)"
 
+# interface for the public ip
+export IFACE="eth1"
+
 ### IDM related variables
 
 export IDM_HOSTNAME="idm.${HOSTNAME}"
