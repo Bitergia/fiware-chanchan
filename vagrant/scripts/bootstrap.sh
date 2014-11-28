@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export SCRIPTS_PATH="/vagrant/scripts"
-export UTILS_PATH="/vagrant/scripts/util"
+export UTILS_PATH="${SCRIPTS_PATH}/util"
 cd ${SCRIPTS_PATH}
 
 # load environment variables
