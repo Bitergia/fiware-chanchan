@@ -43,3 +43,14 @@ export CKAN_DATASET="bitergia_package1"
 
 ### Orion related variables
 export ORION_USER="chanchan"
+
+### Orion PEP related variables
+export ORION_PEP_USER="chanchan"
+export ORION_PEP_HOME="fiware-orion-pep"
+
+### Orion related variables
+export KEYPASS_USER="chanchan"
+export KEYPASS_HOME="fiware-keypass"
+export KEYPASS_DBNAME="keypass"
+export KEYPASS_DBUSER="keypass"
+export KEYPASS_DBPASS="keypass"
