@@ -1,8 +1,6 @@
 #!/bin/bash
 
-chanchan@server:~/fiware-keypass$ java -jar target/keypass-0.3.0.jar server conf/config.yml &
-
-function start_keypass () {
+function stop_keypass () {
     keypass_pid=$( ps ax | grep java | grep keypass | awk '{print $1}' )
     if [ ! -z ${keypass_pid} ]; then
 	echo "Stopping KeyPass"

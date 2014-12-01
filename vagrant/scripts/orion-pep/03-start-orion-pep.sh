@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function stop_orion_pep () {
-    orion_pep_pid=$( ps ax | grep bin/pepProxy | awk '{print $1}' )
+    orion_pep_pid=$( ps ax | grep pepProxy | grep bin | awk '{print $1}' )
+    echo ${orion_pep_pid}
     if [ ! -z ${orion_pep_pid} ]; then
 	echo "Stopping Orion PEP"
 	kill ${orion_pep_pid}
@@ -10,10 +11,10 @@ function stop_orion_pep () {
 }
 
 
-function start_keypass () {
-    echo "Starting Orion PEP"
+function start_orion_pep () {
+    echo "Starting Orion PEP "
     nohup ${HOME}/bin/contextBroker --port 10026 > ${HOME}/contextbroker.log 2>&1 < /dev/null &
-    nohup ${HOME}/${ORION_PEP_HOME}/bin/pepProxy
+    nohup ${HOME}/${ORION_PEP_HOME}/bin/pepProxy &
 }
 
 stop_orion_pep

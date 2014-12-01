@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # edit config
-sed -i ${HOME}/${ORION_PEP_HOME}/conf/config.yml \
+sed -i ${HOME}/${ORION_PEP_HOME}/config.js \
     -e  "s/module: 'keystone'/module: 'idm'/"\
     -e  "s/user: 'pepproxy'/user: 'bitergiatest@mailinator.com'/" \
     -e  "s/password: 'pepproxy'/password: 'password'/"\
