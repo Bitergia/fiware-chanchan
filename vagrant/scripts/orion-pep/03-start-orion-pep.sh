@@ -14,7 +14,9 @@ function stop_orion_pep () {
 function start_orion_pep () {
     echo "Starting Orion PEP "
     nohup ${HOME}/bin/contextBroker --port 10026 > ${HOME}/contextbroker.log 2>&1 < /dev/null &
-    nohup ${HOME}/${ORION_PEP_HOME}/bin/pepProxy &
+    cd ${HOME}/${ORION_PEP_HOME}/
+    NODE_TLS_REJECT_UNAUTHORIZED=0  nohup bin/pepProxy &
+    cd ${HOME}
 }
 
 stop_orion_pep
