@@ -4,12 +4,13 @@
 angular.module('chanchanApp', [
   'ngRoute',
   'ui.bootstrap',
+  'chanchanApp.auth',
   'chanchanApp.ckan',
   'chanchanApp.orion',
   'chanchanApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/ckan'});
+  $routeProvider.otherwise({redirectTo: '/login'});
 }]);
 
 angular.module('chanchanApp').controller('DropdownCtrl', function ($scope, $log) {
