@@ -9,7 +9,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
   });
 }])
 
-.controller('AuthCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('AuthCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
@@ -50,6 +50,21 @@ angular.module('chanchanApp.auth', ['ngRoute'])
             .success(function(data,status,headers,config){
                $scope.user_data =  data;
                $scope.auth_result = "ok";
+               if (data.organizations) {
+                    // Find the organization roles
+                    var roles = [];
+                    angular.forEach(data.organizations, function(value, key) {
+                        if (value.displayName === $scope.organization) {
+                            roles = value.roles;
+                            $scope.org_id = value.id;
+                            $scope.app_id = data.app_id;
+                            $scope.client_id = "";
+                            return false;
+                        }
+                    }, roles);
+                    $scope.roles = roles;
+                    // $location.path("/ckan");
+               }
                console.log(data);
 	        });
         }).

@@ -34,21 +34,20 @@
 <!-- User info box -->
 <div class="col-md-6">
 User info
-<ul>
-	<li ng-repeat="item in user_data">{{item}}</li>
-</ul>
+<br>
+{{user_data}}
 </div>
 <!-- End User info box -->
 </div>
 <div class="row">
 <div data-ng-show="auth_result == 'error'" class="alert alert-danger alert-dismissable">
     <button type="button" class="close" data-ng-click="vm.result = null" aria- hidden="true">&times;</button>
-    <strong>Error  !  </strong>{{vm.exception}}
+    <strong>Can not login: check your user (email) and password and try again.</strong>
 </div>
 </div>
 <div class="row">
 <div data-ng-show="auth_result == 'ok'" class="alert alert-success alert-dismissable">
     <button type="button" class="close" data-ng-click="vm.result = null" aria- hidden="true">&times;</button>
-    <strong>Login OK  !  </strong>
+    <strong>Login ok.</strong> The roles you have in {{organization}} are: {{roles}}. The org_id is {{org_id}} and the app_id is {{app_id}}.
 </div>
 </div>
