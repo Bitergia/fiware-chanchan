@@ -9,11 +9,11 @@ angular.module('chanchanApp.ckan', ['ngRoute'])
   });
 }])
 
-.controller('CKANCtrl', ['$scope', '$http', function($scope, $http) {
-    $http.get('http://chanchan.server/api/ckan/datasets').success(function(data) {
+.controller('CKANCtrl', ['$scope', '$http', 'GlobalContextService', function($scope, $http, Context) {
+    $http.get(Context.ckan()+'/datasets').success(function(data) {
         $scope.datasets = data.result;
     });
-    $http.get('http://chanchan.server/api/ckan/organizations').success(function(data) {
+    $http.get(Context.ckan()+'/organizations').success(function(data) {
         $scope.organizations = data.result;
     });
 }]);

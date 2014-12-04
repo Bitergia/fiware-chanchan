@@ -17,6 +17,16 @@ config(['$routeProvider', function($routeProvider) {
 app.factory('GlobalContextService', function() {
     var access_token_val, app_id_val, org_id_val, roles_val;
 
+    // ORION CONFIG
+    // var orion_url ='http://chanchan.server/api/orion/contexts';
+    var orion_url ='http://chanchan.server:3000/api/orion/contexts';
+    // var orion_pep_url ='http://chanchan.server/api/orion-pep/contexts';
+    var orion_pep_url ='http://chanchan.server:3000/api/orion-pep/contexts';
+
+    // CKAN CONFIG
+    var ckan_url = 'http://chanchan.server/api/ckan';
+    // var ckan_url ='http://chanchan.server:3000/api/ckan';
+
     var organizations = {"org1": {
                                 "name":"org1",
                                 "id":"4",
@@ -42,11 +52,23 @@ app.factory('GlobalContextService', function() {
     org_id: function(val) {
       if (val !== undefined) {org_id_val = val;}
       return org_id_val;
-    }, 
+    },
     roles: function(val) {
       if (val !== undefined) {roles_val = val;}
       return roles_val;
-    } 
+    },
+    orion: function(val) {
+      if (val !== undefined) {orion_url = val;}
+      return orion_url;
+    },
+    orion_pep: function(val) {
+      if (val !== undefined) {orion_pep_url = val;}
+      return orion_pep_url;
+    },
+    ckan: function(val) {
+      if (val !== undefined) {ckan_url = val;}
+      return ckan_url;
+    }
   };
 });
 

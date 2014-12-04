@@ -1,6 +1,4 @@
-<div class="container-fluid">
-  <!-- Page Heading -->
-  <div class="row">
+<div class="row">
     <div class="col-lg-12">
       <h3>Orion Data</h3>
       <ul class="contexts">
@@ -8,7 +6,32 @@
         </li>
       </ul>
     </div>
-  </div>
 </div>
 
+<div class="row">
+<div data-ng-show="error != null " class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-ng-click="error = null" aria- hidden="true">&times;</button>
+    <strong>Error communicating with Orion Context Broker.</strong>
+    <span data-ng-show="error == '502'">Probably Orion Context broker is not running.</span>
+</div>
+</div>
 
+<div class="row">
+    <div class="col-lg-12">
+      <h3>Orion PEP Data</h3>
+      <ul class="contexts">
+        <li ng-repeat="context in contexts_pep">{{context}}</li>
+        </li>
+      </ul>
+    </div>
+</div>
+
+<div class="row">
+<div data-ng-show="error_pep != null " class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-ng-click="error = null" aria- hidden="true">&times;</button>
+    <strong>Error communicating with Orion PEP Context Broker.</strong>
+    <span data-ng-show="error_pep == '401'">Orion PEP does not authorize the command.</span>
+    <span data-ng-show="error_pep == '403'">Orion PEP forbids the commmand.</span>
+    <span data-ng-show="error_pep == '502'">Probably Orion PEP Context broker is not running.</span>
+</div>
+</div>
