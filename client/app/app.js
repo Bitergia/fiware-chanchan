@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('chanchanApp', [
+var app = angular.module('chanchanApp', [
   'ngRoute',
   'ui.bootstrap',
   'chanchanApp.auth',
@@ -12,6 +12,43 @@ angular.module('chanchanApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
+
+// GlobalContext service to share data between controllers
+app.factory('GlobalContextService', function() {
+    var access_token_val, app_id_val, org_id_val, roles_val;
+
+    var organizations = {"org1": {
+                                "name":"org1",
+                                "id":"4",
+                                "secret":"86212b0096f190047cc321ef021ca7649b8ef0bc5da1c689f588512c62504d3152ff6ea2b80919de9ad3489c647cee4c8c250fc6eeef9a78c425a595064401d3",
+                            },
+                            "org2": {
+                                "name":"org2",
+                                "id":"3",
+                                "secret":"60236d3eb659b8ad3259658ed6b3a2c85dede8c87110e8e2e81dab267cfb5db59d900ec6e00b7aab482a9b7d4b95b1e88096c1b6777a3417c34a325eef005678",
+                            }};
+  return {
+    orgs: function() {
+      return organizations;
+    },
+    access_token: function(val) {
+      if (val !== undefined) {access_token_val = val;}
+      return access_token_val;
+    },
+    app_id: function(val) {
+      if (val !== undefined) {app_id_val = val;}
+      return app_id_val;
+    },
+    org_id: function(val) {
+      if (val !== undefined) {org_id_val = val;}
+      return org_id_val;
+    }, 
+    roles: function(val) {
+      if (val !== undefined) {roles_val = val;}
+      return roles_val;
+    } 
+  };
+});
 
 angular.module('chanchanApp').controller('DropdownCtrl', function ($scope, $log) {
 $scope.items = [

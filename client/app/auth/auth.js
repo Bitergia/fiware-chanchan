@@ -9,26 +9,15 @@ angular.module('chanchanApp.auth', ['ngRoute'])
   });
 }])
 
-.controller('AuthCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
+.controller('AuthCtrl', ['$scope', '$location', '$http', 'GlobalContextService', function($scope, $location, $http, GlobalContextService) {
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
     $scope.user = "chanchan@idm.server";
     $scope.password = "ccadmin";
     // The id and secret comes from IDM application data in the org
-    $scope.organizations = {"org1": {
-                                "name":"org1",
-                                "id":"4",
-                                "secret":"86212b0096f190047cc321ef021ca7649b8ef0bc5da1c689f588512c62504d3152ff6ea2b80919de9ad3489c647cee4c8c250fc6eeef9a78c425a595064401d3",
-                            },
-                            "org2": {
-                                "name":"org2",
-                                "id":"3",
-                                "secret":"60236d3eb659b8ad3259658ed6b3a2c85dede8c87110e8e2e81dab267cfb5db59d900ec6e00b7aab482a9b7d4b95b1e88096c1b6777a3417c34a325eef005678",
-                            }};
-   if ($scope.user_data !== undefined) {
-	$location.path("/ckan");
-   }
+    
+    $scope.organizations = GlobalContextService.orgs();
 
     $scope.auth = function() {
         var data = 'grant_type=password';
@@ -46,6 +35,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
 
         $http({method:'POST',url:url+"/"+oauth_token,data:data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .success(function(data,status,headers,config){
+            var access_token = data.access_token;
             $http({method:'GET',url:url+"/"+user_roles+"?access_token="+data.access_token})
             .success(function(data,status,headers,config){
                $scope.user_data =  data;
@@ -55,15 +45,18 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                     var roles = [];
                     angular.forEach(data.organizations, function(value, key) {
                         if (value.displayName === $scope.organization) {
+                            GlobalContextService.roles(roles);
+                            GlobalContextService.org_id(value.id);
+                            GlobalContextService.app_id(data.app_id);
+                            GlobalContextService.access_token(access_token);
                             roles = value.roles;
                             $scope.org_id = value.id;
                             $scope.app_id = data.app_id;
-                            $scope.client_id = "";
                             return false;
                         }
                     }, roles);
                     $scope.roles = roles;
-                    // $location.path("/ckan");
+                    $location.path("/orion");
                }
                console.log(data);
 	        });

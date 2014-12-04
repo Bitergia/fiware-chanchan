@@ -9,8 +9,11 @@ angular.module('chanchanApp.orion', ['ngRoute'])
   });
 }])
 
-.controller('OrionCtrl', ['$scope', '$http', function($scope, $http) {
-    $http.get('http://localhost:3000/api/orion/contexts').success(function(data) {
+.controller('OrionCtrl', ['$scope', '$http', 'GlobalContextService', function($scope, $http, Context) {
+    $scope.app_id = Context.app_id();
+    $scope.org_id = Context.org_id();
+    $scope.access_token = Context.access_token();
+    $http.get('http://chanchan.server/api/orion/contexts').success(function(data) {
         $scope.contexts = data.contextResponses;
     });
 }]);
