@@ -6,6 +6,9 @@ export SCRIPTS_PATH="/vagrant/scripts"
 # server hostname
 export HOSTNAME="$(hostname -f)"
 
+# util scripts path
+export UTILS_PATH="${SCRIPTS_PATH}/util"
+
 # interface for the public ip
 export IFACE="eth1"
 
