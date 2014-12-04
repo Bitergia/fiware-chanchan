@@ -24,8 +24,8 @@ app.factory('GlobalContextService', function() {
     var orion_pep_url ='http://chanchan.server:3000/api/orion-pep/contexts';
 
     // CKAN CONFIG
-    var ckan_url = 'http://chanchan.server/api/ckan';
-    // var ckan_url ='http://chanchan.server:3000/api/ckan';
+    // var ckan_url = 'http://chanchan.server/api/ckan';
+    var ckan_url ='http://chanchan.server:3000/api/ckan';
 
     var organizations = {"org1": {
                                 "name":"org1",
