@@ -17,7 +17,7 @@
   <div class="col-md-4">Organization</div>
   <div class="col-md-8">
     <select ng-model="organization" ng-change="auth()">
-      <option ng-repeat="org in organizations">{{org}}</option>
+      <option ng-repeat="org in organizations">{{org.name}}</option>
     </select>
 
   </div>
@@ -39,4 +39,16 @@ User info
 </ul>
 </div>
 <!-- End User info box -->
+</div>
+<div class="row">
+<div data-ng-show="auth_result == 'error'" class="alert alert-danger alert-dismissable">
+    <button type="button" class="close" data-ng-click="vm.result = null" aria- hidden="true">&times;</button>
+    <strong>Error  !  </strong>{{vm.exception}}
+</div>
+</div>
+<div class="row">
+<div data-ng-show="auth_result == 'ok'" class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-ng-click="vm.result = null" aria- hidden="true">&times;</button>
+    <strong>Login OK  !  </strong>
+</div>
 </div>
