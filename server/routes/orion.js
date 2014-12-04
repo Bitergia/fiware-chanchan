@@ -22,7 +22,7 @@ exports.contexts = function(req, res) {
 
     var options = {
         host: orion_url,
-        port: 1026,
+        port: 10026,
         path: '/NGSI10/contextEntityTypes/'+contextType,
         method: 'GET',
         headers: {

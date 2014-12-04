@@ -2,6 +2,7 @@
 var express = require('express'),
     auth =    require('./auth'),
     site =    require('./site'),
+    orion_pep =  require('./routes/orion_pep'),
     orion =    require('./routes/orion'),
     ckan =    require('./routes/ckan');
 
@@ -29,6 +30,8 @@ app.get('/auth',auth.auth);
 
 // api rest: /api/
 //
+// orion_pep
+app.get('/api/orion-pep/contexts',orion_pep.contexts);
 // orion
 app.get('/api/orion/contexts',orion.contexts);
 // ckan
@@ -44,7 +47,7 @@ app.get('*', function(req, res, next) {
 
 app.use(function(err, req, res, next) {
     if (err.status !== 404) {
-	return next();
+	    return next();
     }
 
     res.status(404);

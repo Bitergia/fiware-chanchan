@@ -32,5 +32,12 @@ exports.do_get = function (options, callback, res) {
             }
             callback(res, msg)
         });
+    });
+    request.on('error', function(err) {
+        console.log("FAILED GET REQUEST");
+        var err = new Error();
+        err.status = 502; // Bad gateway
+        callback(res, err);
+        console.log(err);
     }); 
 }
