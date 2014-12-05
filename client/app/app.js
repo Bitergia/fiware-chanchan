@@ -6,6 +6,7 @@ var app = angular.module('chanchanApp', [
   'ui.bootstrap',
   'chanchanApp.auth',
   'chanchanApp.ckan',
+  'chanchanApp.manualPublish',
   'chanchanApp.orion',
   'chanchanApp.version'
 ]).
@@ -15,10 +16,10 @@ config(['$routeProvider', function($routeProvider) {
 
 // Check login before going to any route
 app.run(function($rootScope, $location) {
-    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if ($rootScope.loggedInUser == null) {
         // no logged user, redirect to /login
-        if ( next.templateUrl === "auth/login.html") {
+        if (next.templateUrl === "auth/login.html") {
         } else {
           $location.path("/login");
         }
@@ -42,13 +43,13 @@ app.factory('GlobalContextService', function() {
 
     var organizations = {"org1": {
                                 "name":"org1",
-                                "id":"4",
-                                "secret":"86212b0096f190047cc321ef021ca7649b8ef0bc5da1c689f588512c62504d3152ff6ea2b80919de9ad3489c647cee4c8c250fc6eeef9a78c425a595064401d3",
+                                "id":"2",
+                                "secret":"1138f19d49dda081fd543f5b33ced5859edbc1f45d0322863ad5a136ed0f941ecd83491e12cb09e7ae55d36769b21ae14c4351872b4e3217160565d7092ff45c",
                             },
-                            "org2": {
+                         "org2": {
                                 "name":"org2",
                                 "id":"3",
-                                "secret":"60236d3eb659b8ad3259658ed6b3a2c85dede8c87110e8e2e81dab267cfb5db59d900ec6e00b7aab482a9b7d4b95b1e88096c1b6777a3417c34a325eef005678",
+                                "secret":"ac502a28b454bc71e5642512d48d479e124503f45e10651e6917c2330221d61a98316a37bb13c5e5eb4b4548adbe7d498f2752f9a250a2259e074d70a7bddb2e",
                             }};
   return {
     orgs: function() {

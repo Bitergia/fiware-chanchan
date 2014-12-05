@@ -39,7 +39,7 @@
           <li data-ng-show="user_name != null"  class="dropdown" dropdown on-toggle="toggled(open)">
             <a href
                 class="dropdown-toggle" dropdown-toggle> <i class="fa fa-user"></i>
-              <span ng-bind="user_name"><b class="caret"></b>
+              <span ng-bind="user_name"></span><b class="caret"></b>
           </a>
             <ul class="dropdown-menu" style="width:300px;">
               <li ng-repeat="choice in user_profile"><a href><i
@@ -52,8 +52,8 @@
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li class="active"><a href="#dash"><i
-              class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+          <li class="active"><a href="#manualPublish"><i
+              class="fa fa-fw fa-dashboard"></i> Manual Publish</a></li>
           <li><a href="#ckan"><i class="fa fa-fw fa-edit"></i> CKAN
               Datasets</a></li>
           <li><a href="#orion"><i class="fa fa-fw fa-edit"></i> Orion
@@ -83,6 +83,7 @@
   <script src="app.js"></script>
   <script src="auth/auth.js"></script>
   <script src="ckan/ckan.js"></script>
+  <script src="manualPublish/manualPublish.js"></script>
   <script src="orion/orion.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
