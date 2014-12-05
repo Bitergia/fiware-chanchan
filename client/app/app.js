@@ -13,6 +13,19 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
 
+// Check login before going to any route
+app.run(function($rootScope, $location) {
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+      if ($rootScope.loggedInUser == null) {
+        // no logged user, redirect to /login
+        if ( next.templateUrl === "auth/login.html") {
+        } else {
+          $location.path("/login");
+        }
+      }
+    });
+});
+
 // GlobalContext service to share data between controllers
 app.factory('GlobalContextService', function() {
     var access_token_val, app_id_val, org_id_val, roles_val;

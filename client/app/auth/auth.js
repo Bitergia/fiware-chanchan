@@ -9,7 +9,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
   });
 }])
 
-.controller('AuthCtrl', ['$scope', '$location', '$http', 'GlobalContextService', function($scope, $location, $http, GlobalContextService) {
+.controller('AuthCtrl', ['$scope', '$rootScope', '$location', '$http', 'GlobalContextService', function($scope, $rootScope, $location, $http, GlobalContextService) {
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
@@ -38,6 +38,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
             var access_token = data.access_token;
             $http({method:'GET',url:url+"/"+user_roles+"?access_token="+data.access_token})
             .success(function(data,status,headers,config){
+               $rootScope.loggedInUser = true;
                $scope.user_data =  data;
                $scope.auth_result = "ok";
                if (data.organizations) {
