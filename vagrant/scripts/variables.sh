@@ -33,7 +33,8 @@ export ORG_DESC="Chanchan Demo Organization"
 
 ### Chanchan related variables
 export CC_HOSTNAME="chanchan.${HOSTNAME}"
-export CC_APP_PATH="fiware-chanchan/server"
+export CC_APP_SERVER_PATH="fiware-chanchan/server"
+export CC_APP_CLIENT_PATH="fiware-chanchan/client"
 export CC_APP="Chanchan Demo"
 export CC_APP_DESC="Chanchan Demo"
 export CC_APP_URL="http://${CC_HOSTNAME}"

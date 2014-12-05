@@ -236,7 +236,7 @@ function _dump_oauth_credentials () {
 		       sed -n -e 's|.*divclass="client-id"><h6>ClientID</h6><p>\([^<]*\)</p></div>.*|\1|p' )
     CLIENT_SECRET=$( sed "${OUTPUT[finish_registration]}" -n -e 's/^.*span class="site-client-secret">\(.*\)<\/span>/\1/p')
 
-    echo "{\"${CC_ORG}\": { \"client_id\": \"${CLIENT_ID}\", \"client_secret\": \"${CLIENT_SECRET}\"}}" >> "${CC_OAUTH_CREDENTIALS}"
+    echo "\"${CC_ORG}\": { \"name\": \"${CC_ORG}\", \"id\": \"${CLIENT_ID}\", \"secret\": \"${CLIENT_SECRET}\"}" >> "${CC_OAUTH_CREDENTIALS}"
     cat "${CC_OAUTH_CREDENTIALS}" | sort -u > "${CC_OAUTH_CREDENTIALS}.tmp"
     mv "${CC_OAUTH_CREDENTIALS}.tmp" "${CC_OAUTH_CREDENTIALS}"
 }
