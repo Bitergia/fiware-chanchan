@@ -39,7 +39,7 @@
           <li data-ng-show="user_name != null"  class="dropdown" dropdown on-toggle="toggled(open)">
             <a href
                 class="dropdown-toggle" dropdown-toggle> <i class="fa fa-user"></i>
-              {{user_name}}<b class="caret"></b>
+              <span ng-bind="user_name"><b class="caret"></b>
           </a>
             <ul class="dropdown-menu" style="width:300px;">
               <li ng-repeat="choice in user_profile"><a href><i
