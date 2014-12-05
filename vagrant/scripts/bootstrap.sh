@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export SCRIPTS_PATH="/vagrant/scripts"
-export UTILS_PATH="${SCRIPTS_PATH}/util"
 cd ${SCRIPTS_PATH}
 
 # load environment variables
@@ -12,6 +11,9 @@ bash packages.sh
 
 # install IDM
 bash install-idm.sh
+
+# provision IDM
+bash idm-provision.sh
 
 # install Chanchan
 bash install-chanchan.sh

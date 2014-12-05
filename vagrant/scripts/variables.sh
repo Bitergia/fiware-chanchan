@@ -6,12 +6,15 @@ export SCRIPTS_PATH="/vagrant/scripts"
 # server hostname
 export HOSTNAME="$(hostname -f)"
 
+# util scripts path
+export UTILS_PATH="${SCRIPTS_PATH}/util"
+
 # interface for the public ip
 export IFACE="eth1"
 
 ### IDM related variables
-
 export IDM_HOSTNAME="idm.${HOSTNAME}"
+export IDM_URL="https://${IDM_HOSTNAME}"
 
 # default password for mysql root user
 export ROOT_DBPASSWD="rootpw"
@@ -25,8 +28,8 @@ export IDM_DBPASS="idmdbpass"
 export CC_USER_NAME="Chanchan Admin"
 export CC_EMAIL="chanchan@${IDM_HOSTNAME}"
 export CC_PASS="ccadmin"
-export CC_ORG="Chanchan Org"
-export CC_ORG_DESC="Chanchan demo organization"
+export ORG="Chanchan Organization"
+export ORG_DESC="Chanchan Demo Organization"
 
 ### Chanchan related variables
 export CC_HOSTNAME="chanchan.${HOSTNAME}"
@@ -36,6 +39,11 @@ export CC_APP_DESC="Chanchan Demo"
 export CC_APP_URL="http://${CC_HOSTNAME}"
 export CC_APP_CALLBACK="${CC_APP_URL}/login"
 export CC_OAUTH_CREDENTIALS="/tmp/appoauth.txt"
+export CC_ROLE="Publisher"
+export CC_PERM="PublishCKAN"
+export CC_PERM_DESC="Publish data on CKAN"
+export CC_PERM_ACTION="POST"
+export CC_PERM_RESOURCE="/chanchan/publishCKAN"
 
 ### Cygnus related variables
 export CYGNUS_USER="chanchan"
