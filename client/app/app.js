@@ -27,6 +27,7 @@ app.run(function($rootScope, $location) {
 });
 
 // GlobalContext service to share data between controllers
+// TODO: just use rootScope?
 app.factory('GlobalContextService', function() {
     var access_token_val, app_id_val, org_id_val, roles_val;
 
@@ -85,25 +86,18 @@ app.factory('GlobalContextService', function() {
   };
 });
 
-angular.module('chanchanApp').controller('DropdownCtrl', function ($scope, $log) {
-$scope.items = [
-                {type:"fa-user",value:"Profile"},
-                {type:"fa-envelope",value:"Inbox"},
-                {type:"fa-gear",value:"Settings"},
-                {type:"fa-power-off",value:"Log Out"}
-];
+angular.module('chanchanApp').controller('DropdownCtrl', ['$scope', '$rootScope', '$log', function ($scope, $rootScope, $log) {
+    $scope.status = {
+        isopen: false
+    };
 
-$scope.status = {
-  isopen: false
-};
+    $scope.toggled = function(open) {
+        $log.log('Dropdown is now: ', open);
+    };
 
-$scope.toggled = function(open) {
-  $log.log('Dropdown is now: ', open);
-};
-
-$scope.toggleDropdown = function($event) {
+    $scope.toggleDropdown = function($event) {
       $event.preventDefault();
       $event.stopPropagation();
       $scope.status.isopen = !$scope.status.isopen;
     };
-});
+}]);

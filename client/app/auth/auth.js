@@ -38,7 +38,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
             var access_token = data.access_token;
             $http({method:'GET',url:url+"/"+user_roles+"?access_token="+data.access_token})
             .success(function(data,status,headers,config){
-               $rootScope.loggedInUser = true;
+
                $scope.user_data =  data;
                $scope.auth_result = "ok";
                if (data.organizations) {
@@ -57,8 +57,20 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                         }
                     }, roles);
                     $scope.roles = roles;
-                    $location.path("/orion");
                }
+               var rol_names = "";
+               angular.forEach (roles, function (value, key) {rol_names+= value.name + ","});
+               rol_names = rol_names.substring(0, rol_names.length -1);
+               $rootScope.loggedInUser = true;
+               $rootScope.user_name = data.displayName;
+               $rootScope.user_profile = [
+                {type:"fa-user",value:data.nickName},
+                {type:"fa-envelope",value:data.email},
+                {type:"fa-gear",value:data.app_slug},
+                {type:"fa-building",value:$scope.organization},
+                {type:"fa-check",value:rol_names}
+               ];
+               $location.path("/orion");
                console.log(data);
 	        });
         }).
