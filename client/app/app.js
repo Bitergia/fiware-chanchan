@@ -31,15 +31,14 @@ app.run(function($rootScope, $location) {
 app.factory('GlobalContextService', function() {
     var access_token_val, app_id_val, org_id_val, roles_val;
 
-    // ORION CONFIG
-    // var orion_url ='http://chanchan.server/api/orion/contexts';
-    var orion_url ='http://chanchan.server:3000/api/orion/contexts';
-    // var orion_pep_url ='http://chanchan.server/api/orion-pep/contexts';
-    var orion_pep_url ='http://chanchan.server:3000/api/orion-pep/contexts';
-
-    // CKAN CONFIG
-    // var ckan_url = 'http://chanchan.server/api/ckan';
-    var ckan_url ='http://chanchan.server:3000/api/ckan';
+    // ORION AND CKAN CONFIG
+    var orion_url ='http://chanchan.server/api/orion/contexts';
+    var orion_pep_url ='http://chanchan.server/api/orion-pep/contexts';
+    var ckan_url = 'http://chanchan.server/api/ckan';
+    // Development config
+    // var orion_url ='http://chanchan.server:3000/api/orion/contexts';
+    // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep/contexts';
+    // var ckan_url ='http://chanchan.server:3000/api/ckan';
 
     var organizations = {"org1": {
                                 "name":"org1",
