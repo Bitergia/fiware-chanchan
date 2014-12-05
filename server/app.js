@@ -22,7 +22,10 @@ app.configure(function () {
 app.use("/chanchan", express.static(__dirname + '/chanchan'));
 
 // main page
-app.get('/', site.index);
+//app.get('/', site.index);
+app.get('/', function(req, res) {
+    res.redirect('/chanchan');
+});
 app.get('/login',auth.login);
 app.get('/logout',auth.logout);
 app.get('/auth',auth.auth);
