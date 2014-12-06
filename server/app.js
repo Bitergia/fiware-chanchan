@@ -40,6 +40,8 @@ app.get('/api/orion/contexts',orion.contexts);
 // ckan
 app.get('/api/ckan/datasets',ckan.datasets);
 app.get('/api/ckan/organizations',ckan.organizations);
+app.get('/api/ckan/organization/:org_id',ckan.organization);
+app.get('/api/ckan/resource/:resource_id',ckan.resource);
 // end api rest
 
 app.get('*', function(req, res, next) {

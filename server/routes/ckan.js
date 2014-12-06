@@ -36,3 +36,39 @@ exports.organizations = function(req, res) {
 
     utils.do_get(options, return_get, res);
 };
+
+// Return the list of datasets for an organization
+exports.organization = function(req, res) {
+    var org_id = req.params.org_id;
+
+    return_get = function(res, buffer) {
+        res.send(buffer);
+    };
+
+    var options = {
+        host: ckan_url,
+        port: 80,
+        path: '/api/action/organization_show?id='+org_id,
+        method: 'GET'
+    };
+
+    utils.do_get(options, return_get, res);
+};
+
+//Return the list of values for a resource in a dataset
+exports.resource = function(req, res) {
+    var resource_id = req.params.resource_id;
+
+    return_get = function(res, buffer) {
+        res.send(buffer);
+    };
+
+    var options = {
+        host: ckan_url,
+        port: 80,
+        path: '/api/action/datastore_search?resource_id='+resource_id,
+        method: 'GET'
+    };
+
+    utils.do_get(options, return_get, res);
+};

@@ -12,10 +12,10 @@ config.idm_url = 'https://idm.server';
 config.client_id = '';
 
 // Client Secret for the application
-config.client_secret = '';
+config.client_secret = ''
 
 // Callback URL for the application
-config.callback_url = '';
+config.callback_url = 'http://chanchan.server/login'
 
 
 module.exports = config;
