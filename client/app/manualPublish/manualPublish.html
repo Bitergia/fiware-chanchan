@@ -2,16 +2,20 @@
   <h3>Manual Publish of Data</h3>
 </div>
 <div class="row">
-  <div class="col-md-4" ng-repeat="org in orgs">
-    <br>Temperature <input name="">
-    <select>
-        <option>Dataset1</option>
-        <option>Dataset2</option>
-        <option>Dataset3</option>
+  <div class="col-md-6" ng-repeat="org in orgs">
+    <br>Temperature <input name="" size="4"> <select>
+      <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
     </select>
     <button>Publish {{org.name}}</button>
-    <div class="well" style="margin-top:20px;">
-    {{CKAN}}
+    <div class="well" style="margin-top: 20px;">
+      <ul>
+        <li ng-repeat="resource in orgs_datasets[org.name]['resources']">
+          {{resource.name}}
+          <ul>
+            <li ng-repeat="value in resource['values']"> {{value.attrValue}} <small>{{value.recvTime}}</small></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

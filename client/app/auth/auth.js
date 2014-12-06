@@ -70,7 +70,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                 {type:"fa-building",value:$scope.organization},
                 {type:"fa-check",value:rol_names}
                ];
-               $location.path("/orion");
+               $location.path("/manualPublish");
                console.log(data);
 	        });
         }).
