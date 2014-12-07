@@ -21,7 +21,7 @@ app.run(function($rootScope, $location) {
         // no logged user, redirect to /login
         if (next.templateUrl === "auth/login.html") {
         } else {
-          $location.path("/login");
+          // $location.path("/login");
         }
       }
     });
@@ -33,23 +33,23 @@ app.factory('GlobalContextService', function() {
     var access_token_val, app_id_val, org_id_val, roles_val;
 
     // ORION AND CKAN CONFIG
-    var orion_url ='http://chanchan.server/api/orion/contexts';
-    var orion_pep_url ='http://chanchan.server/api/orion-pep/contexts';
+    var orion_url ='http://chanchan.server/api/orion';
+    var orion_pep_url ='http://chanchan.server/api/orion-pep';
     var ckan_url = 'http://chanchan.server/api/ckan';
     // Development config
-    // var orion_url ='http://chanchan.server:3000/api/orion/contexts';
-    // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep/contexts';
+    // var orion_url ='http://chanchan.server:3000/api/orion';
+    // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep';
     // var ckan_url ='http://chanchan.server:3000/api/ckan';
 
     var organizations = {"org1": {
                                 "name":"org1",
                                 "id":"2",
-                                "secret":"1138f19d49dda081fd543f5b33ced5859edbc1f45d0322863ad5a136ed0f941ecd83491e12cb09e7ae55d36769b21ae14c4351872b4e3217160565d7092ff45c",
+                                "secret":"22903cea1159501528fe24c27cfbe832ab793de0fecaf62b4d3fb1fa6ee88b9851edbb4fae8709f0e1e1dd6e67ac79411eb24a69bd44b7b2592f7d149ba8c711",
                             },
                          "org2": {
                                 "name":"org2",
                                 "id":"3",
-                                "secret":"ac502a28b454bc71e5642512d48d479e124503f45e10651e6917c2330221d61a98316a37bb13c5e5eb4b4548adbe7d498f2752f9a250a2259e074d70a7bddb2e",
+                                "secret":"00fd36ea38e5ed87254f64479f7776621f05d62316a22bee55b0759e88ec70352be3ba14388d01d30288eae9ebdf739ec13aa6f4b741cd6dddb7c1c194e18046",
                             }};
   return {
     orgs: function() {
