@@ -3,19 +3,30 @@
 </div>
 <div class="row">
   <div class="col-md-6" ng-repeat="org in orgs">
-    <br>Temperature <input name="" size="4"> <select>
-      <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
-    </select>
-    <button>Publish {{org.name}}</button>
-    <div class="well" style="margin-top: 20px;">
-      <ul>
-        <li ng-repeat="resource in orgs_datasets[org.name]['resources']">
-          {{resource.name}}
-          <ul>
-            <li ng-repeat="value in resource['values']"> {{value.attrValue}} <small>{{value.recvTime}}</small></li>
-          </ul>
-        </li>
-      </ul>
+    <div class="row">
+        <!--  TODO:  org1 should be org.name in context_name_org1 -->
+        Context (dataset) name <input ng-model="context_name_org1" name="context_name_{{org.name}}" size="15">
+        <button ng-click="createContext(org.name)">Add to {{org.name}}</button>
+    </div>
+    <div class="row">
+      <br>Temperature <input name="" size="4"> <select>
+        <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
+      </select>
+      <button>Publish {{org.name}}</button>
+    </div>
+    <div class="row">
+      <div class="well" style="margin-top: 20px;">
+        <ul>
+          <li ng-repeat="resource in orgs_datasets[org.name]['resources']">
+            {{resource.name}}
+            <ul>
+              <li ng-repeat="value in resource['values']">
+                {{value.attrValue}} <small>{{value.recvTime}}</small>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

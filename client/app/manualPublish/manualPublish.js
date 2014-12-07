@@ -10,7 +10,15 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
 }])
 
 .controller('ManualPublishCtrl', ['$scope', '$http', 'GlobalContextService', function($scope, $http, Context) {
+    $scope.createContext = function(org_name) {
+        console.log(Context.orion()+'/contexts/'+org_name+'/'+$scope['context_name_'+org_name]);
+        $http.post(Context.orion()+'/contexts/'+org_name+'/'+$scope['context_name_'+org_name]).success(function(data) {
+            alert("Created context for " + data);
+        });
+    };
+
     $scope.orgs_datasets = {};
+    $scope.context_name_org1 = "testorg1";
 
     angular.forEach(Context.orgs(), function(value, org_name) {
         $scope.orgs_datasets[org_name] = {"datasets":[],"resources":[]};

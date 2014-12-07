@@ -37,6 +37,7 @@ app.get('/auth',auth.auth);
 app.get('/api/orion-pep/contexts',orion_pep.contexts);
 // orion
 app.get('/api/orion/contexts',orion.contexts);
+app.post('/api/orion/contexts/:org_id/:context_id',orion.create_context);
 // ckan
 app.get('/api/ckan/datasets',ckan.datasets);
 app.get('/api/ckan/organizations',ckan.organizations);
