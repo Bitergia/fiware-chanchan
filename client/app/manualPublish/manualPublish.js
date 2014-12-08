@@ -11,14 +11,14 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
 
 .controller('ManualPublishCtrl', ['$scope', '$http', 'GlobalContextService', function($scope, $http, Context) {
     $scope.createContext = function(org_name) {
-        console.log(Context.orion()+'/contexts/'+org_name+'/'+$scope['context_name_'+org_name]);
-        $http.post(Context.orion()+'/contexts/'+org_name+'/'+$scope['context_name_'+org_name]).success(function(data) {
+        console.log(Context.orion()+'/contexts/'+org_name+'/'+$scope.orgs[org_name].context);
+        $http.post(Context.orion()+'/contexts/'+org_name+'/'+$scope.orgs[org_name].context).success(function(data) {
             alert("Created context for " + data);
         });
     };
 
     $scope.updateTemperature = function(org_name) {
-        var url = Context.orion()+'/contexts/'+org_name+'/'+$scope['context_temperature_'+org_name]+'/'+$scope['temperature_'+org_name];
+        var url = Context.orion()+'/contexts/'+org_name+'/'+$scope.orgs[org_name].context+'/'+$scope.orgs[org_name].temperature;
         console.log(url);
         $http.post(url).success(function(data) {
             alert("Update context with " + data);
@@ -39,7 +39,8 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
                     var resource_data = {};
                     $http.get(Context.ckan()+'/resource/'+resource.id).success(function(resource_values) {
                         resource_data.values = resource_values.result.records;
-                        resource_data.name = resource.name + " (" + dataset.name  +")";
+                        // resource_data.name = resource.name + " (" + dataset.name  +")";
+                        resource_data.name = resource.name;
                         $scope.orgs_datasets[org_name].resources.push(resource_data);
                     });
                 });

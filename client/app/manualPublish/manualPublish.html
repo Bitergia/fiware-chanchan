@@ -4,14 +4,12 @@
 <div class="row">
   <div class="col-md-6" ng-repeat="org in orgs">
     <div class="row">
-        <!--  TODO:  org1 should be org.name in context_name_org1 -->
-        Context (dataset) name <input ng-model="context_name_org1" name="context_name_{{org.name}}" size="15">
+        Context (dataset) name <input ng-model="org['context_new']" size="15">
         <button ng-click="createContext(org.name)">Add to {{org.name}}</button>
     </div>
     <div class="row">
-      <!-- <br>Temperature <input  ng-model="temperature_{{org.name}}" name="temperature_{{org.name}}" size="4"> -->
-      <br>Temperature <input  ng-model="temperature_org1" name="temperature_{{org.name}}" size="4"> 
-      <select ng-model="context_temperature_org1" name="context_temperature_{{org.name}}">
+      <br>Temperature <input ng-model="org['temperature']" size="4">
+      <select ng-model="org['context']">
         <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
       </select>
       <button ng-click="updateTemperature(org.name)">Publish {{org.name}}</button>
