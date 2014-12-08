@@ -96,3 +96,56 @@ exports.create_context = function(req, res) {
 
   utils.do_post(options, post_data, return_post, res);
 };
+
+// Update entities data (temperature)
+exports.update_context = function(req, res) {
+  return_post = function(res, buffer) {
+      res.send(buffer);
+  };
+
+  var org_id = req.params.org_id;
+  var context_id = req.params.context_id;
+  var temperature_id = req.params.temperature_id;
+
+    post_data = {
+        "contextElements": [
+                {
+                    "type": context_id,
+                    "isPattern": "false",
+                    "id": "FirstEntity",
+                    "attributes": [
+                    {
+                        "name": "temperature",
+                        "type": "centigrade",
+                        "value": temperature_id
+                    },
+                    {
+                        "name": "pressure",
+                        "type": "mmHg",
+                        "value": "720"
+                    }
+                    ]
+                }
+            ],
+            "updateAction": "APPEND"
+    };
+
+
+  post_data = JSON.stringify(post_data);
+
+  headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Length': post_data.length
+  };
+
+  var options = {
+      host: orion_url,
+      port: 10026,
+      path: '/NGSI10/updateContext',
+      method: 'POST',
+      headers: headers
+  };
+
+  utils.do_post(options, post_data, return_post, res);
+};

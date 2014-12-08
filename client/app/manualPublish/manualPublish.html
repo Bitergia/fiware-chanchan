@@ -9,10 +9,12 @@
         <button ng-click="createContext(org.name)">Add to {{org.name}}</button>
     </div>
     <div class="row">
-      <br>Temperature <input name="" size="4"> <select>
+      <!-- <br>Temperature <input  ng-model="temperature_{{org.name}}" name="temperature_{{org.name}}" size="4"> -->
+      <br>Temperature <input  ng-model="temperature_org1" name="temperature_{{org.name}}" size="4"> 
+      <select ng-model="context_temperature_org1" name="context_temperature_{{org.name}}">
         <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
       </select>
-      <button>Publish {{org.name}}</button>
+      <button ng-click="updateTemperature(org.name)">Publish {{org.name}}</button>
     </div>
     <div class="row">
       <div class="well" style="margin-top: 20px;">

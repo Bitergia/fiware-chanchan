@@ -17,8 +17,18 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
         });
     };
 
+    $scope.updateTemperature = function(org_name) {
+        var url = Context.orion()+'/contexts/'+org_name+'/'+$scope['context_temperature_'+org_name]+'/'+$scope['temperature_'+org_name];
+        console.log(url);
+        $http.post(url).success(function(data) {
+            alert("Update context with " + data);
+        });
+    };
+
     $scope.orgs_datasets = {};
     $scope.context_name_org1 = "testorg1";
+    $scope.temperature_org1 = "7.6";
+    $scope.context_temperature_org1 = "testorg1";
 
     angular.forEach(Context.orgs(), function(value, org_name) {
         $scope.orgs_datasets[org_name] = {"datasets":[],"resources":[]};
