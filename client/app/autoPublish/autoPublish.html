@@ -1,6 +1,6 @@
 <div class="row">
   <h3>
-    Manual Publish of Data from Orion to CKAN
+    Automatic Publish of Data in CKAN
     </h3>
 </div>
 
@@ -8,20 +8,15 @@
   <span class="h5 ">Select organization</span> <select ng-model="org_selected">
     <option ng-repeat="org in orgs">{{org.name}}</option>
   </select>
+  <span class="h5 ">Select feeder</span> <select ng-model="feeder_selected">
+    <option ng-repeat="feed in feeders">{{feed.name}}</option>
+  </select>
 </div>
 
 <div class="row">
-  <div class="col-md-4" data-ng-show="org_selected != ''">
-    Context (entity type) name <input ng-model="orgs[org_selected]['context_new']" size="15">
-    <button ng-click="createContext(org_selected)">Add</button>
-  </div>
-  <div class="col-md-8" data-ng-show="org_selected != ''">
-    Temperature <input ng-model="orgs[org_selected]['temperature']" size="4"> <select
-      ng-model="orgs[org_selected]['context']">
-      <option ng-repeat="name in orgs_entities[org_selected]">{{name}}</option>
-    </select>
-    <button ng-click="updateTemperature(org_selected)">Publish
-      {{org.name}}</button>
+  <div class="col-md-12" data-ng-show="org_selected != ''">
+    Context (entity type) name for feeder <input ng-model="orgs[org_selected]['context_new']" size="15">
+    <button ng-click="createContext(org_selected)">Start feeding</button>
   </div>
 </div>
 

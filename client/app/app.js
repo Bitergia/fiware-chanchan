@@ -7,6 +7,7 @@ var app = angular.module('chanchanApp', [
   'chanchanApp.auth',
   'chanchanApp.ckan',
   'chanchanApp.manualPublish',
+  'chanchanApp.autoPublish',
   'chanchanApp.orion',
   'chanchanApp.version'
 ]).
