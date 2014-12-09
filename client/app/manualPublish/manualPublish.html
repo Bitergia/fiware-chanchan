@@ -1,37 +1,47 @@
 <div class="row">
-  <h3>Manual Publish of Data</h3>
+  <h3>
+    Manual Publish of Data
+    </h2>
 </div>
-<div class="row">
-  <div class="col-md-6" ng-repeat="org in orgs">
-    <div class="row">
-        Context (entity type) name <input ng-model="org['context_new']" size="15">
-        <button ng-click="createContext(org.name)">Add to {{org.name}}</button>
-    </div>
-    <div class="row">
-      <br>Temperature <input ng-model="org['temperature']" size="4">
-      <select ng-model="org['context']">
-        <option ng-repeat="name in orgs_entities[org.name]">{{name}}</option>
-      </select>
-      <button ng-click="updateTemperature(org.name)">Publish {{org.name}}</button>
-    </div>
 
-    <div class="row">
-      <div class="well" style="margin-top: 20px;">
-        <ul>
-          <li ng-repeat="dataset in orgs_datasets[org.name]">
-            {{dataset.name}}
-            <ul>
-              <li ng-repeat="resource in dataset['resources']">
-                {{resource.name}}
-               <ul>
+<div class="row well" style="margin-bottom: 10px">
+  <span class="h5 ">Select organization</span> <select ng-model="org_selected">
+    <option ng-repeat="org in orgs">{{org.name}}</option>
+  </select>
+</div>
+
+<div class="row">
+  <div class="col-md-4" data-ng-show="org_selected != ''">
+    Context (entity type) name <input ng-model="orgs[org_selected]['context_new']" size="15">
+    <button ng-click="createContext(org_selected)">Add</button>
+  </div>
+  <div class="col-md-8" data-ng-show="org_selected != ''">
+    Temperature <input ng-model="orgs[org_selected]['temperature']" size="4"> <select
+      ng-model="orgs[org_selected]['context']">
+      <option ng-repeat="name in orgs_entities[org_selected]">{{name}}</option>
+    </select>
+    <button ng-click="updateTemperature(org_selected)">Publish
+      {{org.name}}</button>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 20px" data-ng-show="org_selected != ''">
+  <div class="panel panel-default panel-success">
+  <div class="panel-heading">CKAN contents for {{org_selected}}</div>
+    <div class="panel-body">
+      <ul>
+        <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
+          <ul>
+            <li ng-repeat="resource in dataset['resources']">
+              {{resource.name}}
+              <ul>
                 <li ng-repeat="value in resource['values']">
                   {{value.attrValue}} <small>{{value.recvTime}}</small>
                 </li>
               </ul>
-            </ul>
-           </li>
-        </ul>
-      </div>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

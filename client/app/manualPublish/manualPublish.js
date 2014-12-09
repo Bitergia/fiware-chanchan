@@ -62,6 +62,7 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
     $scope.orgs = Context.orgs();
     $scope.orgs_datasets = {};
     $scope.orgs_entities = {};
+    $scope.org_selected = "";
     $scope.update_ckan();
 
 }]);
