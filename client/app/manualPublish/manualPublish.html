@@ -4,27 +4,32 @@
 <div class="row">
   <div class="col-md-6" ng-repeat="org in orgs">
     <div class="row">
-        Context (dataset) name <input ng-model="org['context_new']" size="15">
+        Context (entity type) name <input ng-model="org['context_new']" size="15">
         <button ng-click="createContext(org.name)">Add to {{org.name}}</button>
     </div>
     <div class="row">
       <br>Temperature <input ng-model="org['temperature']" size="4">
       <select ng-model="org['context']">
-        <option ng-repeat="resource in orgs_datasets[org.name]['resources']">{{resource.name}}</option>
+        <option ng-repeat="name in orgs_entities[org.name]">{{name}}</option>
       </select>
       <button ng-click="updateTemperature(org.name)">Publish {{org.name}}</button>
     </div>
+
     <div class="row">
       <div class="well" style="margin-top: 20px;">
         <ul>
-          <li ng-repeat="resource in orgs_datasets[org.name]['resources']">
-            {{resource.name}}
+          <li ng-repeat="dataset in orgs_datasets[org.name]">
+            {{dataset.name}}
             <ul>
-              <li ng-repeat="value in resource['values']">
-                {{value.attrValue}} <small>{{value.recvTime}}</small>
-              </li>
+              <li ng-repeat="resource in dataset['resources']">
+                {{resource.name}}
+               <ul>
+                <li ng-repeat="value in resource['values']">
+                  {{value.attrValue}} <small>{{value.recvTime}}</small>
+                </li>
+              </ul>
             </ul>
-          </li>
+           </li>
         </ul>
       </div>
     </div>

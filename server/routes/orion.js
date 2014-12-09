@@ -46,7 +46,7 @@ exports.create_context = function(req, res) {
 
     if (org_id == "org1") {
       org_port = "5001";
-  } else if (resource_id == "org2") {
+  } else if (org_id == "org2") {
       org_port = "5002";
   } else {
       res.status(404);
