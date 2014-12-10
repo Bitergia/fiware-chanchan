@@ -5,7 +5,8 @@
 </div>
 
 <div class="row well" style="margin-bottom: 10px">
-  <span class="h5 ">Select organization</span> <select ng-model="org_selected">
+  <span class="h5 ">Publish to organization </span>
+  <select ng-model="org_selected">
     <option ng-repeat="org in orgs">{{org.name}}</option>
   </select>
 </div>
@@ -16,7 +17,8 @@
     <button ng-click="createContext(org_selected)">Add</button>
   </div>
   <div class="col-md-8" data-ng-show="org_selected != ''">
-    Temperature <input ng-model="orgs[org_selected]['temperature']" size="4"> <select
+    Temperature <input ng-model="orgs[org_selected]['temperature']" size="4">
+    <select
       ng-model="orgs[org_selected]['context']">
       <option ng-repeat="name in orgs_entities[org_selected]">{{name}}</option>
     </select>
