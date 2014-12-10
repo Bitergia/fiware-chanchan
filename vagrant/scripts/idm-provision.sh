@@ -2,21 +2,19 @@
 
 export IDM_PROVISION_SCRIPTS="${SCRIPTS_PATH}/idm-provision"
 
+cd ${IDM_PROVISION_SCRIPTS}
+
 # Admin user
-bash ${IDM_PROVISION_SCRIPTS}/create-idm-user.sh
+bash ./create-idm-user.sh "${CC_USER_NAME}" "${CC_EMAIL}" "${CC_PASS}"
 
 # Create organization A
-export CC_ORG="${ORG} A"
-export CC_ORG_DESC="${ORG_DESC} A"
-bash ${IDM_PROVISION_SCRIPTS}/create-idm-org.sh
+bash ./create-idm-org.sh "${CC_EMAIL}" "${ORG} A" "${ORG_DESC} A"
 
 # Add application to organization with custom role
 bash ${IDM_PROVISION_SCRIPTS}/create-idm-app.sh
 
 # Create organization B
-export CC_ORG="${ORG} B"
-export CC_ORG_DESC="${ORG_DESC} B"
-bash ${IDM_PROVISION_SCRIPTS}/create-idm-org.sh
+bash ./create-idm-org.sh "${CC_EMAIL}" "${ORG} B" "${ORG_DESC} B"
 
 # Add application to organization with custom role
 bash ${IDM_PROVISION_SCRIPTS}/create-idm-app.sh
