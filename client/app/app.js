@@ -22,7 +22,7 @@ app.run(function($rootScope, $location) {
         // no logged user, redirect to /login
         if (next.templateUrl === "auth/login.html") {
         } else {
-          // $location.path("/login");
+          $location.path("/login");
         }
       }
     });
