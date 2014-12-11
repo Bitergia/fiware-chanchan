@@ -33,7 +33,7 @@ if [ ! -e /etc/default/$NAME ] ; then
 fi
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
-LOGPATH=$CYGNUS_HOME/log
+LOGPATH=/var/log/${NAME}
 LOGFILE=$LOGPATH/cygnus.log
 TMPDIR=/tmp
 
