@@ -16,6 +16,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="Orion"
 NAME=orion
 PIDFILE=/var/run/$NAME.pid
+CBPIDFILE=/var/run/${NAME}-cb.pid
 SCRIPTNAME=/etc/init.d/$NAME
 LOCKFILE=/var/lock/$NAME.pid
 
@@ -40,7 +41,7 @@ TMPDIR=/tmp
 [ -d $LOGPATH ] || ( mkdir -p $LOGPATH && chown ${ORION_USER}:${ORION_GROUP} $LOGPATH )
 
 ORION_STARTUP_CMD="${ORION_HOME}/bin/contextBroker"
-ORION_STARTUP_OPTIONS="--port 10026"
+ORION_STARTUP_OPTIONS="-port ${ORION_PORT} -logDir ${LOGPATH} -pidpath ${CBPIDFILE}"
 
 rotate_log()
 {

@@ -19,3 +19,6 @@ ORION_GROUP="${ORION_USER}"
 
 # Default startup timeout: 300 sec.
 ORION_STARTUP_TIMEOUT=300
+
+# Default port
+ORION_PORT=10026
