@@ -4,7 +4,8 @@ var express = require('express'),
     site =    require('./site'),
     orion_pep =  require('./routes/orion_pep'),
     orion =    require('./routes/orion'),
-    ckan =    require('./routes/ckan');
+    ckan =    require('./routes/ckan'),
+    filabs =    require('./routes/filabs');
 
 var app = express();
 
@@ -37,8 +38,11 @@ app.get('/auth',auth.auth);
 app.get('/api/orion-pep/contexts',orion_pep.contexts);
 // orion
 app.get('/api/orion/contexts',orion.contexts);
+app.get('/api/orion/sensors/:org_id/:sensor_type',orion.get_sensors);
 app.post('/api/orion/contexts/:org_id/:context_id',orion.create_context);
 app.post('/api/orion/contexts/:org_id/:context_id/:temperature_id',orion.update_context);
+// filabs
+app.get('/api/filabs/auth/:auth_data',filabs.auth);
 // ckan
 app.get('/api/ckan/datasets',ckan.datasets);
 app.get('/api/ckan/organizations',ckan.organizations);

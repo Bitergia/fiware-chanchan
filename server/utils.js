@@ -71,6 +71,7 @@ exports.do_post = function (options, data, callback, res) {
 
         post_req.on('error', function(e) {
             // TODO: handle error.
+            console.log(e);
           });
 
         // post the data
