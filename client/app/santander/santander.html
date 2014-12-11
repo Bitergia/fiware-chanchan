@@ -1,0 +1,92 @@
+<div class="row">
+  <h3>Santander Publish of Data in CKAN</h3>
+</div>
+
+<div class="row" data-ng-show="filabs_access_token == ''"
+  style="max-width: 400px;">
+  <div class="panel panel-default panel-info">
+    <div class="panel-heading">Login in FIWARE Labs (to get sensors data)</div>
+    <div class="panel-body">
+      <!-- Login box -->
+      <div class="row">
+        <div class="col-md-4">User</div>
+        <div class="col-md-8">
+          <input ng-model="user">
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px">
+        <div class="col-md-4">Password</div>
+        <div class="col-md-8">
+          <input type="password" ng-model="password">
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+          <button ng-click="auth_filabs()" type="submit" class="btn btn-primary">Login</button>
+        </div>
+        <div class="col-md-5"></div>
+      </div>
+    </div>
+    <div data-ng-show="auth_result == 'error'"
+      class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-ng-click="vm.result = null" aria-
+        hidden="true">&times;</button>
+      <strong>Can not login: check your user (email) and password and
+        try again ({{error_msg}}).</strong>
+    </div>
+    <div data-ng-show="auth_result == 'ok'"
+      class="alert alert-success alert-dismissable">
+      <button type="button" class="close" data-ng-click="vm.result = null" aria-
+        hidden="true">&times;</button>
+      <strong>Login ok.</strong>
+    </div>
+  </div>
+</div>
+
+
+<div class="row well" style="margin-bottom: 10px"
+  data-ng-show="filabs_access_token != ''">
+  <span class="h5 ">Select sensors type</span> <select
+    ng-model="feeder_selected">
+    <option ng-repeat="feed in feeders">{{feed.name}}</option>
+  </select>
+</div>
+
+<div class="row" style="margin-top: 20px"
+  data-ng-show="filabs_access_token != ''">
+  <div class="col-md-6">
+    <div class="panel panel-default panel-success">
+      <div class="panel-heading">Sound level sensors located for
+        {{org_selected}}</div>
+      <div class="panel-body"></div>
+      <ul>
+        <li ng-repeat="sensor in sensors">{{sensor.contextElement.id}}
+          <ul>
+            <li ng-repeat="attr in sensor.contextElement.attributes">{{attr.name}}:{{attr.value}}</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default panel-success">
+      <div class="panel-heading">CKAN contents for {{org_selected}}</div>
+      <div class="panel-body">
+        <ul>
+          <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
+            <ul>
+              <li ng-repeat="resource in dataset['resources']">
+                {{resource.name}}
+                <ul>
+                  <li ng-repeat="value in resource['values']">
+                    {{value.attrValue}} <small>{{value.recvTime}}</small>
+                  </li>
+                </ul>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
