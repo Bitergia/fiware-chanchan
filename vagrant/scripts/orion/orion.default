@@ -1,0 +1,21 @@
+# Defaults for orion initscript
+# sourced by /etc/init.d/orion
+# installed at /etc/default/orion by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+#####################################################################
+## Orion default configuration
+#####################################################################
+
+# Orion home
+ORION_HOME=/home/${ORION_USER}
+
+# Orion user
+ORION_USER="${ORION_USER}"
+ORION_GROUP="${ORION_USER}"
+
+# Default startup timeout: 300 sec.
+ORION_STARTUP_TIMEOUT=300
