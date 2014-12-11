@@ -90,8 +90,6 @@ touch config/initializers/thales.rb
 scp config/database.yml ${HOSTNAME}:fi-ware-idm/shared/config/
 scp config/initializers/0fiware.rb ${HOSTNAME}:fi-ware-idm/shared/config/initializers/
 scp config/initializers/thales.rb ${HOSTNAME}:fi-ware-idm/shared/config/initializers/
-scp -r ${SCRIPTS_PATH}/idm/patches/app ${HOSTNAME}:fi-ware-idm/shared/
-scp -r ${SCRIPTS_PATH}/idm/patches/config ${HOSTNAME}:fi-ware-idm/shared/
-scp -r ${SCRIPTS_PATH}/idm/patches/lib ${HOSTNAME}:fi-ware-idm/shared/
+scp -r ${SCRIPTS_PATH}/idm/patches/* ${HOSTNAME}:fi-ware-idm/shared/
 
 EOF
