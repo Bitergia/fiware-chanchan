@@ -149,3 +149,44 @@ exports.update_context = function(req, res) {
 
   utils.do_post(options, post_data, return_post, res);
 };
+
+// Find the sensors for a organization and a type
+exports.get_sensors = function(req, res) {
+  return_post = function(res, buffer) {
+      res.send(buffer);
+  };
+
+  var org_id = req.params.org_id;
+  var sensor_type = req.params.sensor_type;
+  var orion_url = "orion.lab.fi-ware.org";
+  var auth_token = req.headers['x-auth-token'];
+
+  post_data = {
+        "entities": [
+         {
+             "type": sensor_type,
+             "isPattern": "true",
+             "id": "urn:smartsantander:testbed:*"
+         }]
+    };
+
+
+  post_data = JSON.stringify(post_data);
+
+  headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Length': post_data.length,
+      'X-Auth-Token': auth_token
+  };
+
+  var options = {
+      host: orion_url,
+      port: 1026,
+      path: '/NGSI10/queryContext',
+      method: 'POST',
+      headers: headers
+  };
+
+  utils.do_post(options, post_data, return_post, res);
+};
