@@ -66,10 +66,12 @@ class Application < Site::Client
 
   def trigger_policy_save
      if FiWareIdm::Thales.enable
-          return XacmlPolicy.save self
+          XacmlPolicy.save self
+     end
      else if FiWareIdm::Keypass.enable
-          return XacmlPolicyKeypass.save self
-end
+          XacmlPolicyKeypass.save self
+     end
+  end
 
   def api_attributes(options={})
     options[:includeResources] = true unless options[:includeResources]==false
