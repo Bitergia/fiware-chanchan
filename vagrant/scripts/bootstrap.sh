@@ -18,14 +18,14 @@ bash idm-provision.sh
 # install Chanchan
 bash install-chanchan.sh
 
-# install Cygnus
-bash install-cygnus.sh
-
 # install Orion
 bash install-orion.sh
 
 # install Orion PEP
 bash install-orion-pep.sh
+
+# install Cygnus
+bash install-cygnus.sh
 
 # install Keypass
 bash install-keypass.sh
