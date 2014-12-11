@@ -40,7 +40,8 @@ app.get('/api/orion-pep/contexts',orion_pep.contexts);
 app.get('/api/orion/contexts',orion.contexts);
 app.get('/api/orion/sensors/:org_id/:sensor_type',orion.get_sensors);
 app.post('/api/orion/contexts/:org_id/:context_id',orion.create_context);
-app.post('/api/orion/contexts/:org_id/:context_id/:temperature_id',orion.update_context);
+app.post('/api/orion/contexts/:org_id/:context_id/:temperature_id',orion.update_context_temperature);
+app.post('/api/orion/entities/:org_id',orion.update_entities); 
 // filabs
 app.get('/api/filabs/auth/:auth_data',filabs.auth);
 // ckan

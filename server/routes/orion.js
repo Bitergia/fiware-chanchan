@@ -7,7 +7,7 @@ var orion_url = "localhost";
 
 
 
-// Return the list of available contexts in Orion
+// Return the list of available entities in Orion
 exports.contexts = function(req, res) {
     // TODO: Check auth
     // Is it possible to get all contexts from the API?
@@ -33,7 +33,7 @@ exports.contexts = function(req, res) {
     utils.do_get(options, return_get, res); 
 };
 
-//Create a new Context in CKAN for an organization
+//Create a new Context subscription in CKAN for an organization
 exports.create_context = function(req, res) {
   return_post = function(res, buffer) {
       res.send(buffer);
@@ -98,7 +98,7 @@ exports.create_context = function(req, res) {
 };
 
 // Update entities data (temperature)
-exports.update_context = function(req, res) {
+exports.update_context_temperature = function(req, res) {
   return_post = function(res, buffer) {
       res.send(buffer);
   };
@@ -184,6 +184,32 @@ exports.get_sensors = function(req, res) {
       host: orion_url,
       port: 1026,
       path: '/NGSI10/queryContext',
+      method: 'POST',
+      headers: headers
+  };
+
+  utils.do_post(options, post_data, return_post, res);
+};
+
+// Update entities in orion
+exports.update_entities = function(req, res) {
+  return_post = function(res, buffer) {
+      res.send(buffer);
+  };
+
+  var org_id = req.params.org_id;
+  var post_data = JSON.stringify(req.body);
+
+  headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Length': post_data.length
+  };
+
+  var options = {
+      host: orion_url,
+      port: 10026,
+      path: '/NGSI10/updateContext',
       method: 'POST',
       headers: headers
   };
