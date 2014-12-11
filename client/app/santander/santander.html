@@ -23,7 +23,8 @@
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-5"></div>
         <div class="col-md-2">
-          <button ng-click="auth_filabs()" type="submit" class="btn btn-primary">Login</button>
+          <button data-ng-show="logging == false" ng-click="auth_filabs()" type="submit" class="btn btn-primary">Login</button>
+          <i data-ng-show="logging" class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
         <div class="col-md-5"></div>
       </div>
@@ -47,18 +48,25 @@
 
 <div class="row well" style="margin-bottom: 10px"
   data-ng-show="filabs_access_token != ''">
-  <span class="h5 ">Select sensors type</span> <select
-    ng-model="feeder_selected">
-    <option ng-repeat="feed in feeders">{{feed.name}}</option>
-  </select>
+  <div class="col-md-2">
+    <span class="h5 ">Select sensors type</span> <select
+      ng-model="feeder_selected">
+      <option ng-repeat="feed in feeders">{{feed.name}}</option>
+    </select>
+  </div>
+  <div class="col-md-10">
+    <button type="button" class="btn-lg alert-success" data-ng-click="publish_sensors()">
+        <span style="margin-right:5px;" class="fa fa-share-square alert-success" aria-hidden="true"></span>Publish
+      Sensors in CKAN </button>
+  </div>
 </div>
 
 <div class="row" style="margin-top: 20px"
   data-ng-show="filabs_access_token != ''">
   <div class="col-md-6">
-    <div class="panel panel-default panel-success">
+    <div class="panel panel-default panel-info">
       <div class="panel-heading">Sound level sensors located for
-        {{org_selected}}</div>
+        {{org_selected}} ({{sensors.length}})</div>
       <div class="panel-body"></div>
       <ul>
         <li ng-repeat="sensor in sensors">{{sensor.contextElement.id}}

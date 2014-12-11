@@ -69,15 +69,19 @@ angular.module('chanchanApp.santander', ['ngRoute'])
 
     $scope.auth_filabs = function() {
         var url = "http://chanchan.server/api/filabs/auth/";
+        $scope.logging = true;
         $http({method:'GET',url:url+$scope.user+"&"+$scope.password})
-        .success(function(data, status, headers, config){
+        .success(function(data, status, headers, config) {
             $scope.filabs_access_token = data; 
             $scope.auth_result = 'ok';
+            console.log($scope.filabs_access_token);
             $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
+            $scope.logging = false;
         })
         .error(function(data, status, headers, config) {
             $scope.auth_result = 'error';
             $scope.error_msg = data;
+            $scope.logging = false;
         });
     };
 
@@ -93,7 +97,12 @@ angular.module('chanchanApp.santander', ['ngRoute'])
     $scope.orgs_entities = {};
     $scope.org_selected = "santander";
     $scope.feeder_selected = "sound";
+    // $scope.filabs_access_token = 'YOUR ACCESS TOKEN'
     $scope.filabs_access_token = '';
+    if ($scope.filabs_access_token != '') {
+        $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
+    }
+    $scope.logging = false;
     $scope.auth_result = '';
     $scope.update_ckan();
 }]);
