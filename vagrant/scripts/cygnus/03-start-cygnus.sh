@@ -1,23 +1,12 @@
 #!/bin/bash
 
-function stop_cygnus () {
-    cygnus_pid=$( ps ax | grep java | grep cygnusagent | awk '{print $1}' )
-    if [ ! -z ${cygnus_pid} ]; then
-	echo "Stopping Cygnus"
-	kill ${cygnus_pid}
-    fi
-}
+sudo cp ${SCRIPTS_PATH}/cygnus/cygnus.default /etc/default/cygnus
+sudo sed -i /etc/default/cygnus \
+     -e "s|^CYGNUS_HOME=.*$|CYGNUS_HOME=${HOME}/${APACHE_FLUME_HOME}|" \
+     -e "s/^CYGNUS_USER=.*$/CYGNUS_USER='${CYGNUS_USER}'/" \
+     -e "s/^CYGNUS_GROUP=.*$/CYGNUS_GROUP='${CYGNUS_USER}'/"
+sudo cp ${SCRIPTS_PATH}/cygnus/cygnus.init /etc/init.d/cygnus
+sudo chmod +x /etc/init.d/cygnus
+sudo update-rc.d cygnus defaults 90 90
 
-
-function start_cygnus () {
-    echo "Starting Cygnus"
-    nohup ${HOME}/${APACHE_FLUME_HOME}/bin/flume-ng \
-	  agent \
-	  --conf ${HOME}/${APACHE_FLUME_HOME}/conf \
-	  -f ${HOME}/${APACHE_FLUME_HOME}/conf/cygnus.conf \
-	  -n cygnusagent \
-	  -Dflume.root.logger=INFO,console > ${HOME}/flume.log 2>&1 < /dev/null &
-}
-
-stop_cygnus
-start_cygnus
+sudo service cygnus restart
