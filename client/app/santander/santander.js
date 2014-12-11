@@ -85,6 +85,45 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         });
     };
 
+    $scope.publish_sensors = function() {
+        var all_sensors = {
+            "contextElements": [],
+            "updateAction": "APPEND"
+        };
+
+        angular.forEach($scope.sensors, function(sensor, key) {
+            var context = sensor.contextElement;
+            var data = {
+                "type": context.type,
+                "isPattern": context.isPattern,
+                "id": context.id,
+            };
+            data.attributes = [];
+            angular.forEach(context.attributes, function(att, key) {
+                data.attributes.push({
+                        "name": att.name,
+                        "type": att.type,
+                        "value": att.value
+                });
+            });
+            all_sensors.contextElements.push(data);
+        });
+        console.log(all_sensors);
+
+        // Publish now in Orion
+        var url = Context.orion()+'/entities/'+$scope.org_selected;
+        console.log(url);
+        all_sensors = JSON.stringify(all_sensors);
+        $http({method:'POST',url:url, data:all_sensors, headers: {'Content-Type': 'application/json'}})
+        .success(function(data,status,headers,config){
+            console.log("Updated context.");
+            $timeout($scope.update_ckan, 1000);
+        })
+        .error(function(data,status,headers,config){
+            console.log("Error in Update entities " + data);
+        });
+    };
+
     $scope.feeders = {
             "sound":{
                 name: "sound",
