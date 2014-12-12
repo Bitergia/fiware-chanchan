@@ -6,6 +6,9 @@ cd ${SCRIPTS_PATH}
 # load environment variables
 source variables.sh
 
+# swap: 512 MB default
+bash swap.sh
+
 # load packages
 bash packages.sh
 
