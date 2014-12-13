@@ -79,12 +79,14 @@
   </div>
   <div class="col-md-6">
     <div class="panel panel-default panel-success">
-      <div class="panel-heading">CKAN contents for {{org_selected}}</div>
+      <div class="panel-heading">CKAN contents for {{org_selected}}
+        <span style="float:right">Sensor <input ng-model="ckan_sensor_name"></span>
+      </div>
       <div class="panel-body">
         <ul>
           <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
             <ul>
-              <li ng-repeat="resource in dataset['resources']">
+              <li ng-repeat="resource in dataset['resources'] | filter:filterByName">
                 {{resource.name}}
                 <ul>
                   <li ng-repeat="value in resource['values']">

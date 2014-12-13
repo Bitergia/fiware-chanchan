@@ -72,7 +72,8 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         $scope.logging = true;
         $http({method:'GET',url:url+$scope.user+"&"+$scope.password})
         .success(function(data, status, headers, config) {
-            $scope.filabs_access_token = data; 
+            $scope.filabs_access_token = data;
+            Context.access_token_filabs(data);
             $scope.auth_result = 'ok';
             console.log($scope.filabs_access_token);
             $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
@@ -124,6 +125,11 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         });
     };
 
+    $scope.filterByName = function(resource) {
+        if ($scope.ckan_sensor_name === undefined) {return true;}
+        return (resource.name.indexOf($scope.ckan_sensor_name) !== -1);
+    };
+
     $scope.feeders = {
             "sound":{
                 name: "sound",
@@ -136,8 +142,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
     $scope.orgs_entities = {};
     $scope.org_selected = "santander";
     $scope.feeder_selected = "sound";
-    // $scope.filabs_access_token = 'YOUR ACCESS TOKEN'
-    $scope.filabs_access_token = '';
+    $scope.filabs_access_token = Context.access_token_filabs();
     if ($scope.filabs_access_token != '') {
         $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
     }

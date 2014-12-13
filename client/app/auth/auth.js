@@ -16,7 +16,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
     $scope.user = "chanchan@idm.server";
     $scope.password = "ccadmin";
     // The id and secret comes from IDM application data in the org
-    
+
     $scope.organizations = GlobalContextService.orgs();
 
     $scope.auth = function() {
@@ -32,6 +32,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
         var oauth_token = "oauth2/token";
         var user_roles = "user";
 
+        $scope.auth_result = "";
 
         $http({method:'POST',url:url+"/"+oauth_token,data:data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .success(function(data,status,headers,config){

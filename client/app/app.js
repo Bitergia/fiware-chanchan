@@ -31,7 +31,7 @@ app.run(function($rootScope, $location) {
 // GlobalContext service to share data between controllers
 // TODO: just use rootScope?
 app.factory('GlobalContextService', function() {
-    var access_token_val, app_id_val, org_id_val, roles_val;
+    var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, roles_val;
 
     // ORION AND CKAN CONFIG
     var orion_url ='http://chanchan.server/api/orion';
@@ -45,12 +45,12 @@ app.factory('GlobalContextService', function() {
     var organizations = {"org1": {
                                 "name":"org1",
                                 "id":"2",
-                                "secret":"22903cea1159501528fe24c27cfbe832ab793de0fecaf62b4d3fb1fa6ee88b9851edbb4fae8709f0e1e1dd6e67ac79411eb24a69bd44b7b2592f7d149ba8c711",
+                                "secret":"3a0eb118aab4d813450c52d6efad91abe0354fea02bb959869ab0848ab668b7928ddd23661485c65fb55a53ae01c867cf93a32b10848b237cc663a5f6636317b",
                             },
                          "org2": {
                                 "name":"org2",
                                 "id":"3",
-                                "secret":"00fd36ea38e5ed87254f64479f7776621f05d62316a22bee55b0759e88ec70352be3ba14388d01d30288eae9ebdf739ec13aa6f4b741cd6dddb7c1c194e18046",
+                                "secret":"b604ba5e9741a85e7da65602624f3e23c133e76c3a7f559cda5cec2a36a3cc835ac3f456226d9e170f68b7f90985709230d20b36608a3c1c2775e5b8a3c181af",
                             }};
   return {
     orgs: function() {
@@ -60,6 +60,10 @@ app.factory('GlobalContextService', function() {
       if (val !== undefined) {access_token_val = val;}
       return access_token_val;
     },
+    access_token_filabs: function(val) {
+        if (val !== undefined) {access_token_filabs_val = val;}
+        return access_token_filabs_val;
+      },
     app_id: function(val) {
       if (val !== undefined) {app_id_val = val;}
       return app_id_val;

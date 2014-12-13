@@ -22,7 +22,7 @@
 
       </div>
     </div>
-    <div class="row" style="margin-top: 20px;">
+    <div class="row" style="margin: 20px;">
       <div class="col-md-5"></div>
       <div class="col-md-2">
         <button ng-click="auth()" type="submit" class="btn btn-primary">Login</button>
@@ -40,8 +40,7 @@
 <div class="row">
   <div data-ng-show="auth_result == 'error'"
     class="alert alert-danger alert-dismissable">
-    <button type="button" class="close" data-ng-click="vm.result = null" aria-
-      hidden="true">&times;</button>
+    <button type="button" class="close" data-ng-click="auth_result = ''" aria-hidden="true">&times;</button>
     <strong>Can not login: check your user (email) and password and try
       again.</strong>
   </div>
@@ -49,8 +48,7 @@
 <div class="row">
   <div data-ng-show="auth_result == 'ok'"
     class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-ng-click="vm.result = null" aria-
-      hidden="true">&times;</button>
+    <button type="button" class="close" data-ng-click="auth_result = ''" aria-hidden="true">&times;</button>
     <strong>Login ok.</strong> The roles you have in {{organization}} are:
     {{roles}}. The org_id is {{org_id}} and the app_id is {{app_id}}.
   </div>
