@@ -34,7 +34,7 @@ exports.contexts = function(req, res) {
 };
 
 //Create a new Context subscription in CKAN for an organization
-exports.create_context = function(req, res) {
+exports.subscribe_context = function(req, res) {
   return_post = function(res, buffer) {
       res.send(buffer);
   };
@@ -110,9 +110,9 @@ exports.update_context_temperature = function(req, res) {
     post_data = {
         "contextElements": [
                 {
-                    "type": context_id,
+                    "type": org_id,
                     "isPattern": "false",
-                    "id": "FirstEntity",
+                    "id": context_id,
                     "attributes": [
                     {
                         "name": "temperature",

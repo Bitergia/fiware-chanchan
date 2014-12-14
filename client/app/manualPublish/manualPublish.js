@@ -11,15 +11,12 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
 
 .controller('ManualPublishCtrl', ['$scope', '$http', '$timeout', 'GlobalContextService', function($scope, $http, $timeout, Context) {
     $scope.createContext = function(org_name) {
-        console.log(Context.orion()+'/contexts/'+org_name+'/'+$scope.orgs[org_name].context_new);
-        $http.post(Context.orion()+'/contexts/'+org_name+'/'+$scope.orgs[org_name].context_new).success(function(data) {
-            // Add a first value so CKAN entity is created
-            $scope.orgs[org_name].temperature = "-";
-            $scope.updateTemperature(org_name, $scope.orgs[org_name].context_new);
-            console.log("Created context.");
-            $scope.orgs[org_name].temperature = "";
-            // $scope.update_ckan();
-        });
+        $scope.orgs[org_name].temperature = "-";
+        var context = $scope.orgs[org_name].context_new;
+        context = "manual:"+context; // Name space for manual measures
+        $scope.updateTemperature(org_name, context);
+        console.log("Created context: " + context);
+        $scope.orgs[org_name].temperature = "";
     };
 
     $scope.updateTemperature = function(org_name, context) {
@@ -27,12 +24,12 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             // FirstEntity-ent1  org1  org1_room_dataset_1
             // Working always with the FirstEntity
             context = $scope.orgs[org_name].context.split("  ")[0];
-            context = context.split("-")[1];
+            context = context.split("-")[0];
         }
         var url = Context.orion()+'/contexts/'+org_name+'/'+context+'/'+$scope.orgs[org_name].temperature;
         console.log(url);
         $http.post(url).success(function(data) {
-            console.log("Updated context.");
+            console.log("Updated context: " + context);
             $scope.orgs_entities[org_name] = [];
             $scope.orgs_datasets[org_name] = {};
             $timeout($scope.update_ckan, 2000);
