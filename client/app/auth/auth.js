@@ -32,14 +32,13 @@ angular.module('chanchanApp.auth', ['ngRoute'])
         var oauth_token = "oauth2/token";
         var user_roles = "user";
 
-        $scope.auth_result = "";
+        $scope.auth_result = "process";
 
         $http({method:'POST',url:url+"/"+oauth_token,data:data, headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .success(function(data,status,headers,config){
             var access_token = data.access_token;
             $http({method:'GET',url:url+"/"+user_roles+"?access_token="+data.access_token})
             .success(function(data,status,headers,config){
-
                $scope.user_data =  data;
                $scope.auth_result = "ok";
                if (data.organizations) {
@@ -60,7 +59,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                     $scope.roles = roles;
                }
                var rol_names = "";
-               angular.forEach (roles, function (value, key) {rol_names+= value.name + ","});
+               angular.forEach (roles, function (value, key) {rol_names+= value.name + ",";});
                rol_names = rol_names.substring(0, rol_names.length -1);
                $rootScope.loggedInUser = true;
                $rootScope.user_name = data.displayName;
@@ -77,7 +76,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
         }).
         error(function(data,status,headers,config){
           $scope.auth_result = "error";
-          console.log(data)
+          console.log(data);
         });
     };
 

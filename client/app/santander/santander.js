@@ -62,6 +62,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         if (org_name === undefined) {org_name = $scope.org_selected;}
         if (sensor_type === undefined) {sensor_type = $scope.feeders[$scope.feeder_selected].type;}
         var headers = {"x-auth-token":$scope.filabs_access_token};
+        console.log("Geeting sensors data ...");
         $http({method:'GET',url:Context.orion()+'/sensors/'+org_name+"/"+sensor_type,headers:headers})
         .success(function(data) {
             console.log(data);
@@ -80,6 +81,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
             $scope.auth_result = 'ok';
             console.log($scope.filabs_access_token);
             $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
+            $scope.update_ckan();
             $scope.logging = false;
         })
         .error(function(data, status, headers, config) {
@@ -146,11 +148,9 @@ angular.module('chanchanApp.santander', ['ngRoute'])
     $scope.org_selected = "santander";
     $scope.feeder_selected = "sound";
     $scope.filabs_access_token = Context.access_token_filabs();
-    $scope.filabs_access_token = "cbLfYAZc3PFUBvLtJxavtJ0_6QdaGs3NCIV4WanTW0m08eeZmEViBEjbUQ10WtGGybRIVHypxL9f51xoos4Jcw";
     if ($scope.filabs_access_token != '') {
         $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
     }
     $scope.logging = false;
     $scope.auth_result = '';
-    $scope.update_ckan();
 }]);
