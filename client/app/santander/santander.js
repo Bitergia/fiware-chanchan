@@ -53,11 +53,14 @@ angular.module('chanchanApp.santander', ['ngRoute'])
                   });
               });
           });
+          console.log("CKAN data updated.");
       });
-      console.log("CKAN data updated.");
     };
 
     $scope.update_sensors = function(org_name, sensor_type) {
+        $scope.sensors = [];
+        if (org_name === undefined) {org_name = $scope.org_selected;}
+        if (sensor_type === undefined) {sensor_type = $scope.feeders[$scope.feeder_selected].type;}
         var headers = {"x-auth-token":$scope.filabs_access_token};
         $http({method:'GET',url:Context.orion()+'/sensors/'+org_name+"/"+sensor_type,headers:headers})
         .success(function(data) {
@@ -143,6 +146,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
     $scope.org_selected = "santander";
     $scope.feeder_selected = "sound";
     $scope.filabs_access_token = Context.access_token_filabs();
+    $scope.filabs_access_token = "cbLfYAZc3PFUBvLtJxavtJ0_6QdaGs3NCIV4WanTW0m08eeZmEViBEjbUQ10WtGGybRIVHypxL9f51xoos4Jcw";
     if ($scope.filabs_access_token != '') {
         $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
     }

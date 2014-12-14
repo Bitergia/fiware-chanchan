@@ -29,8 +29,13 @@
 
 <div class="row" style="margin-top: 20px" data-ng-show="org_selected != ''">
   <div class="panel panel-default panel-success">
-  <div class="panel-heading">CKAN contents for {{org_selected}}</div>
+  <div class="panel-heading">CKAN contents for {{org_selected}}
+      <button type="button" data-ng-click="update_ckan()">
+        <span class="fa fa-refresh" aria-hidden="true"></span>
+      </button>
+  </div>
     <div class="panel-body">
+      <i data-ng-show="orgs_entities[org_selected].length == 0" class="fa fa-spinner fa-spin fa-3x"></i>
       <ul>
         <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
           <ul>

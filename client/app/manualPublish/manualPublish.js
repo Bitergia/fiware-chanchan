@@ -33,7 +33,9 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
         console.log(url);
         $http.post(url).success(function(data) {
             console.log("Updated context.");
-            $timeout($scope.update_ckan, 1000);
+            $scope.orgs_entities[org_name] = [];
+            $scope.orgs_datasets[org_name] = {};
+            $timeout($scope.update_ckan, 2000);
         });
     };
 

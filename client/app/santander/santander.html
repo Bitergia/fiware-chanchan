@@ -23,7 +23,8 @@
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-5"></div>
         <div class="col-md-2">
-          <button data-ng-show="logging == false" ng-click="auth_filabs()" type="submit" class="btn btn-primary">Login</button>
+          <button data-ng-show="logging == false" ng-click="auth_filabs()"
+            type="submit" class="btn btn-primary">Login</button>
           <i data-ng-show="logging" class="fa fa-spinner fa-spin fa-3x"></i>
         </div>
         <div class="col-md-5"></div>
@@ -31,15 +32,15 @@
     </div>
     <div data-ng-show="auth_result == 'error'"
       class="alert alert-danger alert-dismissable">
-      <button type="button" class="close" data-ng-click="vm.result = null" aria-
-        hidden="true">&times;</button>
+      <button type="button" class="close" data-ng-click="auth_result == ''"
+        aria-hidden="true">&times;</button>
       <strong>Can not login: check your user (email) and password and
         try again ({{error_msg}}).</strong>
     </div>
     <div data-ng-show="auth_result == 'ok'"
       class="alert alert-success alert-dismissable">
-      <button type="button" class="close" data-ng-click="vm.result = null" aria-
-        hidden="true">&times;</button>
+      <button type="button" class="close" data-ng-click="auth_result == ''"
+        aria-hidden="true">&times;</button>
       <strong>Login ok.</strong>
     </div>
   </div>
@@ -55,9 +56,11 @@
     </select>
   </div>
   <div class="col-md-10">
-    <button type="button" class="btn-lg alert-success" data-ng-click="publish_sensors()">
-        <span style="margin-right:5px;" class="fa fa-share-square alert-success" aria-hidden="true"></span>Publish
-      Sensors in CKAN </button>
+    <button type="button" class="btn-lg alert-success"
+      data-ng-click="publish_sensors()">
+      <span style="margin-right: 5px;" class="fa fa-share-square alert-success"
+        aria-hidden="true"></span>Publish Sensors in CKAN
+    </button>
   </div>
 </div>
 
@@ -65,9 +68,14 @@
   data-ng-show="filabs_access_token != ''">
   <div class="col-md-6">
     <div class="panel panel-default panel-info">
-      <div class="panel-heading">Sound level sensors located for
-        {{org_selected}} ({{sensors.length}})</div>
+      <div class="panel-heading">Sound level sensors located at
+        {{org_selected}} ({{sensors.length}})
+      <button type="button" data-ng-click="update_sensors()">
+        <span class="fa fa-refresh" aria-hidden="true"></span>
+      </button>
+        </div>
       <div class="panel-body"></div>
+      <i data-ng-show="sensors.length == 0" class="fa fa-spinner fa-spin fa-3x"></i>
       <ul>
         <li ng-repeat="sensor in sensors">{{sensor.contextElement.id}}
           <ul>
@@ -79,14 +87,22 @@
   </div>
   <div class="col-md-6">
     <div class="panel panel-default panel-success">
-      <div class="panel-heading">CKAN contents for {{org_selected}}
-        <span style="float:right">Sensor <input ng-model="ckan_sensor_name"></span>
+      <div class="panel-heading">
+        CKAN contents for {{org_selected}} 
+        <button type="button" data-ng-click="update_ckan()">
+        <span class="fa fa-refresh" aria-hidden="true"></span>
+      </button> 
+        <span style="float: right">Sensor
+          <input ng-model="ckan_sensor_name">
+        </span>
       </div>
       <div class="panel-body">
+        <i data-ng-show="orgs_entities[org_selected].length == 0" class="fa fa-spinner fa-spin fa-3x"></i>
         <ul>
           <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
             <ul>
-              <li ng-repeat="resource in dataset['resources'] | filter:filterByName">
+              <li
+                ng-repeat="resource in dataset['resources'] | filter:filterByName">
                 {{resource.name}}
                 <ul>
                   <li ng-repeat="value in resource['values']">
