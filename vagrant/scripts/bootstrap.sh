@@ -7,7 +7,7 @@ _status=$?
 case ${_status} in
     0)
 	# running on vagrant
-	SCRIPTS_PATH="/vargrant/scripts"
+	SCRIPTS_PATH="/vagrant/scripts"
 	;;
     2)
 	# vagrant user not found
