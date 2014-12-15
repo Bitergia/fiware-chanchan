@@ -44,9 +44,9 @@ exports.subscribe_context = function(req, res) {
   var context_id = req.params.context_id;
   var org_port;
 
-    if (org_id == "org1") {
+    if (org_id == "org1" || org_id == "organization_a") {
       org_port = "5001";
-  } else if (org_id == "org2") {
+  } else if (org_id == "org2" || org_id == "organizatiob_b") {
       org_port = "5002";
   } else {
       res.status(404);
