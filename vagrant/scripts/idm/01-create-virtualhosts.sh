@@ -65,4 +65,4 @@ a2ensite idm
 a2ensite idm-ssl
 
 # reload service
-service apache2 reload
+service apache2 restart

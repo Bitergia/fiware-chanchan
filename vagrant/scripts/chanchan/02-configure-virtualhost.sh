@@ -29,4 +29,4 @@ EOF
 a2ensite chanchan
 
 # reload service
-service apache2 reload
+service apache2 restart
