@@ -17,11 +17,6 @@ APP_CALLBACK="http://${CC_HOSTNAME}/login"
 ROLE_M="Member"
 ROLE_P="Publisher"
 
-PERM_P_NAME="Publicador"
-PERM_P_DESC="Publicador en la aplicación"
-PERM_P_ACT="POST"
-PERM_P_RES="/publish"
-
 # Admin user
 create-idm-user.sh "${CC_USER_NAME}" "${CC_EMAIL}" "${CC_PASS}"
 
@@ -46,8 +41,14 @@ create-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}"
 create-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_M}"
 create-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}"
 
-create-permission.sh "${ORG_A}" "${APP_NAME}" "${PERM_P_NAME}" "${PERM_P_DESC}" "${PERM_P_ACT}" "${PERM_P_RES}"
-create-permission.sh "${ORG_B}" "${APP_NAME}" "${PERM_P_NAME}" "${PERM_P_DESC}" "${PERM_P_ACT}" "${PERM_P_RES}"
+create-permission.sh "${ORG_A}" "${APP_NAME}" "Subscribe" "Subscribe Option for Orion PEP" "subscribecontext" "subscribe"
+create-permission.sh "${ORG_A}" "${APP_NAME}" "Create" "Create Option for Orion PEP" "updatecontext" "create"
+create-permission.sh "${ORG_A}" "${APP_NAME}" "Update" "Update Option for Orion PEP" "updatecontext" "update"
+create-permission.sh "${ORG_A}" "${APP_NAME}" "Delete" "Delete Option for Orion PEP" "updatecontext" "delete"
+create-permission.sh "${ORG_B}" "${APP_NAME}" "Subscribe" "Subscribe Option for Orion PEP" "subscribecontext" "subscribe"
+create-permission.sh "${ORG_B}" "${APP_NAME}" "Create" "Create Option for Orion PEP" "updatecontext" "create"
+create-permission.sh "${ORG_B}" "${APP_NAME}" "Update" "Update Option for Orion PEP" "updatecontext" "update"
+create-permission.sh "${ORG_B}" "${APP_NAME}" "Delete" "Delete Option for Orion PEP" "updatecontext" "delete"
 
 add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "${PERM_P_NAME}"
 add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "${PERM_P_NAME}"
