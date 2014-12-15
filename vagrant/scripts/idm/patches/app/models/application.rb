@@ -67,8 +67,7 @@ class Application < Site::Client
   def trigger_policy_save
      if FiWareIdm::Thales.enable
           XacmlPolicy.save self
-     end
-     else if FiWareIdm::Keypass.enable
+     elsif FiWareIdm::Keypass.enable
           XacmlPolicyKeypass.save self
      end
   end
