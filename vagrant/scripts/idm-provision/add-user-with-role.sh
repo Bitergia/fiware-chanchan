@@ -238,7 +238,7 @@ else
     _add_new_contact
     retval=$?
 fi
-exit 0
+
 for f in "${output[@]}" ; do
     if [ -f "${f}" ]; then
 	rm -f "${f}"
