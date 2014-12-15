@@ -34,24 +34,28 @@ app.factory('GlobalContextService', function() {
     var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, roles_val;
 
     // ORION AND CKAN CONFIG
-    var orion_url ='http://chanchan.server/api/orion';
-    var orion_pep_url ='http://chanchan.server/api/orion-pep';
-    var ckan_url = 'http://chanchan.server/api/ckan';
+    var base_url = '';
+    var orion_url = base_url + '/api/orion';
+    var orion_pep_url = base_url + '/api/orion-pep';
+    var ckan_url = base_url + '/api/ckan';
     // Development config
     // var orion_url ='http://chanchan.server:3000/api/orion';
     // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep';
     // var ckan_url ='http://chanchan.server:3000/api/ckan';
 
-    var organizations = {"org1": {
-                                "name":"org1",
-                                "id":"2",
-                                "secret":"3a0eb118aab4d813450c52d6efad91abe0354fea02bb959869ab0848ab668b7928ddd23661485c65fb55a53ae01c867cf93a32b10848b237cc663a5f6636317b",
-                            },
-                         "org2": {
-                                "name":"org2",
-                                "id":"3",
-                                "secret":"b604ba5e9741a85e7da65602624f3e23c133e76c3a7f559cda5cec2a36a3cc835ac3f456226d9e170f68b7f90985709230d20b36608a3c1c2775e5b8a3c181af",
-                            }};
+    var organizations = {
+	"Organization A": {
+            "id": "2",
+            "name": "Organization A",
+            "secret": "0ecf8db63ec7c36d4749b30008640214d4a45555e79115ef8ecdcc30ddc4f5981fddfc7482793a2d407ddf63f49f43aa492eddc5c59d6115b518ee8c639e8df2"
+	},
+	"Organization B": {
+            "id": "3",
+            "name": "Organization B",
+            "secret": "c90260b803c82b6fdd1cc42ad6dea13fa5dcfc9eded65904ba397ad6acb4cad566a622499f948f3e3fa5d7545474e42de1e9293b37417022edc815daffbbd58c"
+	}
+    };
+
   return {
     orgs: function() {
       return organizations;
