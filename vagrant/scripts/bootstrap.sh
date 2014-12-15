@@ -21,8 +21,7 @@ case ${_status} in
 	exit 1
 	;;
 esac
-echo $SCRIPTS_PATH
-exit 0
+
 cd ${SCRIPTS_PATH}
 
 # load environment variables
