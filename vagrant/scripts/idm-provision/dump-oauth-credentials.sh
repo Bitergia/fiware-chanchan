@@ -82,7 +82,8 @@ function _get_oauth_data () {
 
 function _dump_oauth_data () {
 
-    echo "\"${org_name}\": { \"name\": \"${org_name}\", \"id\": \"${oauth[id]}\", \"secret\": \"${oauth[secret]}\"}" >> "${CC_OAUTH_CREDENTIALS}" && \
+    _tag=$( echo ${org_name} | tr '[ A-Z]' '[_a-z]' )
+    echo "\"${_tag}\": { \"name\": \"${org_name}\", \"id\": \"${oauth[id]}\", \"secret\": \"${oauth[secret]}\"}" >> "${CC_OAUTH_CREDENTIALS}" && \
     cat "${CC_OAUTH_CREDENTIALS}" | sort -u > "${CC_OAUTH_CREDENTIALS}.tmp" && \
     mv "${CC_OAUTH_CREDENTIALS}.tmp" "${CC_OAUTH_CREDENTIALS}"
 }

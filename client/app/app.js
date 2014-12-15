@@ -34,9 +34,10 @@ app.factory('GlobalContextService', function() {
     var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, roles_val;
 
     // ORION AND CKAN CONFIG
-    var orion_url ='http://chanchan.server/api/orion';
-    var orion_pep_url ='http://chanchan.server/api/orion-pep';
-    var ckan_url = 'http://chanchan.server/api/ckan';
+    var base_url = '';
+    var orion_url = base_url + '/api/orion';
+    var orion_pep_url = base_url + '/api/orion-pep';
+    var ckan_url = base_url + '/api/ckan';
     // Development config
     // var orion_url ='http://chanchan.server:3000/api/orion';
     // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep';
