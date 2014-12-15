@@ -6,38 +6,38 @@
 
 <div class="row well" style="margin-bottom: 10px">
   <span class="h5 ">Publish to organization </span>
-  <select ng-model="org_selected">
-    <option ng-repeat="org in orgs">{{org.name}}</option>
+  <select ng-model="org_selected.name" ng-change="update_ckan()">
+    <option value ="{{key}}" ng-repeat="(key, org) in orgs">{{org.name}}</option>
   </select>
 </div>
 
 <div class="row">
-  <div class="col-md-4" data-ng-show="org_selected != ''">
-    Context (entity type) name <input ng-model="orgs[org_selected]['context_new']" size="15">
-    <button ng-click="createContext(org_selected)">Add</button>
+  <div class="col-md-4" data-ng-show="org_selected.name != ''">
+    Context (entity type) name <input ng-model="org_selected['context_new']" size="15">
+    <button ng-click="createContext(org_selected.name)">Add</button>
   </div>
-  <div class="col-md-8" data-ng-show="org_selected != ''">
-    Temperature <input ng-model="orgs[org_selected]['temperature']" size="4">
+  <div class="col-md-8" data-ng-show="org_selected.name != ''">
+    Temperature <input ng-model="org_selected['temperature']" size="4">
     <select
-      ng-model="orgs[org_selected]['context']">
-      <option ng-repeat="name in orgs_entities[org_selected]">{{name}}</option>
+      ng-model="org_selected['context']">
+      <option ng-repeat="name in orgs_entities[org_selected.name]">{{name}}</option>
     </select>
-    <button ng-click="updateTemperature(org_selected)">Publish
+    <button ng-click="updateTemperature(org_selected.name)">Publish
       {{org.name}}</button>
   </div>
 </div>
 
-<div class="row" style="margin-top: 20px" data-ng-show="org_selected != ''">
+<div class="row" style="margin-top: 20px" data-ng-show="org_selected.name != '' && error == undefined">
   <div class="panel panel-default panel-success">
-  <div class="panel-heading">CKAN contents for {{org_selected}}
+  <div class="panel-heading">CKAN contents for {{org_selected.name}}
       <button type="button" data-ng-click="update_ckan()">
         <span class="fa fa-refresh" aria-hidden="true"></span>
       </button>
   </div>
     <div class="panel-body">
-      <i data-ng-show="orgs_entities[org_selected].length == 0" class="fa fa-spinner fa-spin fa-3x"></i>
+      <i data-ng-show="orgs_entities[org_selected.name] == undefined" class="fa fa-spinner fa-spin fa-3x"></i>
       <ul>
-        <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
+        <li ng-repeat="dataset in orgs_datasets[org_selected.name]">{{dataset.name}}
           <ul>
             <li ng-repeat="resource in dataset['resources']">
               {{resource.name}}
@@ -51,4 +51,11 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div data-ng-show="error != undefined && org_selected.name != ''" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="init_view()"
+    aria-hidden="true">&times;</button>
+    Response from CKAN for organization: {{error}}
 </div>
