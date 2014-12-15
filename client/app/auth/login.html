@@ -39,14 +39,14 @@
         </div>
         <div data-ng-show="auth_result == 'error'"
           class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-ng-click="auth_result == ''"
+          <button type="button" class="close" data-ng-click="auth_result = ''"
             aria-hidden="true">&times;</button>
           <strong>Can not login: check your user (email) and password
-            and try again ({{error_msg}}).</strong>
+            and try again.</strong>
         </div>
         <div data-ng-show="auth_result == 'ok'"
           class="alert alert-success alert-dismissable">
-          <button type="button" class="close" data-ng-click="auth_result == ''"
+          <button type="button" class="close" data-ng-click="auth_result = ''"
             aria-hidden="true">&times;</button>
           <strong>Login ok.</strong> The roles you have in {{organization}} are:
           {{roles}}. The org_id is {{org_id}} and the app_id is {{app_id}}.
@@ -58,22 +58,4 @@
   <!-- User info box -->
   <div class="col-md-6">{{user_data}}</div>
   <!-- End User info box -->
-</div>
-<div class="row">
-  <div data-ng-show="auth_result == 'error'"
-    class="alert alert-danger alert-dismissable">
-    <button type="button" class="close" data-ng-click="auth_result = ''"
-      aria-hidden="true">&times;</button>
-    <strong>Can not login: check your user (email) and password and try
-      again.</strong>
-  </div>
-</div>
-<div class="row">
-  <div data-ng-show="auth_result == 'ok'"
-    class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-ng-click="auth_result = ''"
-      aria-hidden="true">&times;</button>
-    <strong>Login ok.</strong> The roles you have in {{organization}} are:
-    {{roles}}. The org_id is {{org_id}} and the app_id is {{app_id}}.
-  </div>
 </div>
