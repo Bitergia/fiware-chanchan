@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# where the scripts are loacted
-export SCRIPTS_PATH="/vagrant/scripts"
+# where the scripts are located
+export SCRIPTS_PATH="${SCRIPTS_PATH:-/vagrant/scripts}"
 
 # server hostname
 export HOSTNAME="$(hostname -f)"

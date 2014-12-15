@@ -1,6 +1,28 @@
 #!/bin/bash
 
-export SCRIPTS_PATH="/vagrant/scripts"
+# allow running the provision scripts on non-vagrant environments
+_vagrant_user="vagrant"
+getent passwd ${_vagrant_user} 2>&1 >/dev/null
+_status=$?
+case ${_status} in
+    0)
+	# running on vagrant
+	SCRIPTS_PATH="/vargrant/scripts"
+	;;
+    2)
+	# vagrant user not found
+	SC_PATH=$( cd $( dirname $0 ) 2>&1 >/dev/null && pwd )
+	mkdir -p /opt/vagrant && cp -r ${SC_PATH} /opt/vagrant
+	SCRIPTS_PATH="/opt/vagrant/scripts"
+	;;
+    *)
+	# it should not get here
+	echo "getent failed with error: ${_status}"
+	exit 1
+	;;
+esac
+echo $SCRIPTS_PATH
+exit 0
 cd ${SCRIPTS_PATH}
 
 # load environment variables
