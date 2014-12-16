@@ -10,7 +10,7 @@ export HOSTNAME="$(hostname -f)"
 export UTILS_PATH="${SCRIPTS_PATH}/util"
 
 # interface for the public ip
-export IFACE="eth1"
+export IFACE="${IFACE:-eth1}"
 
 ### IDM related variables
 export IDM_HOSTNAME="idm.${HOSTNAME}"
