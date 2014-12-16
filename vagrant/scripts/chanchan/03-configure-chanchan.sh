@@ -1,7 +1,5 @@
 #!/bin/bash
 
-IDM_URL="https://${IDM_HOSTNAME}"
-
 ${UTILS_PATH}/update_hosts.sh ${CC_HOSTNAME}
 
 su - chanchan <<EOF
@@ -11,6 +9,12 @@ sed -i ${CC_APP_SERVER_PATH}/config.js \
 
 sed -i ${CC_APP_CLIENT_PATH}/app/app.js \
   -e "/^[ ]*var base_url =/c\    var base_url = '${CC_APP_URL}';"
+
+sed -i ${CC_APP_CLIENT_PATH}/app/auth/auth.js \
+  -e "/^[ ]*var url =/c\        var url = '${IDM_URL}';" \
+  -e "/^[ ]*\\\$scope.user =/c\    var \\\$scope.user = '${CC_EMAIL}';" \
+  -e "/^[ ]*\\\$scope.password =/c\    var \\\$scope.password = '${CC_PASS}';"
+
 EOF
 if [ -f "${CC_OAUTH_CREDENTIALS}" ]; then
     ORGANIZATIONS=$( (echo "{" ; (cat "${CC_OAUTH_CREDENTIALS}" | paste -s -d ',') ; echo "}")  | python -m json.tool )
