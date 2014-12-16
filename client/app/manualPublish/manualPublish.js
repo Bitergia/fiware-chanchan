@@ -67,8 +67,7 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
 
     $scope.update_ckan = function() {
       angular.forEach($scope.organizations, function(value, org_name) {
-          $scope.orgs_datasets[org_name] = null;
-          $scope.orgs_entities[org_name] = null;
+          $scope.reset_view();
           $http.get(Context.ckan()+'/organization/'+org_name).success(function(data) {
               if (data.result === undefined) {
                   // Org not found
@@ -95,11 +94,15 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
       console.log("CKAN data updated.");
     };
 
-    $scope.init_view = function() {
+    $scope.reset_view = function() {
         $scope.orgs_datasets = {};
         $scope.orgs_entities = {};
-        $scope.org_selected = {name:""};
         $scope.error = undefined;
+    };
+
+    $scope.init_view = function() {
+        $scope.reset_view();
+        $scope.org_selected = {name:""};
     };
 
     $scope.init_view();
