@@ -35,11 +35,11 @@ app.get('/auth',auth.auth);
 // api rest: /api/
 //
 // orion_pep
-app.get('/api/orion-pep/contexts',orion_pep.contexts);
+app.post('/api/orion-pep/contexts/:org_id/:context_id/:temperature_id',orion_pep.update_context_temperature);
 // orion
 app.get('/api/orion/contexts',orion.contexts);
 app.get('/api/orion/sensors/:org_id/:sensor_type',orion.get_sensors);
-app.post('/api/orion/contexts/:org_id/:context_id',orion.subscribe_context);
+// app.post('/api/orion/contexts/:org_id/:context_id',orion.subscribe_context);
 app.post('/api/orion/contexts/:org_id/:context_id/:temperature_id',orion.update_context_temperature);
 app.post('/api/orion/entities/:org_id',orion.update_entities); 
 // filabs

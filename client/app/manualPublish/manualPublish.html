@@ -57,5 +57,12 @@
   class="row alert alert-danger alert-dismissable">
   <button type="button" class="close" data-ng-click="init_view()"
     aria-hidden="true">&times;</button>
-    Response from CKAN for organization: {{error}}
+    ERROR: {{error}}
+</div>
+
+<div data-ng-show="roles_error != undefined" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="roles_error = undefined"
+    aria-hidden="true">&times;</button>
+    {{roles_error}}
 </div>

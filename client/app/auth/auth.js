@@ -40,16 +40,18 @@ angular.module('chanchanApp.auth', ['ngRoute'])
             .success(function(data,status,headers,config){
                $scope.user_data =  data;
                $scope.auth_result = "ok";
+               GlobalContextService.access_token(access_token);
                if (data.organizations) {
                     // Find the organization roles
                     var roles = [];
                     angular.forEach(data.organizations, function(value, key) {
-                        if (value.displayName === $scope.organization) {
+                        var login_org = $scope.organizations[$scope.organization].name;
+                        if (value.displayName === login_org) {
+                            roles = value.roles;
+                            if (roles.length == 0) return;
                             GlobalContextService.roles(roles);
                             GlobalContextService.org_id(value.id);
                             GlobalContextService.app_id(data.app_id);
-                            GlobalContextService.access_token(access_token);
-                            roles = value.roles;
                             $scope.org_id = value.id;
                             $scope.app_id = data.app_id;
                             return false;

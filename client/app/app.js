@@ -36,6 +36,7 @@ app.run(function($rootScope, $location, $http) {
 // TODO: just use rootScope?
 app.factory('GlobalContextService', function() {
     var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, roles_val;
+    var use_pep_val = true;
 
     // ORION AND CKAN CONFIG
     var base_url = '';
@@ -75,6 +76,10 @@ app.factory('GlobalContextService', function() {
     orion_pep: function(val) {
       if (val !== undefined) {orion_pep_url = val;}
       return orion_pep_url;
+    },
+    use_pep: function(val) {
+        if (val !== undefined) {use_pep_val = val;}
+        return use_pep_val;
     },
     ckan: function(val) {
       if (val !== undefined) {ckan_url = val;}

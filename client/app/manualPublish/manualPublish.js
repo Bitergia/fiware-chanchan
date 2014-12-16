@@ -27,13 +27,41 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             context = $scope.org_selected.context.split("  ")[0];
             context = context.split("-")[0];
         }
-        var url = Context.orion()+'/contexts/'+org_name+'/'+context+'/'+$scope.org_selected.temperature;
+
+        var url;
+        // Context.use_pep(false);
+        if (Context.use_pep()) {
+            url = Context.orion_pep()+'/contexts/'+org_name+'/'+context+'/'+$scope.org_selected.temperature;
+        } else {
+            url = Context.orion()+'/contexts/'+org_name+'/'+context+'/'+$scope.org_selected.temperature;
+        }
+
+        var headers = {
+                "fiware-service": Context.app_id(),
+                "fiware-servicepath": Context.org_id(),
+                "x-auth-token": Context.access_token()
+        };
+        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
+            $scope.roles_error = "You don't have roles for " + $scope.org_selected.name;
+            return;
+        };
         console.log(url);
-        $http.post(url).success(function(data) {
-            console.log("Updated context: " + context);
-            $scope.orgs_entities[org_name] = undefined;
-            $scope.orgs_datasets[org_name] = undefined;
-            $timeout($scope.update_ckan, 2000);
+        $http({method:'POST',url:url, headers:headers})
+        .success(function(data, status, headers, config){
+            if (data.errno != undefined && data.errno == "ECONNREFUSED") {
+                $scope.error = "Can not connect to Orion PEP";
+            } else if (data.message != undefined && data.message == "Access forbidden") {
+                $scope.error = "Orion PEP: Access forbidden.";
+            } else {
+                console.log("Updated context: " + context);
+                $scope.orgs_entities[org_name] = undefined;
+                $scope.orgs_datasets[org_name] = undefined;
+                $timeout($scope.update_ckan, 2000);
+            }
+        })
+        .error(function(data,status,headers,config){
+            $scope.error = "error";
+            console.log(data);
         });
     };
 

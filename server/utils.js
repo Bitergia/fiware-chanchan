@@ -71,6 +71,7 @@ exports.do_post = function (options, data, callback, res) {
 
         post_req.on('error', function(e) {
             // TODO: handle error.
+            callback(res, e);
             console.log(e);
           });
 
@@ -80,6 +81,7 @@ exports.do_post = function (options, data, callback, res) {
         post_req.end();
 
     } catch (error) {
+        callback(res, error);
         console.log(error);
     }
 };
