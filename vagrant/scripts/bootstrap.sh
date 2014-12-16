@@ -8,12 +8,16 @@ case ${_status} in
     0)
 	# running on vagrant
 	SCRIPTS_PATH="/vagrant/scripts"
+	# when using vagrant, the public IP will be on eth1
+	IFACE="eth1"
 	;;
     2)
 	# vagrant user not found
 	SC_PATH=$( cd $( dirname $0 ) 2>&1 >/dev/null && pwd )
 	mkdir -p /opt/vagrant && cp -r ${SC_PATH} /opt/vagrant
 	SCRIPTS_PATH="/opt/vagrant/scripts"
+	# use the default interface for the public IP
+	IFACE="eth0"
 	;;
     *)
 	# it should not get here
