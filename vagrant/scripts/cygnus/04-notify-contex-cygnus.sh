@@ -54,56 +54,25 @@ EOF
 }
 EOF
 
-# Old organizations name
-
+# Santander sensors
 (curl localhost:10026/NGSI10/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
 {
     "entities": [
         {
-            "type": "org1",
+            "type": "santander:soundacc",
             "isPattern": "true",
-            "id": "manual:*" 
+            "id": "urn:smartsantander:testbed:*"
         }
     ],
-    "attributes": [
-        "temperature" 
-    ],
-    "reference": "http://localhost:5001/notify",
+    "reference": "http://localhost:5050/notify",
     "duration": "P1M",
     "notifyConditions": [
         {
             "type": "ONCHANGE",
             "condValues": [
-                "pressure" 
+                "TimeInstant"
             ]
         }
-    ],
-    "throttling": "PT1S" 
-}
-EOF
-
-(curl localhost:10026/NGSI10/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @- | python -mjson.tool) <<EOF
-{
-    "entities": [
-        {
-            "type": "org2",
-            "isPattern": "true",
-            "id": "manual:*" 
-        }
-    ],
-    "attributes": [
-        "temperature" 
-    ],
-    "reference": "http://localhost:5002/notify",
-    "duration": "P1M",
-    "notifyConditions": [
-        {
-            "type": "ONCHANGE",
-            "condValues": [
-                "pressure" 
-            ]
-        }
-    ],
-    "throttling": "PT1S" 
+    ]
 }
 EOF
