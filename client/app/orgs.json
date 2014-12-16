@@ -1,0 +1,12 @@
+{
+    "organization_a": {
+        "id": "2",
+        "name": "Organization A",
+        "secret": "efe50efff82a0946d12f302acb5a9190d79b40652623a5b72ff55df81e4ee062ee75757adfad1223554cf429d42e0468453ba30c64e27910aa378a2f57c5a87f"
+    },
+    "organization_b": {
+        "id": "3",
+        "name": "Organization B",
+        "secret": "8e95b2299cbb0f668f0e38a31841047c4e48feec6eec0d5e6569dd1e69eaa8394054969e7d9eb9b4c3be20e50e8fcafd6e832a59ff586e0d8326eecf0b19e11e"
+    }
+}
