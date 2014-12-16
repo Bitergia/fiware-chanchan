@@ -72,7 +72,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
 
 
     $scope.auth_filabs = function() {
-        var url = "http://chanchan.server/api/filabs/auth/";
+        var url = Context.filabs()+"/auth/";
         $scope.logging = true;
         $http({method:'GET',url:url+$scope.user+"&"+$scope.password})
         .success(function(data, status, headers, config) {

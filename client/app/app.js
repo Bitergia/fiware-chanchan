@@ -38,15 +38,12 @@ app.factory('GlobalContextService', function() {
     var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, roles_val;
     var use_pep_val = true;
 
-    // ORION AND CKAN CONFIG
+    // ORION AND CKAN AND FILABS CONFIG
     var base_url = '';
     var orion_url = base_url + '/api/orion';
     var orion_pep_url = base_url + '/api/orion-pep';
     var ckan_url = base_url + '/api/ckan';
-    // Development config
-    // var orion_url ='http://chanchan.server:3000/api/orion';
-    // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep';
-    // var ckan_url ='http://chanchan.server:3000/api/ckan';
+    var filabs_url = base_url + '/api/filabs';
 
   return {
     access_token: function(val) {
@@ -84,6 +81,10 @@ app.factory('GlobalContextService', function() {
     ckan: function(val) {
       if (val !== undefined) {ckan_url = val;}
       return ckan_url;
+    },
+    filabs: function(val) {
+        if (val !== undefined) {filabs_url = val;}
+        return filabs_url;
     }
   };
 });
