@@ -35,27 +35,29 @@
       </div>
       <!-- Top Menu Items -->
       <ul class="nav navbar-right top-nav" ng-controller="DropdownCtrl">
-          <!-- Simple dropdown with user info -->
-          <li data-ng-show="user_name != null"  class="dropdown" dropdown on-toggle="toggled(open)">
-            <a href
-                class="dropdown-toggle" dropdown-toggle> <i class="fa fa-user"></i>
-              <span ng-bind="user_name"></span><b class="caret"></b>
-          </a>
-            <ul class="dropdown-menu" style="width:300px;">
-              <li ng-repeat="choice in user_profile"><a href><i
-                  class="fa fa-fw {{choice.type}}"></i> {{choice.value}}</i></a></li>
-             <li><a href="index.html"><i
-                  class="fa fa-fw fa-power-off"></i> Logout</i></a></li>
-            </ul></li>
+        <!-- Simple dropdown with user info -->
+        <li data-ng-show="user_name != null" class="dropdown" dropdown
+          on-toggle="toggled(open)"><a href class="dropdown-toggle"
+          dropdown-toggle> <i class="fa fa-user"></i> <span
+            ng-bind="user_name"></span><b class="caret"></b>
+        </a>
+          <ul class="dropdown-menu" style="width: 300px;">
+            <li ng-repeat="choice in user_profile"><a href><i
+                class="fa fa-fw {{choice.type}}"></i> {{choice.value}}</i></a></li>
+            <li><a href="index.html"><i class="fa fa-fw fa-power-off"></i>
+                Logout</i></a></li>
+          </ul></li>
 
       </ul>
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
-          <li><a href="#manualPublish"><i
-              class="fa fa-fw fa-dashboard"></i> Manual Publish</a></li>
-          <li><a href="#santander"><i
-              class="fa fa-fw fa-dashboard"></i> Santander</a></li>
+          <li><a href="#manualPublish"><i class="fa fa-fw fa-dashboard"></i>
+              Manual Publish</a></li>
+          <li><a href="#santander"><i class="fa fa-fw fa-dashboard"></i>
+              Santander</a></li>
+          <li><a href="https://github.com/Bitergia/fiware-chanchan"><img
+              style="margin-left: 30px" src="magic-hat.svg" width="50px"></a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
