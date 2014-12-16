@@ -16,7 +16,7 @@ config(['$routeProvider', function($routeProvider) {
 }]);
 
 // Check login before going to any route
-app.run(function($rootScope, $location) {
+app.run(function($rootScope, $location, $http) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if ($rootScope.loggedInUser == null) {
         // no logged user, redirect to /login
@@ -25,6 +25,10 @@ app.run(function($rootScope, $location) {
           $location.path("/login");
         }
       }
+    });
+    // Load orgs data
+    $http.get("orgs.json").success(function(data) {
+        $rootScope.organizations = data;
     });
 });
 
@@ -43,20 +47,7 @@ app.factory('GlobalContextService', function() {
     // var orion_pep_url ='http://chanchan.server:3000/api/orion-pep';
     // var ckan_url ='http://chanchan.server:3000/api/ckan';
 
-    var organizations = {"organization_a": {
-                                "name":"Organization A",
-                                "id":"2",
-                                "secret":"f9f2602f08650eebb101d42888936d7276c418b7c1c83c3bf28f991cb4cdc3dbeea30588b6a8b90bb6c274e50efd02c74c538fe33895a8bd0d58175b6229f28b",
-                            },
-                         "organization_b": {
-                                "name":"Organization B",
-                                "id":"3",
-                                "secret":"47ae9770c13aa1a9607a9ba164f4ebb3bdce2a2b2653ef1a3dcd23347a3c245aaa59a62e848589456e0ceae06fea5b8cf2769de167f30ec9c219af30fb4d65b6",
-                            }};
   return {
-    orgs: function() {
-      return organizations;
-    },
     access_token: function(val) {
       if (val !== undefined) {access_token_val = val;}
       return access_token_val;

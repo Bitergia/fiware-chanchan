@@ -22,7 +22,7 @@
             <div class="col-md-4">Organization</div>
             <div class="col-md-8">
               <select ng-model="organization" ng-change="auth()">
-                <option ng-repeat="org in organizations">{{org.name}}</option>
+                <option value ="{{key}}" ng-repeat="(key, org) in organizations">{{org.name}}</option>
               </select>
             </div>
           </div>

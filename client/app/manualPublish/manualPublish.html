@@ -7,7 +7,7 @@
 <div class="row well" style="margin-bottom: 10px">
   <span class="h5 ">Publish to organization </span>
   <select ng-model="org_selected.name" ng-change="update_ckan()">
-    <option value ="{{key}}" ng-repeat="(key, org) in orgs">{{org.name}}</option>
+    <option value ="{{key}}" ng-repeat="(key, org) in organizations">{{org.name}}</option>
   </select>
 </div>
 

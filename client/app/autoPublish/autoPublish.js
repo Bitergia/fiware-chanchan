@@ -69,7 +69,6 @@ angular.module('chanchanApp.autoPublish', ['ngRoute'])
             }
     };
 
-    $scope.orgs = Context.orgs();
     $scope.orgs_datasets = {};
     $scope.orgs_entities = {};
     $scope.org_selected = "";
