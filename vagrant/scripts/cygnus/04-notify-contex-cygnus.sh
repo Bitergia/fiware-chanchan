@@ -6,7 +6,7 @@
 {
     "entities": [
         {
-            "type": "organization_a",
+            "type": "org_a",
             "isPattern": "true",
             "id": "manual:*"
         }
@@ -32,7 +32,7 @@ EOF
 {
     "entities": [
         {
-            "type": "organization_b",
+            "type": "org_b",
             "isPattern": "true",
             "id": "manual:*"
         }
