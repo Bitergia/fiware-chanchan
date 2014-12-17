@@ -41,6 +41,8 @@ angular.module('chanchanApp.santander', ['ngRoute'])
           $scope.orgs_entities = {};
           $scope.orgs_datasets = {};
           angular.forEach(data.result.packages, function(dataset, key) {
+              $scope.orgs_datasets[org_name] = {};
+              $scope.orgs_entities[org_name] = [];
               $scope.orgs_datasets[org_name][dataset.name] = {'name':dataset.name, 'resources' : []};
               angular.forEach(dataset.resources, function(resource, key) {
                   $scope.orgs_entities[org_name].push(resource.name+ "  " + org_name +"  " + dataset.name);
