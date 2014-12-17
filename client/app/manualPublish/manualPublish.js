@@ -36,16 +36,18 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             url = Context.orion()+'/contexts/'+org_name+'/'+context+'/'+$scope.org_selected.temperature;
         }
 
+        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
+            $scope.roles_error = "You don't have roles for " + $scope.org_selected.name;
+            return;
+        };
+
         var headers = {
                 "fiware-service": Context.app_id(),
                 "fiware-servicepath": Context.org_id(),
                 "x-auth-token": Context.access_token()
         };
-        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
-            $scope.roles_error = "You don't have roles for " + $scope.org_selected.name;
-            return;
-        };
         console.log(url);
+
         $http({method:'POST',url:url, headers:headers})
         .success(function(data, status, headers, config){
             if (data.errno != undefined && data.errno == "ECONNREFUSED") {
