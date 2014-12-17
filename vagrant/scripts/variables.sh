@@ -49,9 +49,7 @@ export CC_PERM_RESOURCE="/chanchan/publishCKAN"
 ### Cygnus related variables
 export CYGNUS_USER="chanchan"
 export APACHE_FLUME_HOME="APACHE_FLUME_HOME"
-export CKAN_ORGANIZATION="bitergia"
 export CKAN_API_KEY="44f762b2-978a-40ca-9dfc-1a8ec8855599"
-export CKAN_DATASET="bitergia_package1"
 
 ### Orion related variables
 export ORION_USER="chanchan"
