@@ -1,19 +1,12 @@
 #!/bin/bash
 
-function stop_keypass () {
-    keypass_pid=$( ps ax | grep java | grep keypass | awk '{print $1}' )
-    if [ ! -z ${keypass_pid} ]; then
-	echo "Stopping KeyPass"
-	kill ${keypass_pid}
-    fi
-}
+sudo cp ${SCRIPTS_PATH}/keypass/keypass.default /etc/default/keypass
+sudo sed -i /etc/default/keypass \
+     -e "s|^KEYPASS_HOME=.*$|KEYPASS_HOME=${HOME}/${KEYPASS_HOME}|" \
+     -e "s/^KEYPASS_USER=.*$/KEYPASS_USER='${KEYPASS_USER}'/" \
+     -e "s/^KEYPASS_GROUP=.*$/KEYPASS_GROUP='${KEYPASS_USER}'/"
+sudo cp ${SCRIPTS_PATH}/keypass/keypass.init /etc/init.d/keypass
+sudo chmod +x /etc/init.d/keypass
+sudo update-rc.d keypass defaults 90 90
 
-
-function start_keypass () {
-    echo "Starting KeyPass"
-    nohup java -jar ${HOME}/${KEYPASS_HOME}/target/keypass-0.3.0.jar  \
-      server ${HOME}/${KEYPASS_HOME}/conf/config.yml &
-}
-
-stop_keypass
-start_keypass
+sudo service keypass restart
