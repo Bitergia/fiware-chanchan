@@ -46,6 +46,19 @@
   </div>
 </div>
 
+<div data-ng-show="error != undefined" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="error = undefined"
+    aria-hidden="true">&times;</button>
+    ERROR: {{error}}
+</div>
+
+<div data-ng-show="roles_error != undefined" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="roles_error = undefined"
+    aria-hidden="true">&times;</button>
+    {{roles_error}}
+</div>
 
 <div class="row well" style="margin-bottom: 10px"
   data-ng-show="filabs_access_token != ''">
@@ -97,7 +110,7 @@
         </span>
       </div>
       <div class="panel-body">
-        <i data-ng-show="orgs_entities[org_selected].length == 0" class="fa fa-spinner fa-spin fa-3x"></i>
+        <i data-ng-show="orgs_entities == undefined" class="fa fa-spinner fa-spin fa-3x"></i>
         <ul>
           <li ng-repeat="dataset in orgs_datasets[org_selected]">{{dataset.name}}
             <ul>

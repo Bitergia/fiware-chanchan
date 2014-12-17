@@ -91,3 +91,32 @@ exports.contexts = function(req, res) {
 
     utils.do_get(options, return_get, res); 
 };
+
+// Update entities in orion_pep
+exports.update_entities = function(req, res) {
+  return_post = function(res, buffer) {
+      res.send(buffer);
+  };
+
+  var org_id = req.params.org_id;
+  var post_data = JSON.stringify(req.body);
+
+  headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Length': post_data.length,
+      'fiware-service': req.headers['fiware-service'],
+      'fiware-servicepath': req.headers['fiware-servicepath'],
+      'x-auth-token': req.headers['x-auth-token']
+  };
+
+  var options = {
+      host: orion_url,
+      port: 1026,
+      path: '/NGSI10/updateContext',
+      method: 'POST',
+      headers: headers
+  };
+
+  utils.do_post(options, post_data, return_post, res);
+};
