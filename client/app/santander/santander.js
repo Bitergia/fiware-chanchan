@@ -37,10 +37,9 @@ angular.module('chanchanApp.santander', ['ngRoute'])
 
     $scope.update_ckan = function() {
       var org_name = $scope.org_selected;
-
-      $scope.orgs_datasets[org_name] = {};
-      $scope.orgs_entities[org_name] = [];
       $http.get(Context.ckan()+'/organization/'+org_name).success(function(data) {
+          $scope.orgs_entities = {};
+          $scope.orgs_datasets = {};
           angular.forEach(data.result.packages, function(dataset, key) {
               $scope.orgs_datasets[org_name][dataset.name] = {'name':dataset.name, 'resources' : []};
               angular.forEach(dataset.resources, function(resource, key) {
@@ -66,6 +65,9 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         $http({method:'GET',url:Context.orion()+'/sensors/'+org_name+"/"+sensor_type,headers:headers})
         .success(function(data) {
             console.log(data);
+            if (data == "Error in IDM communication") {
+                $scope.error = data;
+            }
             $scope.sensors = data.contextResponses;
         });
     };
@@ -116,17 +118,50 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         });
         console.log(all_sensors);
 
-        // Publish now in Orion
-        var url = Context.orion()+'/entities/'+$scope.org_selected;
+        // Publish now in Orion. Support also Orion PEP.
+        var url;
+        // Context.use_pep(false);
+        var headers;
+        if (Context.use_pep()) {
+            url = Context.orion_pep()+'/entities/'+$scope.org_selected;
+            headers = {
+                "fiware-service": Context.app_id(),
+                "fiware-servicepath": Context.org_id(),
+                "x-auth-token": Context.access_token(),
+                "Content-Type": 'application/json'
+            };
+
+        } else {
+            url = Context.orion()+'/entities/'+$scope.org_selected;
+            headers = {
+                "Content-Type": 'application/json'
+            };
+        }
+
+        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
+            $scope.roles_error = "You don't have roles for " + $scope.org_selected;
+            return;
+        };
+
         console.log(url);
+
         all_sensors = JSON.stringify(all_sensors);
-        $http({method:'POST',url:url, data:all_sensors, headers: {'Content-Type': 'application/json'}})
-        .success(function(data,status,headers,config){
-            console.log("Updated context.");
-            $timeout($scope.update_ckan, 1000);
+        $http({method:'POST',url:url, data:all_sensors, headers: headers})
+        .success(function(data, status, headers, config) {
+            if (data.errno != undefined && data.errno == "ECONNREFUSED") {
+                $scope.error = "Can not connect to Orion PEP";
+            } else if (data.message != undefined && data.message == "Access forbidden") {
+                $scope.error = "Orion PEP: Access forbidden.";
+            } else if (data.message != undefined && data.message == "Proxy authentication was rejected with code: 401") {
+                $scope.error = data.message;
+            } else {
+                console.log("Updated context.");
+                $timeout($scope.update_ckan, 3000);
+            }
         })
         .error(function(data,status,headers,config){
             console.log("Error in Update entities " + data);
+            $scope.error = data;
         });
     };
 
@@ -142,13 +177,14 @@ angular.module('chanchanApp.santander', ['ngRoute'])
             }
     };
 
-    $scope.orgs_datasets = {};
-    $scope.orgs_entities = {};
+    $scope.orgs_datasets = undefined;
+    $scope.orgs_entities = undefined;
     $scope.org_selected = "santander";
     $scope.feeder_selected = "sound";
     $scope.filabs_access_token = Context.access_token_filabs();
     if ($scope.filabs_access_token != '') {
         $scope.update_sensors($scope.org_selected, $scope.feeders[$scope.feeder_selected].type);
+        $scope.update_ckan();
     }
     $scope.logging = false;
     $scope.auth_result = '';
