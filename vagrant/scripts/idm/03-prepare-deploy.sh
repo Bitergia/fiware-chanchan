@@ -84,8 +84,27 @@ sed -i config/initializers/0fiware.rb \
   -e "/# config.subdomain/a config.subdomain = '${HOSTNAME}'" \
   -e "/# config.sender/a config.sender = 'no-reply@${IDM_HOSTNAME}'"
 
-# TODO: add a proper thales.rb
-touch config/initializers/thales.rb
+# create config/initializers/thales.rb
+cat << __EOF__ > config/initializers/thales.rb
+require_dependency 'fi_ware_idm/thales'
+
+FiWareIdm::Thales.setup do |config|
+  # Enable Access Control GE integration
+  config.enable = false
+
+  # Url of the Thales Access Control GE endpoint
+  config.url = ""
+
+  # Client certificate direction
+  config.client_certificate = "#{ Rails.root }/config/thales/client-cert.pem"
+
+  # Private key
+  config.key = "#{ Rails.root }/config/thales/private.key"
+
+  # CA Server certificate
+  config.ca_certificate = "#{ Rails.root }/config/thales/tar-ca-cert.pem"
+end
+__EOF__
 
 # upload configuration files to deploy
 scp config/database.yml ${HOSTNAME}:fi-ware-idm/shared/config/
