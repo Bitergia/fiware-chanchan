@@ -13,6 +13,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ubuntu.vm.provision "shell" do |shell|
         shell.path = "scripts/bootstrap.sh"
     end
+    # Use VBoxManage to customize the VM. For example to change memory:
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "1024"]
+    end
   end
   config.vm.define "centos" do |centos|
     centos.vm.box_url = "http://files.brianbirkinbine.com/vagrant-centos-65-x86_64-minimal.box"
@@ -21,6 +25,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     centos.vm.network "private_network", ip: "192.168.42.11"
     centos.vm.provision "shell" do |shell|
         shell.path = "scripts/bootstrap.sh"
+    end
+    # Use VBoxManage to customize the VM. For example to change memory:
+    config.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
   end
 end
