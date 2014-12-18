@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # remove old git
-if [ -d "fiware-keypass" ]; then
-    rm -rf "fiware-keypass"
+if [ -d "${KEYPASS_HOME}" ]; then
+    rm -rf "${KEYPASS_HOME}"
 fi
 
 # get KeyPass
@@ -10,6 +10,9 @@ git clone https://github.com/telefonicaid/fiware-keypass.git ${KEYPASS_HOME}
 
 # compile KeyPass
 cd ${KEYPASS_HOME}
+if [ "${GIT_REV_KEYPASS}" != "master" ]; then
+    git checkout ${GIT_REV_KEYPASS}
+fi
 mvn clean package
 
 # create database

@@ -48,6 +48,7 @@ export CC_PERM_RESOURCE="/chanchan/publishCKAN"
 
 ### Cygnus related variables
 export CYGNUS_USER="chanchan"
+export CYGNUS_CONNECTORS_HOME="fiware-connectors"
 export APACHE_FLUME_HOME="APACHE_FLUME_HOME"
 export CKAN_API_KEY="44f762b2-978a-40ca-9dfc-1a8ec8855599"
 
@@ -64,3 +65,12 @@ export KEYPASS_HOME="fiware-keypass"
 export KEYPASS_DBNAME="keypass"
 export KEYPASS_DBUSER="keypass"
 export KEYPASS_DBPASS="keypass"
+
+## Revisions to use on git repos
+export GIT_REV_CHANCHAN=master
+export GIT_REV_CYGNUS=master
+export GIT_REV_IDM=master
+export GIT_REV_KEYPASS=master
+export GIT_REV_ORION=master
+export GIT_REV_ORION_PROXYCOAP=749e22376664dd3adae17492090e58882d3b28a7
+export GIT_REV_ORION_PEP=master

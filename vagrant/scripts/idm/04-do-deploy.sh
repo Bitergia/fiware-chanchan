@@ -2,5 +2,5 @@
 
 su - idm-source <<EOF
 cd fi-ware-idm
-cap production deploy
+REVISION=${GIT_REV_IDM} cap production deploy
 EOF

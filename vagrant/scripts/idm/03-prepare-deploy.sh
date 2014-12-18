@@ -26,6 +26,7 @@ lock '3.1.0'
 
 set :application, 'fi-ware-idm'
 set :repo_url, 'https://github.com/ging/fi-ware-idm.git'
+set :branch, ENV["REVISION"] || "master"
 set :deploy_to, '/home/idm-deploy/fi-ware-idm'
 set :linked_files, %w{config/database.yml config/initializers/0fiware.rb config/initializers/thales.rb app/models/application.rb app/models/xacml_file_keypass.rb app/models/xacml_policy_keypass.rb config/initializers/keypass.rb lib/fi_ware_idm/keypass.rb}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}

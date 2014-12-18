@@ -9,7 +9,9 @@ git clone https://github.com/staropram/cantcoap
 
 # checkout a specific commit
 cd cantcoap
-git checkout 749e22376664dd3adae17492090e58882d3b28a7
+if [ "${GIT_REV_ORION_PROXYCOAP}" != "master" ]; then
+    git checkout ${GIT_REV_ORION_PROXYCOAP}
+fi
 
 # build
 make
