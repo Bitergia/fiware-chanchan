@@ -1,5 +1,29 @@
 #!/bin/bash
 
+# check distribution
+DIST=""
+if [ -f "/etc/redhat-release" ]; then
+    grep -q "CentOS release 6.5" "/etc/redhat-release" && DIST="centos6.5"
+else
+    if [ -f "/etc/lsb-release" ]; then
+	grep -q "Ubuntu 14.04" "/etc/lsb-release" && DIST="ubuntu14.04"
+    fi
+fi
+
+case ${DIST} in
+    "centos6.5")
+	echo "CentOS 6.5 provisioning is not supported yet"
+	;;
+    "ubuntu14.04")
+	echo "Provisioning for Ubuntu 14.04"
+	;;
+    *)
+	echo "Unsupported distribution"
+	exit 1
+	;;
+esac
+export DIST
+
 # allow running the provision scripts on non-vagrant environments
 _vagrant_user="vagrant"
 getent passwd ${_vagrant_user} 2>&1 >/dev/null
