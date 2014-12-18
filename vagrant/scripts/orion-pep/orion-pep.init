@@ -79,6 +79,7 @@ do_start()
 
         rotate_log
 
+	export NODE_TLS_REJECT_UNAUTHORIZED=0
         start-stop-daemon \
             --quiet \
             --chuid $ORION_PEP_USER \
