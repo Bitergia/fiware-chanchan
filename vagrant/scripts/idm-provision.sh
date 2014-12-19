@@ -50,8 +50,15 @@ create-permission.sh "${ORG_B}" "${APP_NAME}" "Create" "Create Option for Orion 
 create-permission.sh "${ORG_B}" "${APP_NAME}" "Update" "Update Option for Orion PEP" "updatecontext" "update"
 create-permission.sh "${ORG_B}" "${APP_NAME}" "Delete" "Delete Option for Orion PEP" "updatecontext" "delete"
 
-add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "${PERM_P_NAME}"
-add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "${PERM_P_NAME}"
+# add permissions to Publisher role
+add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "Subscribe"
+add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "Create"
+add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "Update"
+add-permission-to-role.sh "${ORG_A}" "${APP_NAME}" "${ROLE_P}" "Delete"
+add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "Subscribe"
+add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "Create"
+add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "Update"
+add-permission-to-role.sh "${ORG_B}" "${APP_NAME}" "${ROLE_P}" "Delete"
 
 # add some users with roles
 create-idm-user.sh "User A" "user.a@${IDM_HOSTNAME}" "..test"
