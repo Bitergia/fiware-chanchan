@@ -125,7 +125,7 @@ function _add_permission_to_role () {
     actor_id=$(sed "${output[edit_application_profile]}" -n -e "s/^.*input.*name=\"relation_custom\[actor_id\]\" type=\"hidden\" value=\"\([^\"]*\).*$/\1/p" )
 
     # do not remove permissions already set
-    relations_list=$( sed "${output[edit_application_profile]}" -n -e 's/^.*checked="checked".*value="\([^"]*\)".*$/\1/p' )
+    relations_list=$( sed "${output[permissions]}" -n -e 's/^.*checked="checked".*value="\([^"]*\)".*$/\1/p' )
 
     curl ${curl_options} \
 	 --output "${output[add_role_permission]}" \
@@ -134,14 +134,14 @@ function _add_permission_to_role () {
 	 --data "_method=put" \
 	 --data "authenticity_token=${authenticity_token}" \
 	 $( if [ -z ${relations_list} ]; then
-		echo "--data \"relation_custom[permission_ids]=\""
+		echo "--data \"relation_custom[permission_ids][]=\""
 	    else
 		for id in ${relations_list} ; do
-		    echo "--data \"relation_custom[permission_ids]=${id}\""
+		    echo "--data relation_custom[permission_ids][]=${id}"
 		done
 	    fi
 	 ) \
-	 --data "relation_custom[permission_ids]=${permission_id}" \
+	 --data "relation_custom[permission_ids][]=${permission_id}" \
 	 --header "X-Requested-With: XMLHttpRequest" \
 	 --header "X-CSRF-Token: ${authenticity_token}" \
 	 --header "Accept: */*;q=0.5, text/javascript, application/javascript, application/ecmascript, application/x-ecmascript" \
