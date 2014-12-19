@@ -1,8 +1,27 @@
 #!/bin/bash
 
-VHOST_HTTP="/etc/apache2/sites-available/idm.conf"
-VHOST_HTTPS="/etc/apache2/sites-available/idm-ssl.conf"
 DOCROOT="/home/idm-deploy/fi-ware-idm/current/public"
+
+case "${DIST_TYPE}" in
+    "debian")
+	VHOST_HTTP="/etc/apache2/sites-available/idm.conf"
+	VHOST_HTTPS="/etc/apache2/sites-available/idm-ssl.conf"
+	APACHE_VERSION="2.4"
+	CERT_FILE=/etc/ssl/certs/ssl-cert-snakeoil.pem
+	CERT_KEY=/etc/ssl/private/ssl-cert-snakeoil.key
+	;;
+    "redhat")
+	VHOST_HTTP="/etc/httpd/conf.d/vhost-idm.conf"
+	VHOST_HTTPS="/etc/httpd/conf.d/vhost-idm-ssl.conf"
+	APACHE_VERSION="2.2"
+	CERT_FILE=/etc/pki/tls/certs/localhost.crt
+	CERT_KEY=/etc/pki/tls/private/localhost.key
+	;;
+    *)
+	exit 1
+	;;
+fi
+
 
 # create http virtualhost
 cat <<EOF > ${VHOST_HTTP}
@@ -14,7 +33,17 @@ cat <<EOF > ${VHOST_HTTP}
 
     # Directory [root to your app./public]
     <Directory ${DOCROOT}>
-        Require all granted
+EOF
+case ${APACHE_VERSION} in
+    "2.2")
+	echo "        AllowOverride all" >> ${VHOST_HTTP}
+	echo "        Options -MultiViews" >> ${VHOST_HTTP}
+	;;
+    "2.4")
+	echo "        Require all granted" >> ${VHOST_HTTP}
+	;;
+esac
+cat <<EOF >> ${VHOST_HTTP}
     </Directory>
 
     ErrorLog \${APACHE_LOG_DIR}/idm-error.log
@@ -36,8 +65,8 @@ cat <<EOF > ${VHOST_HTTPS}
 
         SSLEngine on
 
-        SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem
-        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        SSLCertificateFile    ${CERT_FILE}
+        SSLCertificateKeyFile ${CERT_KEY}
 
         <FilesMatch "\.(cgi|shtml|phtml|php)$">
                         SSLOptions +StdEnvVars
@@ -53,16 +82,36 @@ cat <<EOF > ${VHOST_HTTPS}
         BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
 
         <Directory ${DOCROOT}>
-                Require all granted
+EOF
+case ${APACHE_VERSION} in
+    "2.2")
+	echo "        AllowOverride all" >> ${VHOST_HTTPS}
+	echo "        Options -MultiViews" >> ${VHOST_HTTPS}
+	;;
+    "2.4")
+	echo "        Require all granted" >> ${VHOST_HTTPS}
+	;;
+esac
+cat <<EOF >> ${VHOST_HTTPS}
         </Directory>
 
     </VirtualHost>
 </IfModule>
 EOF
 
-# enable new virtualhosts
-a2ensite idm
-a2ensite idm-ssl
+case "${DIST_TYPE}" in
+    "debian")
+	# enable new virtualhosts
+	a2ensite idm
+	a2ensite idm-ssl
 
-# reload service
-service apache2 restart
+	# reload service
+	service apache2 restart
+	;;
+    "redhat")
+	service httpd restart
+	;;
+    *)
+	exit 1
+	;;
+fi

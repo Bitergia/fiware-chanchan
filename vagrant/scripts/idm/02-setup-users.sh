@@ -1,23 +1,36 @@
 #!/bin/bash
 
-## create the needed users
-
-# idm-deploy
-adduser --disabled-password --gecos "idm deploy" idm-deploy
-
-# idm-source
-adduser --disabled-password --gecos "idm source" idm-source
+case "${DIST_TYPE}" in
+    "debian")
+	## create the needed users
+	# idm-deploy
+	adduser --disabled-password --gecos "idm deploy" idm-deploy
+	adduser idm-source sudo
+	# idm-source
+	adduser --disabled-password --gecos "idm source" idm-source
+	;;
+    "redhat")
+	## create the needed users
+	# idm-deploy
+	adduser --comment "idm deploy" idm-deploy
+	# idm-source
+	adduser --comment "idm source" idm-source
+	;;
+    *)
+	exit 1
+	;;
+fi
 
 ## configure idm-deploy
 su - idm-deploy <<EOF
 mkdir -p \${HOME}/.ssh
+chmod 0700 \${HOME}/.ssh
 mkdir -p \${HOME}/fi-ware-idm/shared/config
 mkdir -p \${HOME}/fi-ware-idm/shared/config/initializers
 EOF
 
 ## configure idm-source
 # allow passwordless sudo
-adduser idm-source sudo
 cat <<EOF > /etc/sudoers.d/idm-source
 idm-source ALL=(ALL) NOPASSWD:ALL
 EOF
@@ -32,6 +45,7 @@ Host ${HOSTNAME}
     User idm-deploy
     IdentityFile \${HOME}/.ssh/deploy
 __EOF__
+chmod 0600 \${HOME}/.ssh/config
 EOF
 
 cat /home/idm-source/.ssh/deploy.pub >> /home/idm-deploy/.ssh/authorized_keys
