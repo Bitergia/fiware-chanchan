@@ -13,16 +13,18 @@ fi
 case ${DIST} in
     "centos6.5")
 	echo "CentOS 6.5 provisioning is not supported yet"
+	DIST_TYPE="redhat"
 	;;
     "ubuntu14.04")
 	echo "Provisioning for Ubuntu 14.04"
+	DIST_TYPE="debian"
 	;;
     *)
 	echo "Unsupported distribution"
 	exit 1
 	;;
 esac
-export DIST
+export DIST DIST_TYPE
 
 # allow running the provision scripts on non-vagrant environments
 _vagrant_user="vagrant"
@@ -54,6 +56,10 @@ cd ${SCRIPTS_PATH}
 
 # load environment variables
 source variables.sh
+
+if [ "${DIST_TYPE}" != "debian" ]; then
+    exit 1
+fi
 
 # swap: 512 MB default
 bash swap.sh
