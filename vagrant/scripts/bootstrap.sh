@@ -57,15 +57,15 @@ cd ${SCRIPTS_PATH}
 # load environment variables
 source variables.sh
 
-if [ "${DIST_TYPE}" != "debian" ]; then
-    exit 1
-fi
-
 # swap: 512 MB default
 bash swap.sh
 
 # load packages
 bash packages.sh
+
+if [ "${DIST_TYPE}" != "debian" ]; then
+    exit 1
+fi
 
 # install IDM
 bash install-idm.sh
