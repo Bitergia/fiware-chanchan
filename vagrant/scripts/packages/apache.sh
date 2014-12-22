@@ -35,6 +35,7 @@ case "${DIST_TYPE}" in
 	chkconfig httpd on
 
 	# install ruby and passenger
+	source /etc/profile.d/rvm.sh
 	_passenger_version="4.0.55"
 	gem install passenger --version ${_passenger_version}
 	# build passenger apache module
