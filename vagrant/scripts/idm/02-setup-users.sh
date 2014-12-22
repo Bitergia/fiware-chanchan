@@ -23,6 +23,7 @@ fi
 
 ## configure idm-deploy
 su - idm-deploy <<EOF
+chmod 0755 \${HOME}
 mkdir -p \${HOME}/.ssh
 chmod 0700 \${HOME}/.ssh
 mkdir -p \${HOME}/fi-ware-idm/shared/config
