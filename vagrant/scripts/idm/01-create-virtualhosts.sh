@@ -9,6 +9,7 @@ case "${DIST_TYPE}" in
 	APACHE_VERSION="2.4"
 	CERT_FILE=/etc/ssl/certs/ssl-cert-snakeoil.pem
 	CERT_KEY=/etc/ssl/private/ssl-cert-snakeoil.key
+	APACHE_LOG_DIR=/var/log/apache
 	;;
     "redhat")
 	VHOST_HTTP="/etc/httpd/conf.d/vhost-idm.conf"
@@ -16,6 +17,7 @@ case "${DIST_TYPE}" in
 	APACHE_VERSION="2.2"
 	CERT_FILE=/etc/pki/tls/certs/localhost.crt
 	CERT_KEY=/etc/pki/tls/private/localhost.key
+	APACHE_LOG_DIR=/var/log/httpd
 	;;
     *)
 	exit 1
@@ -46,8 +48,8 @@ esac
 cat <<EOF >> ${VHOST_HTTP}
     </Directory>
 
-    ErrorLog \${APACHE_LOG_DIR}/idm-error.log
-    CustomLog \${APACHE_LOG_DIR}/idm-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/idm-error.log
+    CustomLog ${APACHE_LOG_DIR}/idm-access.log combined
 
 </VirtualHost>
 EOF
@@ -60,8 +62,8 @@ cat <<EOF > ${VHOST_HTTPS}
 
         DocumentRoot ${DOCROOT}
 
-        ErrorLog \${APACHE_LOG_DIR}/idm-ssl-error.log
-        CustomLog \${APACHE_LOG_DIR}/idm-ssl-access.log combined
+        ErrorLog ${APACHE_LOG_DIR}/idm-ssl-error.log
+        CustomLog ${APACHE_LOG_DIR}/idm-ssl-access.log combined
 
         SSLEngine on
 
