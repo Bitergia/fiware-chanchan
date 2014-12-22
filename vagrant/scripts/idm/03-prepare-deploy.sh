@@ -1,5 +1,19 @@
 #!/bin/bash
 
+case "${DIST_TYPE}" in
+    "debian")
+	MYSQL_SOCK="/var/run/mysqld/mysqld.sock"
+	;;
+    "redhat")
+	MYSQL_SOCK="/var/lib/mysql/mysql.sock"
+	;;
+    *)
+	exit 1
+	;;
+fi
+
+
+
 su - idm-source <<EOF
 # clone idm repository
 git clone https://github.com/ging/fi-ware-idm
@@ -74,7 +88,7 @@ production:
   password: ${IDM_DBPASS}
   host: localhost
   port: 3306
-  socket: /var/run/mysqld/mysqld.sock
+  socket: ${MYSQL_SOCK}
 __EOF__
 
 # fiware domain configuration
