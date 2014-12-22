@@ -20,7 +20,7 @@ case "${DIST_TYPE}" in
     *)
 	exit 1
 	;;
-fi
+esac
 
 
 # create http virtualhost
@@ -114,4 +114,4 @@ case "${DIST_TYPE}" in
     *)
 	exit 1
 	;;
-fi
+esac

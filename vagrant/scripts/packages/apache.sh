@@ -54,4 +54,4 @@ EOF
     *)
 	exit 1
 	;;
-fi
+esac

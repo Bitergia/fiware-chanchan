@@ -10,5 +10,4 @@ case "${DIST_TYPE}" in
     *)
 	exit 1
 	;;
-fi
-
+esac

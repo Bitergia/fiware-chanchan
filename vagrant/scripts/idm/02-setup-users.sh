@@ -19,7 +19,7 @@ case "${DIST_TYPE}" in
     *)
 	exit 1
 	;;
-fi
+esac
 
 ## configure idm-deploy
 su - idm-deploy <<EOF
