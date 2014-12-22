@@ -13,8 +13,10 @@ case "${DIST_TYPE}" in
 	## create the needed users
 	# idm-deploy
 	adduser --comment "idm deploy" idm-deploy
+	usermod -G rvm idm-deploy
 	# idm-source
 	adduser --comment "idm source" idm-source
+	usermod -G rvm idm-source
 	;;
     *)
 	exit 1
