@@ -26,7 +26,11 @@ EOF
 	chkconfig mysqld on
 	service mysqld restart
 	sleep 2
-	mysqladmin -u root password '${DBROOTPW}'
+	cat <<EOF | mysql --user=root
+USE mysql;
+UPDATE user SET password=PASSWORD("${DBROOTPW}") WHERE User='root';
+FLUSH PRIVILEGES;
+EOF
 	;;
     *)
 	exit 1
