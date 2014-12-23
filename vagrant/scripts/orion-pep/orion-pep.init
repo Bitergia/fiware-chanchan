@@ -40,7 +40,7 @@ TMPDIR=/tmp
 
 [ -d $LOGPATH ] || ( mkdir -p $LOGPATH && chown ${ORION_PEP_USER}:${ORION_PEP_GROUP} $LOGPATH )
 
-ORION_PEP_STARTUP_CMD="${ORION_PEP_HOME}/bin/pepProxy"
+ORION_PEP_STARTUP_CMD="bin/pepProxy"
 ORION_PEP_STARTUP_OPTIONS=""
 rotate_log()
 {
@@ -83,6 +83,7 @@ do_start()
         start-stop-daemon \
             --quiet \
             --chuid $ORION_PEP_USER \
+	    --chdir $ORION_PEP_HOME \
             --exec $ORION_PEP_STARTUP_CMD \
             --pidfile $PIDFILE \
             --make-pidfile \
