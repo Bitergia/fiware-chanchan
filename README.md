@@ -14,9 +14,9 @@ In order to use ChanChan follow next steps.
 
 Clone the repository.
 
-Create and accout in CKAN, get the access token API and configure it in:
+Create and accout in CKAN, get [the access token API](https://github.com/Bitergia/fiware-chanchan/wiki/CKAN#creating-an-account-in-demockanorg) and configure it in:
 
-    vagrant/scripts/variables.sh (CKAN\_API\_KEY)
+    vagrant/scripts/variables.sh (CKAN_API_KEY)
 
 Start the creation of the vagrant image (needed around 1h)
 
