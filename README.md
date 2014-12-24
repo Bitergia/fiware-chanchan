@@ -30,5 +30,7 @@ Add to your host file:
 access in your browser the URL https://idm.server and accept the certificate.
 And then goto http://chanchan.server to access the application.
 
+Use the [wiki](https://github.com/Bitergia/fiware-chanchan/wiki) for detailed instructions about how the platform works and how to use it.
+
 In the "doc" directory there is a presentation showing all the details about 
 howto use ChanChan and a videotutorial.
