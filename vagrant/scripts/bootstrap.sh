@@ -63,15 +63,15 @@ bash swap.sh
 # load packages
 bash packages.sh
 
-if [ "${DIST_TYPE}" != "debian" ]; then
-    exit 1
-fi
-
 # install IDM
 bash install-idm.sh
 
 # provision IDM
 bash idm-provision.sh
+
+if [ "${DIST_TYPE}" != "debian" ]; then
+    exit 1
+fi
 
 # install Chanchan
 bash install-chanchan.sh
