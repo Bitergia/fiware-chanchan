@@ -28,8 +28,8 @@ case "${DIST_TYPE}" in
 	yum -q -y install autoconf glibc-devel ncurses-devel automake libtool bison subversion pm-utils
 	yum -q -y install mysql-devel
 	yum -q -y install ImageMagick ImageMagick-devel
-	# missing graphicsmagick libmagickwand-dev
-	# TODO: sendmail
+	# missing graphicsmagick libmagickwand-dev (are they really needed?)
+	yum -q -y install sendmail
 	yum -q -y install recode
 	;;
     *)
