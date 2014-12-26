@@ -69,7 +69,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
             console.log(data);
             if (data == "Error in IDM communication") {
                 $scope.error = data;
-            } else if (data.indexOf("Error: connect ECONNREFUSED")>-1) {
+            } else if (typeof(data) == "string" && data.indexOf("Error: connect ECONNREFUSED")>-1) {
                 $scope.error = "FIWARE Labs Orion connection refused";
             }
             $scope.sensors = data.contextResponses;
