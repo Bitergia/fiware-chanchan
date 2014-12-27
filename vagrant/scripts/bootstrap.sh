@@ -111,12 +111,12 @@ bash install-keypass.sh
 # provision IDM roles
 bash idm-provision-roles.sh
 
+# install Orion
+bash install-orion.sh
+
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
 fi
-
-# install Orion
-bash install-orion.sh
 
 # install Orion PEP
 bash install-orion-pep.sh
