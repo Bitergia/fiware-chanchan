@@ -1,0 +1,185 @@
+#!/bin/bash
+# Orion-Pep            Start/Stop Orion-Pep
+#
+# chkconfig: 2345 90 90
+# description: Orion-Pep
+### BEGIN INIT INFO
+# Provides:          orion-pep
+# Required-Start:    $network $local_fs $remote_fs
+# Required-Stop:     $network $local_fs $remote_fs
+# Should-Start:      $all
+# Should-Stop:       $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop Orion-Pep
+# Description:       Start/stop Orion-Pep
+### END INIT INFO
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Orion-Pep"
+NAME=orion-pep
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+CBPIDFILE=/var/run/${NAME}-cb.pid
+LOCKFILE=/var/lock/$NAME.pid
+
+. /etc/rc.d/init.d/functions
+
+# Read configuration variable file if it is present
+if [ ! -e /etc/sysconfig/$NAME ] ; then
+    echo "Missing file /etc/sysconfig/$NAME"
+    exit -1
+fi
+[ -r /etc/sysconfig/$NAME ] && . /etc/sysconfig/$NAME
+
+LOGPATH=/var/log/${NAME}
+LOGFILE=$LOGPATH/orion-pep.log
+TMPDIR=/tmp
+
+[ -d $LOGPATH ] || ( mkdir -p $LOGPATH && chown ${ORION_PEP_USER}:${ORION_PEP_GROUP} $LOGPATH )
+
+ORION_PEP_STARTUP_CMD="bin/pepProxy"
+ORION_PEP_STARTUP_OPTIONS=""
+
+rotate_log()
+{
+    if [ -f "${LOGFILE}" ] ; then
+        mv "${LOGFILE}" "${LOGFILE%.log}-$(date +%s).log"
+    fi
+    touch "${LOGFILE}"
+    chown ${ORION_PEP_USER}:${ORION_PEP_GROUP} "${LOGFILE}"
+}
+
+running()
+{
+    PID=`ps aux | grep pepProxy | grep -v grep | awk '{print $2}'`
+    if [[ -n $PID && -f /proc/$PID/cmdline ]] ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+    
+    if running ; then
+        echo "`date`: $NAME running, therefore not trying to start" >> $LOGFILE
+	action $"Starting $DESC: " /bin/true
+	retval=0
+    else
+        
+        if [ -f $LOCKFILE ] ; then
+            echo "`date`: Lock file exists. Removing lock file." >> $LOGFILE
+            rm -f $LOCKFILE
+        fi
+
+        rotate_log
+
+	su - $ORION_PEP_USER \
+	   -c "cd ${ORION_PEP_HOME}; nohup $ORION_PEP_STARTUP_CMD $ORION_PEP_STARTUP_OPTIONS > $LOGFILE 2>&1 < /dev/null &"
+        sleep=10
+        retval=1
+        while [ $retval -eq 1 -a $sleep -lt $ORION_PEP_STARTUP_TIMEOUT ]; do
+            sleep 5
+            sleep=$(( $sleep + 5 ))
+            grep -q -e "Server started" $LOGFILE > /dev/null 2>&1
+            if [ $? -eq 0 ]; then
+		PID=`ps aux | grep pepProxy | grep -v grep | awk '{print $2}'`
+		echo $PID > ${PIDFILE}
+	
+                retval=0
+            fi
+        done
+
+        if running ; then
+	    action $"Starting $DESC: " /bin/true
+        else
+	    action $"Starting $DESC: " /bin/false
+        fi
+    fi
+
+    return $retval
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+
+    if running ; then
+        if force_stop ; then
+            rm -f $LOCKFILE
+            rm -f $PIDFILE
+	    action $"Stopping $DESC: " /bin/true
+	    retval=0
+	else
+	    action $"Stopping $DESC: " /bin/false
+	    retval=1
+	fi
+    else
+	action $"Stopping $DESC: " /bin/true
+        rm -f $LOCKFILE
+        rm -f $PIDFILE
+	retval=0
+    fi
+    
+    return $retval
+}
+
+force_stop ()
+{
+    if running ; then
+	
+	PID=`ps aux | grep pepProxy | grep -v grep | awk '{print $2}'`
+	
+	kill -TERM ${PID} >> $LOGFILE
+        sleep 10
+        if running ; then
+            kill -9 ${PID} >> $LOGFILE
+        fi
+        if running ; then
+	    return 1
+        else
+            rm -f $PIDFILE
+	    return 0
+        fi
+    fi
+}
+
+rh_status ()
+{
+    status -p $PIDFILE $DESC
+}
+
+case "$1" in
+    start)
+        do_start
+        RETVAL=$?
+        ;;
+    stop)
+	do_stop
+        RETVAL=$?
+	;;
+  status)
+        rh_status
+        RETVAL=$?
+        ;;
+  restart|force-reload)
+	do_stop
+        sleep 5
+	do_start
+        RETVAL=$?
+	;;
+  *)
+        echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+	exit 3
+	;;
+esac
+
+exit $RETVAL

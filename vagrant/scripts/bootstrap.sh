@@ -114,12 +114,12 @@ bash idm-provision-roles.sh
 # install Orion
 bash install-orion.sh
 
+# install Orion PEP
+bash install-orion-pep.sh
+
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
 fi
-
-# install Orion PEP
-bash install-orion-pep.sh
 
 # install Cygnus
 bash install-cygnus.sh
