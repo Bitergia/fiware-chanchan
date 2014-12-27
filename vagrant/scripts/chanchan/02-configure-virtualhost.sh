@@ -2,31 +2,6 @@
 
 DOCROOT="/home/chanchan/${CC_APP_SERVER_PATH}/public"
 
-case "${DIST_TYPE}" in
-    "debian")
-	VHOST_HTTP="/etc/apache2/sites-available/chanchan.conf"
-	APACHE_VERSION="2.4"
-	APACHE_LOG_DIR=/var/log/apache
-	_setup_vhost_http
-	# enable new virtualhosts
-	a2ensite chanchan
-
-	# reload service
-	service apache2 restart
-	;;
-    "redhat")
-	VHOST_HTTP="/etc/httpd/conf.d/vhost-chanchan.conf"
-	APACHE_VERSION="2.2"
-	APACHE_LOG_DIR=/var/log/httpd
-	_setup_vhost_http
-	service httpd restart
-	;;
-    *)
-	exit 1
-	;;
-esac
-
-
 function _setup_vhost_http () {
     # create http virtualhost
     cat <<EOF > ${VHOST_HTTP}
@@ -60,3 +35,27 @@ EOF
 </VirtualHost>
 EOF
 }
+
+case "${DIST_TYPE}" in
+    "debian")
+	VHOST_HTTP="/etc/apache2/sites-available/chanchan.conf"
+	APACHE_VERSION="2.4"
+	APACHE_LOG_DIR=/var/log/apache
+	_setup_vhost_http
+	# enable new virtualhosts
+	a2ensite chanchan
+
+	# reload service
+	service apache2 restart
+	;;
+    "redhat")
+	VHOST_HTTP="/etc/httpd/conf.d/vhost-chanchan.conf"
+	APACHE_VERSION="2.2"
+	APACHE_LOG_DIR=/var/log/httpd
+	_setup_vhost_http
+	service httpd restart
+	;;
+    *)
+	exit 1
+	;;
+esac
