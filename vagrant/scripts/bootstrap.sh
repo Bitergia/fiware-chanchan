@@ -66,14 +66,14 @@ bash packages.sh
 # install IDM
 bash install-idm.sh
 
-# provision IDM
-bash idm-provision.sh
-
 # install Chanchan
 bash install-chanchan.sh
 
 # install Keypass
 bash install-keypass.sh
+
+# provision IDM
+bash idm-provision.sh
 
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
