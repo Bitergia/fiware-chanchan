@@ -72,6 +72,9 @@ bash idm-provision.sh
 # install Chanchan
 bash install-chanchan.sh
 
+# install Keypass
+bash install-keypass.sh
+
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
 fi
@@ -84,9 +87,6 @@ bash install-orion-pep.sh
 
 # install Cygnus
 bash install-cygnus.sh
-
-# install Keypass
-bash install-keypass.sh
 
 # clean package cache
 apt-get -qy clean
