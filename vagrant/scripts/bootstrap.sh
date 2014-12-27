@@ -117,12 +117,12 @@ bash install-orion.sh
 # install Orion PEP
 bash install-orion-pep.sh
 
+# install Cygnus
+bash install-cygnus.sh
+
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
 fi
-
-# install Cygnus
-bash install-cygnus.sh
 
 # clean package cache
 apt-get -qy clean
