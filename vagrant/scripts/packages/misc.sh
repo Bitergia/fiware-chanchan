@@ -6,6 +6,7 @@ case "${DIST_TYPE}" in
 	apt-get -qy install tree ccze
 	;;
     "redhat")
+	yum -q -y install tree ccze man htop
 	;;
     *)
 	exit 1
