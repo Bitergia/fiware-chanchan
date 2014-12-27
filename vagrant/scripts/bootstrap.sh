@@ -120,9 +120,15 @@ bash install-orion-pep.sh
 # install Cygnus
 bash install-cygnus.sh
 
-if [ "${DIST_TYPE}" != "debian" ]; then
-    exit 1
-fi
-
-# clean package cache
-apt-get -qy clean
+case "${DIST_TYPE}" in
+    "debian")
+	# install bash
+	apt-get -q -y clean
+	;;
+    "redhat")
+	yum -q -y clean all
+	;;
+    *)
+	exit 1
+	;;
+esac
