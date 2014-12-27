@@ -10,10 +10,12 @@ else
     fi
 fi
 
+_do_clock_check=0
 case ${DIST} in
     "centos6.5")
 	echo "(Partial) Provisioning for CentOS 6.5"
 	DIST_TYPE="redhat"
+	_do_clock_check=1
 	;;
     "ubuntu14.04")
 	echo "Provisioning for Ubuntu 14.04"
@@ -36,6 +38,37 @@ case ${_status} in
 	SCRIPTS_PATH="/vagrant/scripts"
 	# when using vagrant, the public IP will be on eth1
 	IFACE="eth1"
+	if [ ${_do_clock_check} -eq 1 ]; then
+	    ${SCRIPTS_PATH}/util/fix-centos-clock.sh
+	    ret=$?
+	    case $ret in
+		0)
+		    # just added fix, reboot needed
+		    echo "#########################################################"
+		    echo "#"
+		    echo "# Added clocksource_failover=acpi_pm to kernel parameters"
+		    echo "# This change requires a reboot to take effect.  Please,"
+		    echo "# issue the following command to reboot and continue"
+		    echo "# provisioning:"
+		    echo "#"
+		    echo "# vagrant reload --provision centos"
+		    echo "#"
+		    echo "#########################################################"
+		    exit 0
+		    ;;
+		1)
+		    # fix failed
+		    echo "Clock fix failed"
+		    exit 1
+		    ;;
+		2)
+		    # fix added and rebooted, continue
+		    echo "Clock fix in place, continuing"
+		    ;;
+		*)
+		    exit 1
+	    esac
+	fi
 	;;
     2)
 	# vagrant user not found
