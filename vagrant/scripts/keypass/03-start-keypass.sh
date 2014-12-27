@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+
 function _setup_init () {
     sudo cp ${SCRIPTS_PATH}/keypass/keypass.default ${DEFAULT}
     sudo sed -i ${DEFAULT} \
