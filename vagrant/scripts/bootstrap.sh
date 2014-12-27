@@ -12,7 +12,7 @@ fi
 
 case ${DIST} in
     "centos6.5")
-	echo "CentOS 6.5 provisioning is not supported yet"
+	echo "(Partial) Provisioning for CentOS 6.5"
 	DIST_TYPE="redhat"
 	;;
     "ubuntu14.04")
@@ -69,12 +69,12 @@ bash install-idm.sh
 # provision IDM
 bash idm-provision.sh
 
+# install Chanchan
+bash install-chanchan.sh
+
 if [ "${DIST_TYPE}" != "debian" ]; then
     exit 1
 fi
-
-# install Chanchan
-bash install-chanchan.sh
 
 # install Orion
 bash install-orion.sh
