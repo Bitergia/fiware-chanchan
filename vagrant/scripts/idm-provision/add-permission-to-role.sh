@@ -133,7 +133,7 @@ function _add_permission_to_role () {
 	 --data "utf8=${utf8}" \
 	 --data "_method=put" \
 	 --data "authenticity_token=${authenticity_token}" \
-	 $( if [ -z ${relations_list} ]; then
+	 $( if [ -z "${relations_list}" ]; then
 		echo "--data \"relation_custom[permission_ids][]=\""
 	    else
 		for id in ${relations_list} ; do
