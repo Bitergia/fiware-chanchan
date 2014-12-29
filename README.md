@@ -40,8 +40,8 @@ Start the creation of the vagrant image (needed around 1h)
 
 Add to your host file:
 
-    192.168.42.10 idm.server.vagrant
-    192.168.42.10 chanchan.server.vagrant
+    192.168.42.11 idm.server.vagrant
+    192.168.42.11 chanchan.server.vagrant
 
 access in your browser the URL https://idm.server.vagrant and accept the certificate.
 And then goto http://chanchan.server.vagrant to access the application.
