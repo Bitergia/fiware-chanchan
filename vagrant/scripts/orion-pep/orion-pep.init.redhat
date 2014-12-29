@@ -81,7 +81,7 @@ do_start()
         rotate_log
 
 	su - $ORION_PEP_USER \
-	   -c "cd ${ORION_PEP_HOME}; nohup NODE_TLS_REJECT_UNAUTHORIZED=0 $ORION_PEP_STARTUP_CMD $ORION_PEP_STARTUP_OPTIONS > $LOGFILE 2>&1 < /dev/null &"
+	   -c "cd ${ORION_PEP_HOME}; NODE_TLS_REJECT_UNAUTHORIZED=0 nohup $ORION_PEP_STARTUP_CMD $ORION_PEP_STARTUP_OPTIONS > $LOGFILE 2>&1 < /dev/null &"
         sleep=10
         retval=1
         while [ $retval -eq 1 -a $sleep -lt $ORION_PEP_STARTUP_TIMEOUT ]; do
