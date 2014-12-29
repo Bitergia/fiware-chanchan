@@ -13,7 +13,7 @@ fi
 _do_clock_check=0
 case ${DIST} in
     "centos6.5")
-	echo "(Partial) Provisioning for CentOS 6.5"
+	echo "Provisioning for CentOS 6.5"
 	DIST_TYPE="redhat"
 	_do_clock_check=1
 	;;
