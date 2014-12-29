@@ -28,23 +28,14 @@ export IDM_DBPASS="idmdbpass"
 export CC_USER_NAME="Chanchan Admin"
 export CC_EMAIL="chanchan@${IDM_HOSTNAME}"
 export CC_PASS="ccadmin"
-export ORG="Chanchan Organization"
-export ORG_DESC="Chanchan Demo Organization"
 
 ### Chanchan related variables
 export CC_HOSTNAME="chanchan.${HOSTNAME}"
 export CC_APP_SERVER_PATH="fiware-chanchan/server"
 export CC_APP_CLIENT_PATH="fiware-chanchan/client"
-export CC_APP="Chanchan Demo"
-export CC_APP_DESC="Chanchan Demo"
 export CC_APP_URL="http://${CC_HOSTNAME}"
 export CC_APP_CALLBACK="${CC_APP_URL}/login"
 export CC_OAUTH_CREDENTIALS="/tmp/appoauth.txt"
-export CC_ROLE="Publisher"
-export CC_PERM="PublishCKAN"
-export CC_PERM_DESC="Publish data on CKAN"
-export CC_PERM_ACTION="POST"
-export CC_PERM_RESOURCE="/chanchan/publishCKAN"
 
 ### Cygnus related variables
 export CYGNUS_USER="chanchan"
