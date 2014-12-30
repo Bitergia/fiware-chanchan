@@ -41,12 +41,22 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             return;
         };
 
-        var headers = {
-                "fiware-service": Context.app_id(),
-                "fiware-servicepath": Context.org_id(),
-                "x-auth-token": Context.access_token()
-        };
-        console.log(url);
+        var selected_org = $scope.organizations[$scope.org_selected.name].name;
+
+        if (Context.org_name() == selected_org) {
+                var headers = {
+                        "fiware-service": Context.app_id(),
+                        "fiware-servicepath": Context.org_id(),
+                        "x-auth-token": Context.access_token()
+                };
+        } else {
+               var headers = {
+                        "fiware-service": null,
+                        "fiware-servicepath": null,
+                        "x-auth-token": Context.access_token()
+                };
+        }
+	console.log(url);
 
         $http({method:'POST',url:url, headers:headers})
         .success(function(data, status, headers, config){

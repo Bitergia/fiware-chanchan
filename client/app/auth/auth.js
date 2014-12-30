@@ -50,7 +50,8 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                             roles = value.roles;
                             if (roles.length == 0) return;
                             GlobalContextService.roles(roles);
-                            GlobalContextService.org_id(value.id);
+                            GlobalContextService.org_name(value.displayName);
+			    GlobalContextService.org_id(value.id);
                             GlobalContextService.app_id(data.app_id);
                             $scope.org_id = value.id;
                             $scope.app_id = data.app_id;
