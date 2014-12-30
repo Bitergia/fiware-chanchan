@@ -3,7 +3,7 @@
 # check distribution
 DIST=""
 if [ -f "/etc/redhat-release" ]; then
-    grep -q "CentOS release 6.5" "/etc/redhat-release" && DIST="centos6.5"
+    grep -q "CentOS release 6\." "/etc/redhat-release" && DIST="centos6"
 else
     if [ -f "/etc/lsb-release" ]; then
 	grep -q "Ubuntu 14.04" "/etc/lsb-release" && DIST="ubuntu14.04"
@@ -12,8 +12,8 @@ fi
 
 _do_clock_check=0
 case ${DIST} in
-    "centos6.5")
-	echo "Provisioning for CentOS 6.5"
+    "centos6")
+	echo "Provisioning for CentOS 6"
 	DIST_TYPE="redhat"
 	_do_clock_check=1
 	;;
