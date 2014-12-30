@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PUBLIC_IFACE=${IFACE:-eth0}
-PUBLIC_IP=$( ip addr | sed -n "/inet.*${PUBLIC_IFACE}/ s/^.*inet \(.*\)\/.*$/\1/p" )
 HOSTS="/etc/hosts"
 NEW_HOST=""
 

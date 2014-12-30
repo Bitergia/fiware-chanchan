@@ -135,9 +135,6 @@ function _check_activation () {
 ### main
 _cleanup
 
-# add the IDM host to /etc/hosts if not already there
-${UTILS_PATH}/update_hosts.sh ${IDM_HOSTNAME}
-
 echo "*** Creating IDM user:  ${user_name}"
 
 _sign_up "${user_name}" "${user_email}" "${user_password}"

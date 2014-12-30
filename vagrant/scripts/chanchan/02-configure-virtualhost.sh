@@ -2,6 +2,8 @@
 
 DOCROOT="/home/chanchan/${CC_APP_SERVER_PATH}/public"
 
+${UTILS_PATH}/update_hosts.sh ${CC_HOSTNAME}
+
 function _setup_vhost_http () {
     # create http virtualhost
     cat <<EOF > ${VHOST_HTTP}

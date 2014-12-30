@@ -1,7 +1,5 @@
 #!/bin/bash
 
-${UTILS_PATH}/update_hosts.sh ${CC_HOSTNAME}
-
 su - chanchan <<EOF
 sed -i ${CC_APP_SERVER_PATH}/config.js \
   -e "/^[ ]*config.idm_url =/c config.idm_url = '${IDM_URL}';" \

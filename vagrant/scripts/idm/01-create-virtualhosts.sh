@@ -24,6 +24,8 @@ case "${DIST_TYPE}" in
 	;;
 esac
 
+# add the IDM host to /etc/hosts if not already there
+${UTILS_PATH}/update_hosts.sh ${IDM_HOSTNAME}
 
 # create http virtualhost
 cat <<EOF > ${VHOST_HTTP}

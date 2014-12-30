@@ -90,6 +90,9 @@ cd ${SCRIPTS_PATH}
 # load environment variables
 source variables.sh
 
+# get ip value unless already defined
+[ -z "${PUBLIC_IP}" ] && export PUBLIC_IP=$( ${SCRIPTS_PATH}/util/get_ip_from_iface.sh ${IFACE} )
+
 # swap: 512 MB default
 bash swap.sh
 
@@ -119,6 +122,9 @@ bash install-orion-pep.sh
 
 # install Cygnus
 bash install-cygnus.sh
+
+# show some info after provisioning
+${SCRIPTS_PATH}/util/show_hosts.sh
 
 case "${DIST_TYPE}" in
     "debian")

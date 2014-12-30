@@ -9,7 +9,10 @@ export HOSTNAME="$(hostname -f)"
 # util scripts path
 export UTILS_PATH="${SCRIPTS_PATH}/util"
 
-# interface for the public ip
+# define this when the IP can not be obtained from the network interface configuration
+export PUBLIC_IP=""
+
+# default interface for the public ip
 export IFACE="${IFACE:-eth1}"
 
 ### IDM related variables
