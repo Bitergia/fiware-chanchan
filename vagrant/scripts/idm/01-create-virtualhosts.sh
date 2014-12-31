@@ -9,7 +9,7 @@ case "${DIST_TYPE}" in
 	APACHE_VERSION="2.4"
 	CERT_FILE=/etc/ssl/certs/ssl-cert-snakeoil.pem
 	CERT_KEY=/etc/ssl/private/ssl-cert-snakeoil.key
-	APACHE_LOG_DIR=/var/log/apache
+	APACHE_LOG_DIR=/var/log/apache2
 	;;
     "redhat")
 	VHOST_HTTP="/etc/httpd/conf.d/vhost-idm.conf"

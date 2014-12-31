@@ -42,7 +42,7 @@ case "${DIST_TYPE}" in
     "debian")
 	VHOST_HTTP="/etc/apache2/sites-available/chanchan.conf"
 	APACHE_VERSION="2.4"
-	APACHE_LOG_DIR=/var/log/apache
+	APACHE_LOG_DIR=/var/log/apache2
 	_setup_vhost_http
 	# enable new virtualhosts
 	a2ensite chanchan
