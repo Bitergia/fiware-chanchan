@@ -19,6 +19,9 @@ su - idm-source <<EOF
 git clone https://github.com/ging/fi-ware-idm
 
 cd fi-ware-idm
+if [ "${GIT_REV_IDM}" != "master" ]; then
+    git checkout ${GIT_REV_IDM}
+fi
 
 # fix Gemfile for Capistrano 3
 sed -i Gemfile \
