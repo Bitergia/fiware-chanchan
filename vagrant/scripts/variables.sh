@@ -60,14 +60,14 @@ export KEYPASS_DBNAME="keypass"
 export KEYPASS_DBUSER="keypass"
 export KEYPASS_DBPASS="keypass"
 
-## Revisions to use on git repos
-export GIT_REV_CHANCHAN=master
-export GIT_REV_CYGNUS=master
-export GIT_REV_IDM=master
-export GIT_REV_KEYPASS=master
-export GIT_REV_ORION=master
+## Revisions to use on git repos: v1.0
+export GIT_REV_CHANCHAN=f2c36f0d4a790309cdae2be2d8f94b1967821e07
+export GIT_REV_CYGNUS=c797a60dabbd0bfc5e90c83efa9c15fed1bc1bd4
+export GIT_REV_IDM=99c9591c8b547583946af08d2f4c77b1db6719fd
+export GIT_REV_KEYPASS=431ea3c83d0ebc8809391f136e2b00954f0c014b
+export GIT_REV_ORION=1e8518d6ebe1a49695c85d4535ae32bf3279927e
 export GIT_REV_ORION_PROXYCOAP=749e22376664dd3adae17492090e58882d3b28a7
-export GIT_REV_ORION_PEP=master
+export GIT_REV_ORION_PEP=6b80dfae6a0c06eeae66d716a9a3db69371b615b
 
 if [ "${DIST_TYPE}" == "redhat" ]; then
     # when not using packages for maven, add it to the path
