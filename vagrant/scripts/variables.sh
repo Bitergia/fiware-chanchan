@@ -69,6 +69,8 @@ export GIT_REV_ORION=master
 export GIT_REV_ORION_PROXYCOAP=749e22376664dd3adae17492090e58882d3b28a7
 export GIT_REV_ORION_PEP=master
 
-# maven
-export M2_HOME=/opt/maven
-export PATH=${M2_HOME}/bin:${PATH}
+if [ "${DIST_TYPE}" == "redhat" ]; then
+    # when not using packages for maven, add it to the path
+    export M2_HOME=/opt/maven
+    export PATH=${M2_HOME}/bin:${PATH}
+fi
