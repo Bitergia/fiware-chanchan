@@ -11,3 +11,6 @@ for f in \$( ls ${CYGNUS_SCRIPTS}/*.sh ) ; do
     bash \${f}
 done
 EOF
+
+# after provisioning cygnus, the memory use of orion rises, so we restart the service
+service orion restart
