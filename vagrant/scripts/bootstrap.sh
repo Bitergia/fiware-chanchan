@@ -38,7 +38,10 @@ case ${_status} in
 	SCRIPTS_PATH="/vagrant/scripts"
 	# when using vagrant, the public IP will be on eth1
 	IFACE="eth1"
-	if [ ${_do_clock_check} -eq 1 ]; then
+	if ${SCRIPTS_PATH}/util/check_docker.sh ; then
+	    echo "I'm inside the matrix!"
+	    IFACE="eth0"
+	elif [ ${_do_clock_check} -eq 1 ]; then
 	    ${SCRIPTS_PATH}/util/fix-centos-clock.sh
 	    ret=$?
 	    case $ret in
