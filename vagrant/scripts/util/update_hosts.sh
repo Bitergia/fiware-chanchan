@@ -3,6 +3,42 @@
 HOSTS="/etc/hosts"
 NEW_HOST=""
 
+function update_docker_hosts_file () {
+
+    local _public_ip=$1
+    local _new_host=$2
+
+    # docker does not allow replacing the /etc/hosts file, so 'sed -i'
+    # does not work inside the container, as it creates a new file and
+    # then tries to replace the original file after doing the
+    # substitutions.  Instead, we need to edit the already existing
+    # file without replacing it.
+
+    cat "${HOSTS}" | sed -e "s/^${_public_ip}.*$/& ${_new_host}/" > /tmp/update_hosts.txt
+    cat /tmp/update_hosts.txt > "${HOSTS}"
+    rm /tmp/update_hosts.txt
+}
+
+function update_hosts_file () {
+
+    local _public_ip=$1
+    local _new_host=$2
+
+    sed -i "${HOSTS}" -e "s/^${_public_ip}.*$/& ${_new_host}/"
+}
+
+function update_hosts () {
+
+    local _public_ip=$1
+    local _new_host=$2
+
+    if $( ${SCRIPTS_PATH}/util/check_docker.sh ) ; then
+	update_docker_hosts_file "${_public_ip}" "${_new_host}"
+    else
+	update_hosts_file "${_public_ip}" "${_new_host}"
+    fi
+}
+
 # exit if no host specified
 if [ -z $1 ]; then
     echo "No host specified"
@@ -33,7 +69,7 @@ else
 
     if [ $? -eq 0 ]; then
 	# add the new host to the existing line
-	sed -i "${HOSTS}" -e "s/^${PUBLIC_IP}.*$/& ${NEW_HOST}/"
+	update_hosts "${PUBLIC_IP}" "${NEW_HOST}"
     else
 	echo "${PUBLIC_IP} ${NEW_HOST}" >> "${HOSTS}"
     fi
