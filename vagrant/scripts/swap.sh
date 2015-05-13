@@ -1,5 +1,8 @@
 #!/bin/sh
- 
+
+# skip this if we are inside a docker container
+[ ${SCRIPTS_PATH}/util/check_docker.sh ] && exit 0
+
 # size of swapfile in megabytes
 swapsize=512
  
