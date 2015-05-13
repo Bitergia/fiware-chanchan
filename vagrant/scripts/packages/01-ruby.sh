@@ -9,6 +9,7 @@ case "${DIST_TYPE}" in
 	apt-get install -qy bundler
 	;;
     "redhat")
+	yum -q -y install gnupg2
 	curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
 	curl -L get.rvm.io | bash -s stable
 	source /etc/profile.d/rvm.sh
