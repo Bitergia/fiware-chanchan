@@ -95,6 +95,7 @@ source variables.sh
 
 # get ip value unless already defined
 [ -z "${PUBLIC_IP}" ] && export PUBLIC_IP=$( ${SCRIPTS_PATH}/util/get_ip_from_iface.sh ${IFACE} )
+[ -z "${PUBLIC_IP}" ] && echo "Can't find IP for ${IFACE}. Aborting." && exit 1
 
 # swap: 512 MB default
 bash swap.sh
