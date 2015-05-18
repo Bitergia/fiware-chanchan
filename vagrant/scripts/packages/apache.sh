@@ -3,7 +3,7 @@
 case "${DIST_TYPE}" in
     "debian")
 	# install packages
-	apt-get install -qy apache2 libapache2-mod-passenger
+	apt-get install -qy apache2 libapache2-mod-passenger ssl-cert
 
 	# hack to fix nodejs support on ubuntu/debian passenger package
 	if [ ! -d "/usr/share/passenger/node_lib" ] ; then
