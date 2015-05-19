@@ -13,11 +13,11 @@ case "${DIST_TYPE}" in
 	## create the needed users
 	# idm-deploy
 	adduser --comment "idm deploy" idm-deploy
-	${UTILS_PATH}/generate_random_password idm-deploy
+	${UTILS_PATH}/generate_random_password.sh idm-deploy
 	usermod -G rvm idm-deploy
 	# idm-source
 	adduser --comment "idm source" idm-source
-	${UTILS_PATH}/generate_random_password idm-source
+	${UTILS_PATH}/generate_random_password.sh idm-source
 	usermod -G rvm idm-source
 	;;
     *)
