@@ -45,4 +45,12 @@ if [[ "$(arch)" =~ i[3456]86 ]] ; then
     replace "%ld" "%lld" --  src/lib/parseArgs/paLimitCheck.cpp
 fi
 
+if [ "${DIST_TYPE}" = "debian" ]; then
+    # fix distro detection for ubuntu 14.04.2 LTS
+    if grep -q 'DISTRIB_DESCRIPTION="Ubuntu 14.04.2 LTS"' /etc/lsb-release ; then
+	sed -e 's/"Ubuntu_14.04.1_LTS")/"Ubuntu_14.04.1_LTS" OR (${DISTRO} STREQUAL "Ubuntu_14.04.2_LTS"))/g' -i src/app/contextBroker/CMakeLists.txt
+	sed -e 's/"Ubuntu_14.04.1_LTS")/"Ubuntu_14.04.1_LTS" OR (${DISTRO} STREQUAL "Ubuntu_14.04.2_LTS"))/g' -i src/app/proxyCoap/CMakeLists.txt
+    fi
+fi
+
 INSTALL_DIR=${HOME} make install
