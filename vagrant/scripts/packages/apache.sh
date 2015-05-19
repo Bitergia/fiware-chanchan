@@ -10,6 +10,8 @@ case "${DIST_TYPE}" in
 	    mkdir fix-node-passenger
 	    cd fix-node-passenger
 	    apt-get install -qy dpkg-dev
+	    sed -e 's/^deb /deb-src /g' /etc/apt/sources.list >> /etc/apt/sources.list.d/debsrc.list
+	    apt-get update
 	    apt-get source ruby-passenger
 	    version=$( ls ruby-passenger*.orig.tar.gz | sed -e 's/^ruby-passenger_\(.*\).orig.tar.gz$/\1/' )
 	    cp -r ${PWD}/ruby-passenger-${version}/node_lib /usr/share/passenger/
