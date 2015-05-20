@@ -29,12 +29,13 @@ esac
 export DIST DIST_TYPE
 
 # allow running the provision scripts on non-vagrant environments
-_vagrant_user="vagrant"
+_vagrant_user=${1:-vagrant}
 getent passwd ${_vagrant_user} 2>&1 >/dev/null
 _status=$?
 case ${_status} in
     0)
 	# running on vagrant
+	echo "Using vagrant."
 	SCRIPTS_PATH="/vagrant/scripts"
 	# when using vagrant, the public IP will be on eth1
 	IFACE="eth1"
