@@ -10,7 +10,7 @@
 
 ret=1
 
-if $( cat /proc/1/cgroup | grep -q -F "/docker/" ) ; then
+if test -e /proc/1/cgroup && grep -q "\/docker[-\/]" /proc/1/cgroup ; then
 
     # also, there are two files, .dockerinit and .dockerenv on /, so check
     # for that too
