@@ -3,13 +3,15 @@
 case "${DIST_TYPE}" in
     "debian")
 	# install packages
-	apt-get install -qy apache2 libapache2-mod-passenger
+	apt-get install -qy apache2 libapache2-mod-passenger ssl-cert
 
 	# hack to fix nodejs support on ubuntu/debian passenger package
 	if [ ! -d "/usr/share/passenger/node_lib" ] ; then
 	    mkdir fix-node-passenger
 	    cd fix-node-passenger
 	    apt-get install -qy dpkg-dev
+	    sed -e 's/^deb /deb-src /g' /etc/apt/sources.list >> /etc/apt/sources.list.d/debsrc.list
+	    apt-get update
 	    apt-get source ruby-passenger
 	    version=$( ls ruby-passenger*.orig.tar.gz | sed -e 's/^ruby-passenger_\(.*\).orig.tar.gz$/\1/' )
 	    cp -r ${PWD}/ruby-passenger-${version}/node_lib /usr/share/passenger/

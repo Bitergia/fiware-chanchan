@@ -9,6 +9,7 @@ case "${DIST_TYPE}" in
     "redhat")
 	# create user chanchan
 	adduser --comment "chanchan" chanchan
+	${UTILS_PATH}/generate_random_password.sh chanchan
 	;;
     *)
 	exit 1

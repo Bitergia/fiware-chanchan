@@ -29,16 +29,20 @@ esac
 export DIST DIST_TYPE
 
 # allow running the provision scripts on non-vagrant environments
-_vagrant_user="vagrant"
+_vagrant_user=${1:-vagrant}
 getent passwd ${_vagrant_user} 2>&1 >/dev/null
 _status=$?
 case ${_status} in
     0)
 	# running on vagrant
+	echo "Using vagrant."
 	SCRIPTS_PATH="/vagrant/scripts"
 	# when using vagrant, the public IP will be on eth1
 	IFACE="eth1"
-	if [ ${_do_clock_check} -eq 1 ]; then
+	if ${SCRIPTS_PATH}/util/check_docker.sh ; then
+	    echo "I'm inside the matrix!"
+	    IFACE="eth0"
+	elif [ ${_do_clock_check} -eq 1 ]; then
 	    ${SCRIPTS_PATH}/util/fix-centos-clock.sh
 	    ret=$?
 	    case $ret in
@@ -92,6 +96,7 @@ source variables.sh
 
 # get ip value unless already defined
 [ -z "${PUBLIC_IP}" ] && export PUBLIC_IP=$( ${SCRIPTS_PATH}/util/get_ip_from_iface.sh ${IFACE} )
+[ -z "${PUBLIC_IP}" ] && echo "Can't find IP for ${IFACE}. Aborting." && exit 1
 
 # swap: 512 MB default
 bash swap.sh
