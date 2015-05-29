@@ -1,11 +1,11 @@
 /*
- * ChanChan CKAN REST API
+ * ChanChan Auth REST API
  */
 
 var utils = require('../utils');
 var filabs_url = "cloud.lab.fi-ware.org";
 
-// Return the list of available datasets in CKAN site
+// Return the access token for a user
 exports.auth = function(req, res) {
     return_post = function(res, buffer) {
         try {
