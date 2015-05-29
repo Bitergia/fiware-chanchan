@@ -8,8 +8,9 @@ sed -i ${HOME}/${ORION_PEP_HOME}/config.js \
     -e  "s/        protocol: 'http'/        protocol: 'https'/"\
     -e  "/domainName: 'Default',/ d"\
     -e  "/retries: 5,/ d"\
-    -e  "s/        host: 'localhost'/        host: '${IDM_HOSTNAME}'/"\
+    -e  "s/        host: 'localhost'/        host: '${ORION_HOSTNAME}'/"\
     -e  "s/port: 5000/port: 443/"\
+    -e  "s/port: 10026/port: ${ORION_PORT}/"\
     -e  "s/path: '\/v3\/role_assignments'/path: '\/user'/"\
     -e  "s/authPath: '\/v3\/auth\/tokens'/authPath: '\/oauth2\/authorize'/"\
     -e  "s/config.logLevel = 'FATAL'/config.logLevel = 'DEBUG'/"\

@@ -41,6 +41,7 @@ export CC_APP_CALLBACK="${CC_APP_URL}/login"
 export CC_OAUTH_CREDENTIALS="/tmp/appoauth.txt"
 
 ### Cygnus related variables
+export CYGNUS_HOSTNAME="localhost"
 export CYGNUS_USER="chanchan"
 export CYGNUS_CONNECTORS_HOME="fiware-connectors"
 export APACHE_FLUME_HOME="APACHE_FLUME_HOME"
@@ -48,6 +49,8 @@ export CKAN_API_KEY="44f762b2-978a-40ca-9dfc-1a8ec8855599"
 
 ### Orion related variables
 export ORION_USER="chanchan"
+export ORION_HOSTNAME="localhost"
+export ORION_PORT="10026"
 
 ### Orion PEP related variables
 export ORION_PEP_USER="chanchan"
