@@ -3,6 +3,7 @@
  */
 
 http = require('http');
+https = require('https');
 
 exports.do_get = function (options, callback, res) {
     var request = http.get(options, function (response) {
@@ -42,14 +43,16 @@ exports.do_get = function (options, callback, res) {
     }); 
 };
 
-exports.do_post = function (options, data, callback, res) {
+exports.do_post = function (options, data, callback, res, use_https) {
 
     console.log("In DO POST");
 
     console.log(options);
 
     try {
-        var post_req = http.request(options, function(response) {
+        var protocol = http;
+        if (use_https) {protocol = https};
+        var post_req = protocol.request(options, function(response) {
             console.log("DOING POST");
 
             response.setEncoding('utf8');
