@@ -41,7 +41,7 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             return;
         };
 
-        var selected_org = $scope.organizations[$scope.org_selected.name].name;
+        var selected_org = Context.organizations()[$scope.org_selected.name].name;
 
         if (Context.org_name() == selected_org) {
                 var headers = {
@@ -78,7 +78,7 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
     };
 
     $scope.update_ckan = function() {
-      angular.forEach($scope.organizations, function(value, org_name) {
+      angular.forEach(Context.organizations(), function(value, org_name) {
           $scope.reset_view();
           $http.get(Context.ckan()+'/organization/'+org_name).success(function(data) {
               if (data.result === undefined) {
@@ -115,6 +115,7 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
     $scope.init_view = function() {
         $scope.reset_view();
         $scope.org_selected = {name:""};
+        $scope.organizations = Context.organizations();
     };
 
     $scope.init_view();

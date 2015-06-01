@@ -14,8 +14,9 @@ angular.module('chanchanApp.auth', ['ngRoute'])
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
-    $scope.user = 'chanchan@idm.server';
+    $scope.user = 'chanchan@'+GlobalContextService.hosts().idm;
     $scope.password = 'ccadmin';
+    $scope.organizations = GlobalContextService.organizations();
     // The id and secret comes from IDM application data in the org
 
     $scope.auth = function() {
@@ -23,11 +24,11 @@ angular.module('chanchanApp.auth', ['ngRoute'])
         data +=    '&username='+$scope.user;
         data +=    '&password='+$scope.password;
 
-        var org_data = $scope.organizations[$scope.organization];
+        var org_data = GlobalContextService.organizations()[$scope.organization];
         data += '&client_id='+org_data.id;
         data += '&client_secret='+org_data.secret;
 
-        var url = 'https://idm.server';
+        var url = 'https://'+GlobalContextService.hosts().idm;
         var oauth_token = "oauth2/token";
         var user_roles = "user";
 
@@ -45,13 +46,13 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                     // Find the organization roles
                     var roles = [];
                     angular.forEach(data.organizations, function(value, key) {
-                        var login_org = $scope.organizations[$scope.organization].name;
+                        var login_org = GlobalContextService.organizations()[$scope.organization].name;
                         if (value.displayName === login_org) {
                             roles = value.roles;
                             if (roles.length == 0) return;
                             GlobalContextService.roles(roles);
                             GlobalContextService.org_name(value.displayName);
-			    GlobalContextService.org_id(value.id);
+                            GlobalContextService.org_id(value.id);
                             GlobalContextService.app_id(data.app_id);
                             $scope.org_id = value.id;
                             $scope.app_id = data.app_id;

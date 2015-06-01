@@ -16,7 +16,7 @@ config(['$routeProvider', function($routeProvider) {
 }]);
 
 // Check login before going to any route
-app.run(function($rootScope, $location, $http) {
+app.run(function($rootScope, $location, $http, GlobalContextService) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if ($rootScope.loggedInUser == null) {
         // no logged user, redirect to /login
@@ -28,17 +28,22 @@ app.run(function($rootScope, $location, $http) {
     });
     // Load orgs data
     $http.get("orgs.json").success(function(data) {
-        $rootScope.organizations = data;
+        // organizations available in IDM
+        GlobalContextService.organizations(data);
+    });
+    $http.get("hosts.json").success(function(data) {
+        // hostnames for idm and chanchan services
+        GlobalContextService.hosts(data);
     });
 });
 
 // GlobalContext service to share data between controllers
-// TODO: just use rootScope?
-app.factory('GlobalContextService', function() {
+app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $http) {
     var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, org_name_val, roles_val;
-    var use_pep_val = true;
+    var use_pep_val = true, hosts_val, organizations_val;
 
     // ORION AND CKAN AND FILABS CONFIG
+    // var base_url = 'http://'+hosts.chanchan;
     var base_url = '';
     var orion_url = base_url + '/api/orion';
     var orion_pep_url = base_url + '/api/orion-pep';
@@ -89,9 +94,17 @@ app.factory('GlobalContextService', function() {
     filabs: function(val) {
         if (val !== undefined) {filabs_url = val;}
         return filabs_url;
+    },
+    hosts: function(val) {
+        if (val !== undefined) {hosts_val = val;}
+        return hosts_val;
+    },
+    organizations: function(val) {
+        if (val !== undefined) {organizations_val = val;}
+        return organizations_val;
     }
   };
-});
+}]);
 
 angular.module('chanchanApp').controller('DropdownCtrl', ['$scope', '$rootScope', '$log', function ($scope, $rootScope, $log) {
     $scope.status = {
