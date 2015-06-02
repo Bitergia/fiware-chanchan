@@ -14,10 +14,16 @@ angular.module('chanchanApp.auth', ['ngRoute'])
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
-    $scope.user = 'chanchan@'+GlobalContextService.hosts().idm;
+    $scope.user = 'chanchan@';
+    if (GlobalContextService.hosts() !== undefined) {
+        $scope.user += GlobalContextService.hosts().idm;
+    }
     $scope.password = 'ccadmin';
-    $scope.organizations = GlobalContextService.organizations();
     // The id and secret comes from IDM application data in the org
+    $scope.organizations = {};
+    if (GlobalContextService.organizations() !== undefined) {
+        $scope.organizations = GlobalContextService.organizations();
+    }
 
     $scope.auth = function() {
         var data = 'grant_type=password';

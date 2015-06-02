@@ -6,6 +6,7 @@ var app = angular.module('chanchanApp', [
   'ui.bootstrap',
   'chanchanApp.auth',
   'chanchanApp.ckan',
+  'chanchanApp.config',
   'chanchanApp.manualPublish',
   'chanchanApp.santander',
   'chanchanApp.orion',
@@ -15,26 +16,37 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/login'});
 }]);
 
-// Check login before going to any route
+// Check config and login before going to any route
 app.run(function($rootScope, $location, $http, GlobalContextService) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-      if ($rootScope.loggedInUser == null) {
-        // no logged user, redirect to /login
-        if (next.templateUrl === "auth/login.html") {
+        if (next.templateUrl === "config/config.html") {
         } else {
-          $location.path("/login");
+          if ($rootScope.loggedInUser == null) {
+            if (next.templateUrl === "auth/login.html")  {
+            } else {
+                // no logged user, config ok, redirect to /login
+                $location.path("/login");
+            }
+          }
         }
-      }
     });
     // Load orgs data
-    $http.get("orgs.json").success(function(data) {
-        // organizations available in IDM
-        GlobalContextService.organizations(data);
-    });
-    $http.get("hosts.json").success(function(data) {
-        // hostnames for idm and chanchan services
-        GlobalContextService.hosts(data);
-    });
+    $http.get("orgs.json").
+        success(function(data) {
+            // organizations available in IDM
+            GlobalContextService.organizations(data);
+        }).
+        error(function(data, status, headers, config) {
+            $location.path("/config");
+        });
+    $http.get("hosts.json").
+        success(function(data) {
+            // hostnames for idm and chanchan services
+            GlobalContextService.hosts(data);
+        }).
+        error(function(data, status, headers, config) {
+            $location.path("/config");
+        });
 });
 
 // GlobalContext service to share data between controllers
