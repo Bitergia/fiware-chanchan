@@ -3,7 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "localhost";
+var orion_url = "idmauthlegacy"; // To be changed when PEP container is ready.
 
 
 
