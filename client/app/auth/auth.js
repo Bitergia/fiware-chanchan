@@ -16,7 +16,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
     // The app is registered in an organization
     $scope.user = 'chanchan@';
     if (GlobalContextService.hosts() !== undefined) {
-        $scope.user += GlobalContextService.hosts().idm;
+        $scope.user += GlobalContextService.hosts().idm_host_docker_image;
     }
     $scope.password = 'ccadmin';
     // The id and secret comes from IDM application data in the org
