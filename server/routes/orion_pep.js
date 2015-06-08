@@ -3,7 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "172.17.1.116";
+var orion_url = "orion"; // should resolve to the correct orion host
 
 //Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
