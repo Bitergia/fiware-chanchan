@@ -3,7 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "orion"; // should resolve to the correct orion host
+var orion_url = "idmauthlegacy"; // should resolve to the correct orion pep host
 
 //Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
