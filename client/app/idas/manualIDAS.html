@@ -1,0 +1,39 @@
+<div class="row">
+  <h3>
+    Manual Publish to IDAS
+    </h3>
+</div>
+
+<div class="row well" style="margin-bottom: 10px">
+  <span class="h5 ">
+    New device name <input ng-model="new_device" size="15">
+    <button ng-click="createDevice()">Add</button>
+  </span>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+      Select device <select ng-model="device" ng-change="update_device()">
+        <option value ="{{key}}" ng-repeat="(key, name) in devices">{{name}}</option>
+      </select>
+
+  </div>
+  <div class="col-md-8"">
+    Device temperature <input ng-model="new_temperature" size="4">
+    <button ng-click="updateTemperature()">Update</button>
+  </div>
+</div>
+
+<div data-ng-show="error != undefined && org_selected.name != ''" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="init_view()"
+    aria-hidden="true">&times;</button>
+    ERROR: {{error}}
+</div>
+
+<div data-ng-show="roles_error != undefined" style="margin-top:10px"
+  class="row alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-ng-click="roles_error = undefined"
+    aria-hidden="true">&times;</button>
+    {{roles_error}}
+</div>

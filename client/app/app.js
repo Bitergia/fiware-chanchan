@@ -7,6 +7,7 @@ var app = angular.module('chanchanApp', [
   'chanchanApp.auth',
   'chanchanApp.ckan',
   'chanchanApp.config',
+  'chanchanApp.manualIDAS',
   'chanchanApp.manualPublish',
   'chanchanApp.santander',
   'chanchanApp.orion',
@@ -61,6 +62,7 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     var orion_pep_url = base_url + '/api/orion-pep';
     var ckan_url = base_url + '/api/ckan';
     var filabs_url = base_url + '/api/filabs';
+    var idas_url = base_url + '/api/idas';
 
   return {
     access_token: function(val) {
@@ -114,6 +116,10 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     organizations: function(val) {
         if (val !== undefined) {organizations_val = val;}
         return organizations_val;
+    },
+    idas: function(val) {
+        if (val !== undefined) {idas_url = val;}
+        return idas_url;
     }
   };
 }]);
