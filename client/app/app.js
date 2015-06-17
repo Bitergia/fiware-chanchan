@@ -20,6 +20,7 @@ config(['$routeProvider', function($routeProvider) {
 // Check config and login before going to any route
 app.run(function($rootScope, $location, $http, GlobalContextService) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        return;
         if (next.templateUrl === "config/config.html") {
         } else {
           if ($rootScope.loggedInUser == null) {
@@ -63,6 +64,7 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     var ckan_url = base_url + '/api/ckan';
     var filabs_url = base_url + '/api/filabs';
     var idas_url = base_url + '/api/idas';
+    var initial_temp = '00'; // Initial temp for a new device
 
   return {
     access_token: function(val) {
@@ -120,11 +122,16 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     idas: function(val) {
         if (val !== undefined) {idas_url = val;}
         return idas_url;
+    },
+    initial_temp: function(val) {
+        if (val !== undefined) {initial_temp = val;}
+        return initial_temp;
     }
   };
 }]);
 
-angular.module('chanchanApp').controller('DropdownCtrl', ['$scope', '$rootScope', '$log', function ($scope, $rootScope, $log) {
+angular.module('chanchanApp').controller('DropdownCtrl', 
+        ['$scope', '$rootScope', '$log', function ($scope, $rootScope, $log) {
     $scope.status = {
         isopen: false
     };
