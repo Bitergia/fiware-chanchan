@@ -37,6 +37,27 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
         $scope.updateTemperature();
     };
 
+    function convert_devices(devices_raw) {
+        // Transform devices IDAS format to be managed easily in Angular
+        var devices = [];
+        angular.forEach(devices_raw, function (device) {
+            devices.push(device.device_id);
+        });
+        return devices;
+    }
+
+    function convert_history(history_raw) {
+        // Convert devices history to a simpler format to be shown in Angular
+        var history = {};
+        angular.forEach(history_raw, function (device_temps) {
+            history[device_temps[0].entityId] = [];
+            angular.forEach(device_temps, function(temp_data) {
+                history[device_temps[0].entityId].push(temp_data);
+            });
+        });
+        $scope.history = history;
+    }
+
     $scope.updateTemperature = function() {
         var url = Context.idas()+'/devices/'+$scope.device;
         url += '/temperature/'+$scope.new_temperature;
@@ -56,6 +77,24 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
                 console.log(data);
             }
             $scope.listDevices();
+            // Wait a bit so the event reaches cygnus and mysql
+            $timeout($scope.getHistory, 1000);
+        })
+        .error(function(data,status,headers,config){
+            $scope.error = "error";
+            console.log(data);
+        });
+    };
+
+    $scope.getHistory = function() {
+        var url = Context.idas()+'/history';
+        $http({method:'GET',url:url})
+        .success(function(data, status, headers, config) {
+            if (data.errno != undefined && data.errno == "ECONNREFUSED") {
+                $scope.error = "Can not connect to IDAS";
+            } else {
+                convert_history(data);
+            }
         })
         .error(function(data,status,headers,config){
             $scope.error = "error";
@@ -69,17 +108,9 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
         $scope.error = undefined;
     };
 
-    function convert_devices(devices_raw) {
-        // Transform devices IDAS format to be managed easily in Angular
-        var devices = [];
-        angular.forEach(devices_raw, function (device) {
-            devices.push(device.device_id);
-        });
-        return devices;
-    }
-
     $scope.init_view = function() {
         $scope.listDevices();
+        $scope.getHistory();
         $scope.reset_view();
         $scope.org_selected = {name:""};
         var devices_raw = [
@@ -87,7 +118,7 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
             {"device_id":"d2"},
             {"device_id":"d3"}];
         $scope.devices = convert_devices(devices_raw);
-        $scope.organizations = Context.organizations();
+        $scope.history = {"dev1":[10,20,30],"dev2":[10,5]};
     };
 
     $scope.init_view();

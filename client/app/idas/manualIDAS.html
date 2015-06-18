@@ -24,6 +24,18 @@
   </div>
 </div>
 
+<div class="row">
+    History
+      <ul>
+        <li ng-repeat="(device, temps) in history">{{device}}
+            <ul>
+                <li ng-repeat="temp in temps">{{temp.attrValue}}
+                <small>({{temp.recvTime}})</small>
+            </ul>
+        </li>
+    </ul>
+</div>
+
 <div data-ng-show="error != undefined && org_selected.name != ''" style="margin-top:10px"
   class="row alert alert-danger alert-dismissable">
   <button type="button" class="close" data-ng-click="init_view()"
