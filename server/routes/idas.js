@@ -3,12 +3,54 @@
  */
 
 var utils = require('../utils');
+var mysql      = require('../node_modules/node-mysql/node_modules/mysql');
 var idas_url = "idas";
 var scripts_home = "/home/bitergia/scripts/idas-scripts";
 var idas_params = " --idas-host idas --idas-port 8080 ";
 var orion_params = " --context-broker-url http://orion:1026 ";
 var api_params = " --api-key test ";
-var service_params = " --service bitergiaidas --service-path / ";
+var service_name = "bitergiaidas";
+var service_params = " --service "+service_name+" --service-path / ";
+
+
+exports.get_history = function(req, res) {
+    // MySQL connection to get sensors history stored by cygnus
+
+    var history = [];
+
+    function return_history (res, data, total) {
+        history.push(data);
+        if (history.length === total) {
+            // All history is ready
+            res.send(history);
+        }
+    }
+
+    var connection = mysql.createConnection({
+      user     : 'root',
+      password : 'rootpw',
+      database : service_name,
+      host: 'cygnus'
+    });
+
+    connection.connect();
+
+    var tables_sql = "SHOW tables";
+    connection.query(tables_sql, function(err, rows, fields) {
+        if (err) throw err;
+        console.log(rows);
+        var total = rows.length;
+        var tables = rows[0][fields[0].name];
+        rows.forEach(function (row) {
+            var table = row[fields[0].name];
+            connection.query("SELECT * FROM " + table, function(err, rows1, fields) {
+                console.log(rows1);
+                return_history(res, rows1, total);
+            });
+        });
+    });
+};
+
 
 exports.list_devices = function(req, res) {
     var cmd_list = scripts_home+"/list_devices.sh ";

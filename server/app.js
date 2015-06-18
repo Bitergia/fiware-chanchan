@@ -54,6 +54,7 @@ app.get('/api/ckan/resource/:resource_id',ckan.resource);
 // idas
 app.post('/api/idas/devices/:device_id/temperature/:temperature',idas.update_temperature);
 app.get('/api/idas/devices',idas.list_devices);
+app.get('/api/idas/history',idas.get_history);
 // end api rest
 
 app.get('*', function(req, res, next) {
