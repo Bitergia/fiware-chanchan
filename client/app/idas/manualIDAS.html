@@ -24,8 +24,7 @@
   </div>
 </div>
 
-<div class="row">
-    History
+<div class="row" data-ng-show="history != undefined">
       <ul>
         <li ng-repeat="(device, temps) in history">{{device}}
             <ul>

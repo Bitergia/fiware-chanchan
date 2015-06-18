@@ -20,7 +20,6 @@ config(['$routeProvider', function($routeProvider) {
 // Check config and login before going to any route
 app.run(function($rootScope, $location, $http, GlobalContextService) {
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
-        return;
         if (next.templateUrl === "config/config.html") {
         } else {
           if ($rootScope.loggedInUser == null) {

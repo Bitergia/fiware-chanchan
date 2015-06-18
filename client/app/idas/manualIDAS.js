@@ -118,7 +118,6 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
             {"device_id":"d2"},
             {"device_id":"d3"}];
         $scope.devices = convert_devices(devices_raw);
-        $scope.history = {"dev1":[10,20,30],"dev2":[10,5]};
     };
 
     $scope.init_view();
