@@ -12,30 +12,6 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
 .controller('ManualIDASCtrl', ['$scope', '$http', '$timeout',
                                'GlobalContextService', 
                                function($scope, $http, $timeout, Context) {
-    $scope.listDevices = function() {
-        var url = Context.idas()+'/devices';
- 
-        console.log(url);
-        $http({method:'GET',url:url})
-        .success(function(data, status, headers, config) {
-            if (data.errno != undefined && data.errno == "ECONNREFUSED") {
-                $scope.error = "Can not connect to IDAS";
-            } else {
-                console.log("Devices: " + data);
-            }
-            $scope.devices = convert_devices(data.devices);
-        })
-        .error(function(data,status,headers,config){
-            $scope.error = "error";
-            console.log(data);
-        });
-    };
-
-    $scope.createDevice = function() {
-        // Add 0 temperature to the new device
-        $scope.device_new = true;
-        $scope.updateTemperature();
-    };
 
     function convert_devices(devices_raw) {
         // Transform devices IDAS format to be managed easily in Angular
@@ -58,14 +34,43 @@ angular.module('chanchanApp.manualIDAS', ['ngRoute'])
         $scope.history = history;
     }
 
+    $scope.listDevices = function() {
+        var url = Context.idas()+'/devices';
+ 
+        console.log(url);
+        $http({method:'GET',url:url})
+        .success(function(data, status, headers, config) {
+            if (data.errno != undefined && data.errno == "ECONNREFUSED") {
+                $scope.error = "Can not connect to IDAS";
+            } else {
+                console.log("Devices: " + data);
+            }
+            $scope.devices = convert_devices(data.devices);
+        })
+        .error(function(data,status,headers,config){
+            $scope.error = "error";
+            console.log(data);
+        });
+    };
+
+    $scope.createDevice = function() {
+        $scope.updateTemperature();
+    };
+
     $scope.updateTemperature = function() {
         var url = Context.idas()+'/devices/'+$scope.device;
-        url += '/temperature/'+$scope.new_temperature;
 
-        if ($scope.device_new) {
+        if ($scope.new_device) {
             url = Context.idas()+'/devices/'+$scope.new_device;
-            url += '/temperature/'+Context.initial_temp();
+            $scope.new_device = undefined;
         };
+
+        if ($scope.new_temperature === undefined ||
+            $scope.new_temperature === "") {
+            url += '/temperature/' + Context.initial_temp();
+        } else {
+            url += '/temperature/' + $scope.new_temperature;
+        }
 
         console.log(url);
         $http({method:'POST',url:url})
