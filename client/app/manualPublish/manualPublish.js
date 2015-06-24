@@ -36,27 +36,18 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             url = Context.orion()+'/contexts/'+org_name+'/'+context+'/'+$scope.org_selected.temperature;
         }
 
-        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
+        if (Context.use_pep() && Context.roles().length === 0) {
             $scope.roles_error = "You don't have roles for " + $scope.org_selected.name;
             return;
         };
 
-        var selected_org = Context.organizations()[$scope.org_selected.name].name;
+       var headers = {
+                "fiware-service": null,
+                "fiware-servicepath": null,
+                "x-auth-token": Context.access_token()
+        };
 
-        if (Context.org_name() == selected_org) {
-                var headers = {
-                        "fiware-service": Context.app_id(),
-                        "fiware-servicepath": Context.org_id(),
-                        "x-auth-token": Context.access_token()
-                };
-        } else {
-               var headers = {
-                        "fiware-service": null,
-                        "fiware-servicepath": null,
-                        "x-auth-token": Context.access_token()
-                };
-        }
-	console.log(url);
+       console.log(url);
 
         $http({method:'POST',url:url, headers:headers})
         .success(function(data, status, headers, config){

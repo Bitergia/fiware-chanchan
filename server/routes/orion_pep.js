@@ -3,7 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "idmauthlegacy"; // should resolve to the correct orion pep host
+var orion_url = "wilmapep"; // should resolve to the correct orion pep host
 
 //Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
@@ -54,7 +54,7 @@ exports.update_context_temperature = function(req, res) {
   var options = {
       host: orion_url,
       port: 1026,
-      path: '/NGSI10/updateContext',
+      path: '/v1/updateContext',
       method: 'POST',
       headers: headers
   };

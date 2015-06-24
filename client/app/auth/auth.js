@@ -30,9 +30,9 @@ angular.module('chanchanApp.auth', ['ngRoute'])
     $scope.auth = function() {
         var data = 'username='+$scope.user;
         data +=    '&password='+$scope.password;
-        data +=    '&organization='+$scope.organization;
 
         var org_data = GlobalContextService.organizations()[$scope.organization];
+        data +=    '&organization='+org_data.name;
 
         var url = GlobalContextService.idm();
         $scope.auth_result = "process";
@@ -68,7 +68,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
             $rootScope.user_profile = [
                 {type:"fa-user",value:data.user.id},
                 {type:"fa-envelope",value:data.user.name},
-                {type:"fa-building",value:$scope.organization},
+                {type:"fa-building",value:data.project.name},
                 {type:"fa-check",value:rol_names}
             ];
             $location.path("/manualPublish");
