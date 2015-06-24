@@ -52,7 +52,8 @@ app.run(function($rootScope, $location, $http, GlobalContextService) {
 
 // GlobalContext service to share data between controllers
 app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $http) {
-    var access_token_val, access_token_filabs_val = '', app_id_val, org_id_val, org_name_val, roles_val;
+    var access_token_val, access_token_pep_val, access_token_filabs_val = '';
+    var app_id_val, org_id_val, org_name_val, roles_val;
     var use_pep_val = true, hosts_val, organizations_val;
 
     // ORION AND CKAN AND FILABS CONFIG
@@ -71,6 +72,10 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
       if (val !== undefined) {access_token_val = val;}
       return access_token_val;
     },
+    access_token_pep: function(val) {
+        if (val !== undefined) {access_token_pep_val = val;}
+        return access_token_pep_val;
+      },
     access_token_filabs: function(val) {
         if (val !== undefined) {access_token_filabs_val = val;}
         return access_token_filabs_val;

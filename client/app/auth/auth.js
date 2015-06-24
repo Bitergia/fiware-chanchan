@@ -45,6 +45,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                 return;
             }
             var access_token = data.value;
+            var access_token = data.token_pep;
             // All the information about the token comes in data.token
             data = data.token;
             $scope.user_data =  data;
@@ -69,6 +70,7 @@ angular.module('chanchanApp.auth', ['ngRoute'])
                 {type:"fa-user",value:data.user.id},
                 {type:"fa-envelope",value:data.user.name},
                 {type:"fa-building",value:data.project.name},
+                {type:"fa-gear",value:data.project.name},
                 {type:"fa-check",value:rol_names}
             ];
             $location.path("/manualPublish");
@@ -78,5 +80,26 @@ angular.module('chanchanApp.auth', ['ngRoute'])
           $scope.auth_result = "error";
           console.log(data);
         });
+
+        // We should also get the auth token for PEP
+        data =  'username='+$scope.user;
+        data += '&password='+$scope.password;
+
+        var org_data = GlobalContextService.organizations()[$scope.organization];
+        data += '&client_id='+org_data.id;
+        data += '&client_secret='+org_data.secret;
+
+        var url = GlobalContextService.idm();
+        $scope.auth_result_pep = "process";
+
+        $http({method:'GET',url:url+"/auth_pep"+"/"+data})
+        .success(function(data, status, headers, config){
+            $scope.auth_result_pep = "ok";
+            GlobalContextService.access_token_pep(data.access_token);
+        }).
+        error(function(data, status, headers, config){
+            $scope.auth_result = "error";
+            console.log(data);
+          });
     };
 }]);

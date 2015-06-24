@@ -58,6 +58,7 @@ app.get('/api/idas/devices',idas.list_devices);
 app.get('/api/idas/history',idas.get_history);
 // idm
 app.get('/api/idm/auth/:auth_data',idm.auth);
+app.get('/api/idm/auth_pep/:auth_data',idm.auth_pep);
 
 // end api rest
 

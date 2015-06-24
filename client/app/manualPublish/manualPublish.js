@@ -41,11 +41,15 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             return;
         };
 
+//       var headers = {
+//                "fiware-service": null,
+//                "fiware-servicepath": null,
+//                "x-auth-token": Context.access_token_pep()
+//        };
+
        var headers = {
-                "fiware-service": null,
-                "fiware-servicepath": null,
-                "x-auth-token": Context.access_token()
-        };
+               "x-auth-token": Context.access_token_pep()
+       };
 
        console.log(url);
 
@@ -53,8 +57,10 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
         .success(function(data, status, headers, config){
             if (data.errno != undefined && data.errno == "ECONNREFUSED") {
                 $scope.error = "Can not connect to Orion PEP";
-            } else if (data.message != undefined && data.message == "Access forbidden") {
-                $scope.error = "Orion PEP: Access forbidden.";
+            } else if (data === "User token not authorized") {
+                $scope.error = "Wilma PEP: Access forbidden.";
+            } else if (data.orionError) {
+                    $scope.error = "Orion error: " + data.orionError;
             } else {
                 console.log("Updated context: " + context);
                 $scope.orgs_entities[org_name] = undefined;
