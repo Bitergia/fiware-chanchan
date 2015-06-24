@@ -63,6 +63,7 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     var ckan_url = base_url + '/api/ckan';
     var filabs_url = base_url + '/api/filabs';
     var idas_url = base_url + '/api/idas';
+    var idm_url = base_url + '/api/idm';
     var initial_temp = '00'; // Initial temp for a new device
 
   return {
@@ -125,6 +126,10 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     initial_temp: function(val) {
         if (val !== undefined) {initial_temp = val;}
         return initial_temp;
+    },
+    idm: function(val) {
+        if (val !== undefined) {idm_url = val;}
+        return idm_url;
     }
   };
 }]);
