@@ -66,7 +66,7 @@ exports.do_post = function (options, data, callback, res, use_https) {
 
             response.on("end", function (err) {
                 console.log(buffer);
-                callback(res, buffer);
+                callback(res, buffer, response.headers);
             });
         });
 

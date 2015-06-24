@@ -5,8 +5,9 @@ var express = require('express'),
     orion_pep =  require('./routes/orion_pep'),
     orion =    require('./routes/orion'),
     ckan =    require('./routes/ckan'),
-    filabs =    require('./routes/filabs');
-    idas =    require('./routes/idas');
+    filabs =    require('./routes/filabs'),
+    idas =    require('./routes/idas'),
+    idm =    require('./routes/idm');
 
 var app = express();
 
@@ -55,6 +56,9 @@ app.get('/api/ckan/resource/:resource_id',ckan.resource);
 app.post('/api/idas/devices/:device_id/temperature/:temperature',idas.update_temperature);
 app.get('/api/idas/devices',idas.list_devices);
 app.get('/api/idas/history',idas.get_history);
+// idm
+app.get('/api/idm/auth/:auth_data',idm.auth);
+
 // end api rest
 
 app.get('*', function(req, res, next) {

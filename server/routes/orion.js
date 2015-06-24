@@ -35,7 +35,7 @@ exports.contexts = function(req, res) {
 
 //Create a new Context subscription in CKAN for an organization
 exports.subscribe_context = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       res.send(buffer);
   };
 
@@ -99,7 +99,7 @@ exports.subscribe_context = function(req, res) {
 
 // Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       res.send(buffer);
   };
 
@@ -152,7 +152,7 @@ exports.update_context_temperature = function(req, res) {
 
 // Find the sensors for a organization and a type
 exports.get_sensors = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       res.send(buffer);
   };
 
@@ -193,7 +193,7 @@ exports.get_sensors = function(req, res) {
 
 // Update entities in orion
 exports.update_entities = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       res.send(buffer);
   };
 

@@ -8,7 +8,7 @@ var filabs_url = "orion.lab.fiware.org";
 
 // Return the access token for a user
 exports.auth = function(req, res) {
-    return_post = function(res, buffer) {
+    return_post = function(res, buffer, headers) {
         try {
             // var data = JSON.parse(buffer);
             // var token = data.access.token.id;

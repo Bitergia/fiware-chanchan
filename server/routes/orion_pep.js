@@ -7,7 +7,7 @@ var orion_url = "idmauthlegacy"; // should resolve to the correct orion pep host
 
 //Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       console.log("Sending data " + buffer);
       res.send(buffer);
   };
@@ -94,7 +94,7 @@ exports.contexts = function(req, res) {
 
 // Update entities in orion_pep
 exports.update_entities = function(req, res) {
-  return_post = function(res, buffer) {
+  return_post = function(res, buffer, headers) {
       res.send(buffer);
   };
 

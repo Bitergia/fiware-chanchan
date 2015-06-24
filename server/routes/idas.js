@@ -72,7 +72,7 @@ exports.list_devices = function(req, res) {
 
 
 exports.update_temperature = function(req, res) {
-    return_post = function(res, buffer) {
+    return_post = function(res, buffer, headers) {
         try {
             var token = buffer;
             res.send(buffer);
