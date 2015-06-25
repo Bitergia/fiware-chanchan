@@ -28,9 +28,9 @@ exports.get_history = function(req, res) {
 
     var connection = mysql.createConnection({
       user     : 'root',
-      password : 'rootpw',
+      password : 'bitergia',
       database : service_name,
-      host: 'cygnus'
+      host: 'mariadb'
     });
 
     connection.connect();
