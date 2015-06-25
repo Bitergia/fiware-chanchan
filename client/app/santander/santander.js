@@ -129,9 +129,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         if (Context.use_pep()) {
             url = Context.orion_pep()+'/entities/'+$scope.org_selected;
             headers = {
-                "fiware-service": Context.app_id(),
-                "fiware-servicepath": Context.org_id(),
-                "x-auth-token": Context.access_token(),
+                "x-auth-token": Context.access_token_pep(),
                 "Content-Type": 'application/json'
             };
 
@@ -141,11 +139,6 @@ angular.module('chanchanApp.santander', ['ngRoute'])
                 "Content-Type": 'application/json'
             };
         }
-
-        if (Context.use_pep() && ((Context.app_id() == undefined || Context.org_id() == undefined))) {
-            $scope.roles_error = "You don't have roles for " + $scope.org_selected;
-            return;
-        };
 
         console.log(url);
 

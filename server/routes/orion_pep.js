@@ -46,8 +46,6 @@ exports.update_context_temperature = function(req, res) {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Content-Length': post_data.length,
-      // 'fiware-service': req.headers['fiware-service'],
-      // 'fiware-servicepath': req.headers['fiware-servicepath'],
       'x-auth-token': req.headers['x-auth-token']
   };
 
@@ -105,8 +103,6 @@ exports.update_entities = function(req, res) {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Content-Length': post_data.length,
-      'fiware-service': req.headers['fiware-service'],
-      'fiware-servicepath': req.headers['fiware-servicepath'],
       'x-auth-token': req.headers['x-auth-token']
   };
 
