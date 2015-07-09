@@ -3,7 +3,8 @@
  */
 
 var utils = require('../utils');
-var orion_url = "wilmapep"; // should resolve to the correct orion pep host
+// var orion_url = "wilmapep"; // should resolve to the correct orion pep host
+var orion_url = "pepwilma"; // should resolve to the correct orion pep host
 
 //Update entities data (temperature)
 exports.update_context_temperature = function(req, res) {
