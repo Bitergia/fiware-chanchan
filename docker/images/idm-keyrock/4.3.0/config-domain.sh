@@ -2,6 +2,8 @@
 
 [ -z "${AUTHZFORCE_HOSTNAME}" ] && echo "AUTHZFORCE_HOSTNAME is undefined.  Using default value of 'authzforce'" && export AUTHZFORCE_HOSTNAME=authzforce
 [ -z "${AUTHZFORCE_PORT}" ] && echo "AUTHZFORCE_PORT is undefined.  Using default value of '8080'" && export AUTHZFORCE_PORT=8080
+[ -z "${DEFAULT_MAX_TRIES}" ] && echo "DEFAULT_MAX_TRIES is undefined.  Using default value of '30'" && export DEFAULT_MAX_TRIES=30
+
 declare DOMAIN=''
 
 # fix variables when using docker-compose
@@ -23,7 +25,7 @@ function check_host_port () {
 
     local _host=$1
     local _port=$2
-    local _max_tries=${3:-${_timeout}}
+    local _max_tries=${3:-${DEFAULT_MAX_TRIES}}
     local NC=$( which nc )
 
     if [ ! -e "${NC}" ] ; then
@@ -34,7 +36,7 @@ function check_host_port () {
     echo "Testing if port '${_port}' is open at host '${_host}'."
 
     while [ ${_tries} -lt ${_max_tries} -a ${_is_open} -eq 0 ] ; do
-	echo -n "Checking connection to '${_host}:${_port}' [try $(( ${_tries} + 1 ))] ... "
+	echo -n "Checking connection to '${_host}:${_port}' [try $(( ${_tries} + 1 ))/${_max_tries}] ... "
 	if ${NC} -z -w ${_timeout} ${_host} ${_port} ; then
 	    echo "OK."
 	    _is_open=1

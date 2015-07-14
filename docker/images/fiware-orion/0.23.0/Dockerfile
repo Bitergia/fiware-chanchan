@@ -1,10 +1,10 @@
 FROM bitergia/centos-6:latest
 
-MAINTAINER David Muriel <dmuriel@bitergia.com>
+MAINTAINER David Muriel <dmuriel@bitergia.com>, Alberto Martín <alberto.martin@bitergia.com>
 
 ENV ORION_USER orion
 ENV GIT_REV_ORION_PROXYCOAP 749e22376664dd3adae17492090e58882d3b28a7
-ENV GIT_REV_ORION 0.22.0
+ENV GIT_REV_ORION 0.23.0
 
 RUN adduser --comment "${ORION_USER}" ${ORION_USER}
 

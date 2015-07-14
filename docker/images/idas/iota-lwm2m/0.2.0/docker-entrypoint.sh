@@ -7,9 +7,10 @@ set -e
 [ -z "${ORION_HOSTNAME}" ] && echo "ORION_HOSTNAME is undefined.  Using default value of 'orion'" && export ORION_HOSTNAME=orion
 [ -z "${ORION_PORT}" ] && echo "ORION_PORT is undefined.  Using default value of '10026'" && export ORION_PORT=10026
 [ -z "${IOTA_SERVER_PORT}" ] && echo "IOTA_SERVER_PORT is undefined.  Using default value of '4041'" && export IOTA_SERVER_PORT=4041
-[ -z "${IOTA_DEFAULT_SERVICE}" ] && echo "IOTA_DEFAULT_SERVICE is undefined.  Using default value of 'bitergiaidas'" && export IOTA_DEFAULT_SERVICE=bitergia
+[ -z "${IOTA_DEFAULT_SERVICE}" ] && echo "IOTA_DEFAULT_SERVICE is undefined.  Using default value of 'bitergiaidas'" && export IOTA_DEFAULT_SERVICE=bitergiaidas
 [ -z "${IOTA_DEFAULT_SUBSERVICE}" ] && echo "IOTA_DEFAULT_SUBSERVICE is undefined.  Using default value of '/devices'" && export IOTA_DEFAULT_SUBSERVICE=/devices
 [ -z "${IOTA_PATH}" ] && echo "IOTA_PATH is undefined.  Using default value of '/opt/lightweightm2m-iotagent'" && export IOTA_PATH=/opt/lightweightm2m-iotagent
+[ -z "${DEFAULT_MAX_TRIES}" ] && echo "DEFAULT_MAX_TRIES is undefined.  Using default value of '30'" && export DEFAULT_MAX_TRIES=30
 
 if [ -z "${IOTA_SERVER_IP}" ]; then
     echo "IOTA_SERVER_IP is undefined.  Using container IP".
@@ -41,7 +42,7 @@ function check_host_port () {
 
     local _host=$1
     local _port=$2
-    local _max_tries=${3:-${_timeout}}
+    local _max_tries=${3:-${DEFAULT_MAX_TRIES}}
     local NC=$( which nc )
 
     if [ ! -e "${NC}" ] ; then
@@ -52,7 +53,7 @@ function check_host_port () {
     echo "Testing if port '${_port}' is open at host '${_host}'."
 
     while [ ${_tries} -lt ${_max_tries} -a ${_is_open} -eq 0 ] ; do
-	echo -n "Checking connection to '${_host}:${_port}' [try $(( ${_tries} + 1 ))] ... "
+	echo -n "Checking connection to '${_host}:${_port}' [try $(( ${_tries} + 1 ))/${_max_tries}] ... "
 	if ${NC} -z -w ${_timeout} ${_host} ${_port} ; then
 	    echo "OK."
 	    _is_open=1
@@ -86,7 +87,7 @@ function check_url () {
 
     local _url=$1
     local _regex=$2
-    local _max_tries=${3:-${_timeout}}
+    local _max_tries=${3:-${DEFAULT_MAX_TRIES}}
     local CURL=$( which curl )
 
     if [ ! -e ${CURL} ] ; then
@@ -95,7 +96,7 @@ function check_url () {
     fi
 
     while [ ${_tries} -lt ${_max_tries} -a ${_ok} -eq 0 ] ; do
-	echo -n "Checking url '${_url}' [try $(( ${_tries} + 1 ))] ... "
+	echo -n "Checking url '${_url}' [try $(( ${_tries} + 1 ))/${_max_tries}] ... "
 	if ${CURL} -s ${_url} | grep -q "${_regex}" ; then
 	    echo "OK."
 	    _ok=1
