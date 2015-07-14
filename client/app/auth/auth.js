@@ -80,9 +80,9 @@ angular.module('chanchanApp.auth', ['ngRoute'])
         data =  'username='+$scope.user;
         data += '&password='+$scope.password;
 
-        var org_data = GlobalContextService.organizations()[$scope.organization];
-        data += '&client_id='+org_data.id;
-        data += '&client_secret='+org_data.secret;
+        var app_secret = GlobalContextService.app_secret();
+        data += '&client_id='+app_secret.id;
+        data += '&client_secret='+app_secret.secret;
 
         var url = GlobalContextService.idm();
         $scope.auth_result_pep = "process";

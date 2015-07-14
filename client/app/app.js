@@ -31,11 +31,13 @@ app.run(function($rootScope, $location, $http, GlobalContextService) {
           }
         }
     });
-    // Load orgs data
-    $http.get("orgs.json").
+    // Load IDM data for app secret and orgs
+    $http.get("idm2chanchan.json").
         success(function(data) {
             // organizations available in IDM
-            GlobalContextService.organizations(data);
+            GlobalContextService.organizations(data.orgs);
+            GlobalContextService.app_secret({"id":data.id,
+                                             "secret":data.secret});
         }).
         error(function(data, status, headers, config) {
             $location.path("/config");
@@ -46,7 +48,7 @@ app.run(function($rootScope, $location, $http, GlobalContextService) {
 app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $http) {
     var access_token_val, access_token_pep_val, access_token_filabs_val = '';
     var app_id_val, org_id_val, org_name_val, roles_val;
-    var use_pep_val = true, organizations_val;
+    var use_pep_val = true, organizations_val = {}, app_secret_val;
 
     // ORION AND CKAN AND FILABS CONFIG
     // var base_url = 'http://'+hosts.chanchan;
@@ -108,8 +110,18 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
         if (val !== undefined) {filabs_url = val;}
         return filabs_url;
     },
-    organizations: function(val) {
-        if (val !== undefined) {organizations_val = val;}
+    organizations: function(org_list) {
+        if (org_list !== undefined) {
+            angular.forEach (org_list, function (name) {
+                var kname = name;
+                if (name === "Organization A") {
+                    kname = "org_a";
+                } else if (name === "Organization B") {
+                    kname = "org_b";
+                }
+                organizations_val[kname] = {"name":name};
+            });
+        }
         return organizations_val;
     },
     idas: function(val) {
@@ -123,6 +135,10 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     idm: function(val) {
         if (val !== undefined) {idm_url = val;}
         return idm_url;
+    },
+    app_secret: function(val) {
+        if (val !== undefined) {app_secret_val = val;}
+        return app_secret_val;
     }
   };
 }]);
