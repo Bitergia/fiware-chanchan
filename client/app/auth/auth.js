@@ -14,11 +14,6 @@ angular.module('chanchanApp.auth', ['ngRoute'])
 
     // Use login, password and app to get auth_token from IDM server
     // The app is registered in an organization
-    $scope.user = 'user0@';
-    if (GlobalContextService.hosts() !== undefined) {
-        $scope.user += GlobalContextService.hosts().idm_host_docker_image;
-    }
-    // Now test.com always
     $scope.user = 'user0@test.com';
     $scope.password = 'test';
     // The id and secret comes from IDM application data in the org

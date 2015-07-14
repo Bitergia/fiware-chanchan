@@ -40,21 +40,13 @@ app.run(function($rootScope, $location, $http, GlobalContextService) {
         error(function(data, status, headers, config) {
             $location.path("/config");
         });
-    $http.get("hosts.json").
-        success(function(data) {
-            // hostnames for idm and chanchan services
-            GlobalContextService.hosts(data);
-        }).
-        error(function(data, status, headers, config) {
-            $location.path("/config");
-        });
 });
 
 // GlobalContext service to share data between controllers
 app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $http) {
     var access_token_val, access_token_pep_val, access_token_filabs_val = '';
     var app_id_val, org_id_val, org_name_val, roles_val;
-    var use_pep_val = true, hosts_val, organizations_val;
+    var use_pep_val = true, organizations_val;
 
     // ORION AND CKAN AND FILABS CONFIG
     // var base_url = 'http://'+hosts.chanchan;
@@ -115,10 +107,6 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
     filabs: function(val) {
         if (val !== undefined) {filabs_url = val;}
         return filabs_url;
-    },
-    hosts: function(val) {
-        if (val !== undefined) {hosts_val = val;}
-        return hosts_val;
     },
     organizations: function(val) {
         if (val !== undefined) {organizations_val = val;}
