@@ -1,44 +1,82 @@
-mariadbdata:
-    image: bitergia/mariadb:10.0
-    volumes:
-        - /var/lib/mysql
-    restart: no
-    entrypoint: ["/bin/echo","Data-only container for mariadb"]
-
-mariadb:
-    image: bitergia/mariadb:10.0
-    volumes_from:
-        - mariadbdata
-    expose:
-        - "3306"
-
 mongodbdata:
-    image: bitergia/mongodb:2.6
+    image: mongo:2.6
     volumes:
-        - /var/lib/mongo
+        - /data/db
     restart: no
-    entrypoint: ["/bin/echo","Data-only container for mongodb"]
+    command: /bin/echo "Data-only container for mongodb."
+
+# mongodbdata:
+#     image: bitergia/fiware-devguide-restaurant-data:20150728
+#     volumes:
+#         - /data/db
+#     restart: no
+#     command: /bin/echo "Data-only container for mongodb."
 
 mongodb:
-    image: bitergia/mongodb:2.6
+    image: mongo:2.6
     volumes_from:
         - mongodbdata
     expose:
         - "27017"
+    command: --smallfiles
+
 orion:
-    image: bitergia/fiware-orion:0.23.0
+    image: bitergia/fiware-orion:develop
     links:
         - mongodb
     expose:
-        - "10026"
+        - "1026"
+    command: -dbhost mongodb
 
-idas:
-  image: bitergia/idas-iota-cpp:1.2.0
-  links:
-    - mongodb
-    - orion
+authzforce:
+    image: bitergia/authzforce:4.2.0
+    expose:
+        - "8080"
+
+idm:
+    image: bitergia/idm-keyrock:4.3.0
+    links:
+        - authzforce
+    volumes:
+        - /config
+    expose:
+        - "5000"
+    environment:
+        - APP_NAME=FIWAREdevGuide
+
+pepwilma:
+    image: bitergia/pep-wilma:4.3.0
+    links:
+        - orion
+        - idm
+        - authzforce
+    volumes_from:
+        - idm
+    expose:
+        - "1026"
+    environment:
+        - APP_HOSTNAME=orion
+        - APP_PORT=1026
+
+mariadbdata:
+    image: mariadb:10.0
+    volumes:
+        - /var/lib/mysql
+    restart: no
+    command: /bin/echo "Data-only container for mariadb."
+
+mariadb:
+    image: mariadb:10.0
+    volumes_from:
+        - mariadbdata
+    expose:
+        - "3306"
+    environment:
+        - MYSQL_ROOT_PASSWORD=bitergia
+    command: --verbose
 
 cygnus:
+    # image: bitergia/cygnus:develop
     image: bitergia/cygnus:0.5.1
     links:
         - orion
@@ -49,34 +87,21 @@ cygnus:
         - "5050"
         - "6001"
     environment:
-        - CKAN_API_KEY=44f762b2-978a-40ca-9dfc-1a8ec8855599
+        # - CKAN_API_KEY=44f762b2-978a-40ca-9dfc-1a8ec8855599
+        - CKAN_API_KEY=648b4204-feb6-4f5c-b9c4-813c48319669
         - MYSQL_HOST=mariadb
         - MYSQL_PORT=3306
         - MYSQL_USER=root
         - MYSQL_PASSWORD=bitergia
 
-authzforce:
-    image: bitergia/authzforce:4.2.0
+idasiotacpp:
+    image: bitergia/idas-iota-cpp:1.2.0
+    links:
+        - mongodb
+        - orion
     expose:
         - "8080"
-
-pepwilma:
-    image: bitergia/pep-wilma:4.3.0
-    links:
-        - orion
-        - idm
-        - authzforce
-    volumes_from:
-        - idm
-
-idm:
-    image: bitergia/idm-keyrock:4.3.0
-    links:
-        - authzforce
-    volumes:
-        - /config
-    expose:
-        - "5000"
+        - "8081"
 
 chanchanapp:
     image: bitergia/chanchanapp
@@ -85,9 +110,13 @@ chanchanapp:
         - pepwilma
         - cygnus
         - orion
-        - idas
+        - idasiotacpp
         - mariadb
-    # volumes:
-    #     - ~/devel/fiware/fiware-chanchan:/home/bitergia/fiware-chanchan
+    # environment:
+    #     - ORION_HOSTNAME=pepwilma
+    #     - ORION_PORT=1026
+    #     - ORION_PEP_ENABLED=true
+    volumes:
+         - ~/devel/fiware/fiware-chanchan:/home/bitergia/fiware-chanchan
     volumes_from:
         - idm
