@@ -21,7 +21,7 @@ exports.datasets = function(req, res) {
     utils.do_get(options, return_get, res);
 };
 
-//Return the list of available organizations
+// Return the list of available organizations
 exports.organizations = function(req, res) {
     return_get = function(res, buffer) {
         res.send(buffer);
@@ -40,6 +40,7 @@ exports.organizations = function(req, res) {
 // Return the list of datasets for an organization
 exports.organization = function(req, res) {
     var org_id = req.params.org_id;
+    org_id = org_id.replace("_","-");  // CKAN API conversion
 
     return_get = function(res, buffer) {
         res.send(buffer);
@@ -55,7 +56,7 @@ exports.organization = function(req, res) {
     utils.do_get(options, return_get, res);
 };
 
-//Return the list of values for a resource in a dataset
+// Return the list of values for a resource in a dataset
 exports.resource = function(req, res) {
     var resource_id = req.params.resource_id;
 
