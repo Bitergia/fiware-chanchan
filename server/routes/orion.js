@@ -3,8 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "idmauthlegacy"; // To be changed when PEP container is ready.
-
+var orion_url = "pepwilma"; // Use always PEP
 
 
 // Return the list of available entities in Orion
@@ -22,7 +21,7 @@ exports.contexts = function(req, res) {
 
     var options = {
         host: orion_url,
-        port: 10026,
+        port: 1026,
         path: '/NGSI10/contextEntityTypes/'+contextType,
         method: 'GET',
         headers: {
@@ -88,7 +87,7 @@ exports.subscribe_context = function(req, res) {
 
   var options = {
       host: orion_url,
-      port: 10026,
+      port: 1026,
       path: '/NGSI10/subscribeContext',
       method: 'POST',
       headers: headers
@@ -141,7 +140,7 @@ exports.update_context_temperature = function(req, res) {
 
   var options = {
       host: orion_url,
-      port: 10026,
+      port: 1026,
       path: '/NGSI10/updateContext',
       method: 'POST',
       headers: headers
@@ -208,7 +207,7 @@ exports.update_entities = function(req, res) {
 
   var options = {
       host: orion_url,
-      port: 10026,
+      port: 1026,
       path: '/NGSI10/updateContext',
       method: 'POST',
       headers: headers
