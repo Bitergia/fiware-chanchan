@@ -115,9 +115,9 @@ app.factory('GlobalContextService', ['$rootScope','$http',function($rootScope, $
             angular.forEach (org_list, function (name) {
                 var kname = name;
                 if (name === "Organization A") {
-                    kname = "org_a";
+                    kname = "organiz_a";
                 } else if (name === "Organization B") {
-                    kname = "org_b";
+                    kname = "orga_b";
                 }
                 organizations_val[kname] = {"name":name};
             });
