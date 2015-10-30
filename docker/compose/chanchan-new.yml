@@ -76,8 +76,7 @@ mariadb:
     command: --verbose
 
 cygnus:
-    # image: bitergia/cygnus:develop
-    image: bitergia/cygnus:0.5.1
+    image: bitergia/cygnus:develop
     links:
         - orion
         - mariadb
@@ -87,12 +86,14 @@ cygnus:
         - "5050"
         - "6001"
     environment:
-        # - CKAN_API_KEY=44f762b2-978a-40ca-9dfc-1a8ec8855599
-        - CKAN_API_KEY=648b4204-feb6-4f5c-b9c4-813c48319669
+        - CKAN_API_KEY=
         - MYSQL_HOST=mariadb
         - MYSQL_PORT=3306
         - MYSQL_USER=root
-        - MYSQL_PASSWORD=bitergia
+        - MYSQL_PASSWORD=
+    volumes:
+        - ~/devel/fiware/fiware-chanchan/docker/compose/cygnus-subscriptions:/opt/subscribe
+        - ~/devel/fiware/fiware-chanchan/docker/compose/cygnus-config:/config
 
 idasiotacpp:
     image: bitergia/idas-iota-cpp:1.2.0
@@ -112,10 +113,10 @@ chanchanapp:
         - orion
         - idasiotacpp
         - mariadb
-    # environment:
-    #     - ORION_HOSTNAME=pepwilma
-    #     - ORION_PORT=1026
-    #     - ORION_PEP_ENABLED=true
+    environment:
+        - ORION_HOSTNAME=pepwilma
+        - ORION_PORT=1026
+        - ORION_PEP_ENABLED=true
     volumes:
          - ~/devel/fiware/fiware-chanchan:/home/bitergia/fiware-chanchan
     volumes_from:
