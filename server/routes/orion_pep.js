@@ -46,8 +46,8 @@ exports.update_context_temperature = function(req, res) {
   headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Content-Length': post_data.length,
-      'x-auth-token': req.headers['x-auth-token']
+      'Content-Length': Buffer.byteLength(post_data),
+      'X-Auth-Token': req.headers['x-auth-token']
   };
 
   var options = {
@@ -103,8 +103,8 @@ exports.update_entities = function(req, res) {
   headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Content-Length': post_data.length,
-      'x-auth-token': req.headers['x-auth-token']
+      'Content-Length': Buffer.byteLength(post_data),
+      'X-Auth-Token': req.headers['x-auth-token']
   };
 
   var options = {
