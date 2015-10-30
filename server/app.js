@@ -48,6 +48,7 @@ app.post('/api/orion/entities/:org_id',orion.update_entities);
 // filabs
 app.get('/api/filabs/auth/:auth_data',filabs.auth);
 // ckan
+app.get('/api/ckan/dataset/:dataset_id',ckan.dataset);
 app.get('/api/ckan/datasets',ckan.datasets);
 app.get('/api/ckan/organizations',ckan.organizations);
 app.get('/api/ckan/organization/:org_id',ckan.organization);

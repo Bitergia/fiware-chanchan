@@ -5,6 +5,23 @@
 var utils = require('../utils');
 var ckan_url = "demo.ckan.org";
 
+// Return the list of resources in a dataset (package)
+exports.dataset = function(req, res) {
+    var dataset_id = req.params.dataset_id;
+    return_get = function(res, buffer) {
+        res.send(buffer);
+    };
+
+    var options = {
+        host: ckan_url,
+        port: 80,
+        path: '/api/action/package_show?id='+dataset_id,
+        method: 'GET'
+    };
+
+    utils.do_get(options, return_get, res);
+};
+
 // Return the list of available datasets in CKAN site
 exports.datasets = function(req, res) {
     return_get = function(res, buffer) {
@@ -40,7 +57,6 @@ exports.organizations = function(req, res) {
 // Return the list of datasets for an organization
 exports.organization = function(req, res) {
     var org_id = req.params.org_id;
-    org_id = org_id.replace("_","-");  // CKAN API conversion
 
     return_get = function(res, buffer) {
         res.send(buffer);
@@ -49,7 +65,7 @@ exports.organization = function(req, res) {
     var options = {
         host: ckan_url,
         port: 80,
-        path: '/api/action/organization_show?id='+org_id,
+        path: '/api/action/organization_show?id='+org_id+'&include_datasets=True',
         method: 'GET'
     };
 
