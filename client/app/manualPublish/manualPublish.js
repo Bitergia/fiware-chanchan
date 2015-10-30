@@ -41,15 +41,11 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             return;
         };
 
-//       var headers = {
-//                "fiware-service": null,
-//                "fiware-servicepath": null,
-//                "x-auth-token": Context.access_token_pep()
-//        };
-
        var headers = {
-               "x-auth-token": Context.access_token_pep()
-       };
+                "fiware-service": org_name,
+                "fiware-servicepath": context,
+                "x-auth-token": Context.access_token_pep()
+        };
 
        console.log(url);
 
@@ -87,14 +83,21 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
                   $scope.orgs_datasets[org_name] = {};
                   angular.forEach(data.result.packages, function(dataset, key) {
                       $scope.orgs_datasets[org_name][dataset.name] = {'name':dataset.name, 'resources' : []};
-                      angular.forEach(dataset.resources, function(resource, key) {
-                          $scope.orgs_entities[org_name].push(resource.name+ "  " + org_name +"  " + dataset.name);
-                          var resource_data = {};
-                          $http.get(Context.ckan()+'/resource/'+resource.id).success(function(resource_values) {
-                              resource_data.name = resource.name;
-                              resource_data.values = resource_values.result.records;
-                              $scope.orgs_datasets[org_name][dataset.name]['resources'].push(resource_data);
-                          });
+                      $http.get(Context.ckan()+'/dataset/'+dataset.id).success(function(resources_res) {
+                        var resources = resources_res.result.resources;
+                        angular.forEach(resources, function(resource, key) {
+                            $scope.orgs_entities[org_name].push(resource.name+ "  " + org_name +"  " + dataset.name);
+                            var resource_data = {};
+                            $http.get(Context.ckan()+'/resource/'+resource.id).success(function(resource_values) {
+                                if (resource_values.success === false) {
+                                    console.log(resource_values.error.message);
+                                    return;
+                                }
+                                resource_data.name = resource.name;
+                                resource_data.values = resource_values.result.records;
+                                $scope.orgs_datasets[org_name][dataset.name]['resources'].push(resource_data);
+                            });
+                        });
                       });
                   });
               }
