@@ -7,7 +7,7 @@ CYGNUS_HOSTNAME=`hostname -i` # can't link orion to cygnus (circular link in doc
 {
     "entities": [
 	{
-	    "type": "orga_a",
+	    "type": "organiz_a",
 	    "isPattern": "true",
 	    "id": "manual:*"
 	}
