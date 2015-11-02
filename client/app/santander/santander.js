@@ -126,7 +126,7 @@ angular.module('chanchanApp.santander', ['ngRoute'])
         var url;
         // Context.use_pep(false);
         var headers;
-        if (Context.use_pep()) {
+        if (Context.use_pep() && false) {
             url = Context.orion_pep()+'/entities/'+$scope.org_selected;
             headers = {
                 "x-auth-token": Context.access_token_pep(),
