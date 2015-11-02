@@ -3,7 +3,7 @@
  */
 
 var utils = require('../utils');
-var orion_url = "pepwilma"; // Use always PEP
+var orion_url = "orion"; // Use always PEP
 
 
 // Return the list of available entities in Orion
