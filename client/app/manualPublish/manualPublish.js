@@ -26,6 +26,9 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
             // Working always with the FirstEntity
             context = $scope.org_selected.context.split("  ")[0];
             context = context.split("-")[0];
+
+            // Remove the org_name suffix. Added auto by Cygnus CKAN
+            context = context.replace("_"+org_name, "");
         }
 
         var url;
@@ -42,8 +45,6 @@ angular.module('chanchanApp.manualPublish', ['ngRoute'])
         };
 
        var headers = {
-                "fiware-service": org_name,
-                "fiware-servicepath": context,
                 "x-auth-token": Context.access_token_pep()
         };
 
