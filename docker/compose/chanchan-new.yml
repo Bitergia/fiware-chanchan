@@ -90,7 +90,7 @@ cygnus:
         - MYSQL_HOST=mariadb
         - MYSQL_PORT=3306
         - MYSQL_USER=root
-        - MYSQL_PASSWORD=
+        - MYSQL_PASSWORD=bitergia
     volumes:
         - ~/devel/fiware/fiware-chanchan/docker/compose/cygnus-subscriptions:/opt/subscribe
         - ~/devel/fiware/fiware-chanchan/docker/compose/cygnus-config:/config
