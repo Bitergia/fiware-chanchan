@@ -1,3 +1,24 @@
+DEPRECATED
+==========
+
+Use https://github.com/Fiware/tutorials.TourGuide-App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 fiware-chanchan
 ===============
 
